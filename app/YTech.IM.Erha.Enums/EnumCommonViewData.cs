@@ -7,6 +7,7 @@ namespace YTech.IM.Erha.Enums
 {
     public enum EnumCommonViewData
     {
-        SaveState
+        SaveState,
+        ErrorMessage
     }
 }

@@ -7,9 +7,17 @@ namespace YTech.IM.Erha.Enums
 {
     public enum EnumEducation
     {
+        [StringValue("SD")]
         SD,
+        [StringValue("SMP")]
         SMP,
+        [StringValue("SMA")]
         SMA,
-        Universitas
+        [StringValue("Diploma")]
+        Diploma,
+        [StringValue("S1")]
+        S1,
+        [StringValue("S2")]
+        S2
     }
 }

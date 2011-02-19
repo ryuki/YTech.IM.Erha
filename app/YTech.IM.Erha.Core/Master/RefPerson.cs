@@ -23,7 +23,7 @@ namespace YTech.IM.Erha.Core.Master
         public virtual string PersonIdCardNo { get; set; }
         public virtual string PersonDesc { get; set; }
         public virtual string PersonAnotherName { get; set; }
-        public virtual string PersonJob { get; set; }
+        public virtual string PersonOccupation { get; set; }
         public virtual string PersonOfficceName { get; set; }
         public virtual string PersonOfficceAddress { get; set; }
         public virtual string PersonOfficceCity { get; set; }
@@ -33,6 +33,8 @@ namespace YTech.IM.Erha.Core.Master
         public virtual string PersonLastEdu { get; set; }
         public virtual string PersonMarriedStatus { get; set; }
         public virtual string PersonHobby { get; set; }
+        public virtual string PersonNationality { get; set; }
+        public virtual string PersonBloodType { get; set; }
 
         public virtual string PersonName
         {

@@ -7,7 +7,9 @@ namespace YTech.IM.Erha.Enums
 {
     public enum EnumMarriedStatus
     {
+        [StringValue("Menikah")]
         Menikah,
+        [StringValue("Belum Menikah")]
         Belum_Menikah
     }
 }

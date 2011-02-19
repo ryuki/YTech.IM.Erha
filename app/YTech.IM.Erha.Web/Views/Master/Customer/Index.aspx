@@ -125,7 +125,7 @@
                     }
                 },
                 ondblClickRow: function (rowid, iRow, iCol, e) {
-                    $("#list").editGridRow(rowid, editDialog);
+
                 }
             }).navGrid('#listPager',
                 {
@@ -146,9 +146,9 @@
             })
         });
         function OpenPopup(id) {
-            var url = '<%= Url.Action("Registration", "Customer" ) %>?usePopup=true';
+            var url = '<%= Url.Action("Edit", "Customer" ) %>?';
             if (id) {
-                url += '&customerId=' + id;
+                url += 'customerId=' + id;
             }
             $("#popup_frame").attr("src", url);
             $("#popup").dialog("open");

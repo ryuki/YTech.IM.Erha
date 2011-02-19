@@ -31,6 +31,15 @@ namespace YTech.IM.Erha.Data.NHibernateMaps.Master
             mapping.Map(x => x.AddressRw, "ADDRESS_RW");
             mapping.Map(x => x.AddressPostCode, "ADDRESS_POST_CODE");
 
+            mapping.Map(x => x.AddressIdCardLine1, "ADDRESS_ID_CARD_LINE1");
+            mapping.Map(x => x.AddressIdCardLine2, "ADDRESS_ID_CARD_LINE2");
+            mapping.Map(x => x.AddressIdCardLine3, "ADDRESS_ID_CARD_LINE3");
+            mapping.Map(x => x.AddressIdCardPhone, "ADDRESS_ID_CARD_PHONE");
+            mapping.Map(x => x.AddressIdCardCity, "ADDRESS_ID_CARD_CITY");
+            mapping.Map(x => x.AddressIdCardRt, "ADDRESS_ID_CARD_RT");
+            mapping.Map(x => x.AddressIdCardRw, "ADDRESS_ID_CARD_RW");
+            mapping.Map(x => x.AddressIdCardPostCode, "ADDRESS_ID_CARD_POST_CODE"); 
+
             mapping.Map(x => x.DataStatus, "DATA_STATUS");
             mapping.Map(x => x.CreatedBy, "CREATED_BY");
             mapping.Map(x => x.CreatedDate, "CREATED_DATE");

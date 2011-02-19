@@ -168,8 +168,9 @@ namespace YTech.IM.Erha.Web.Controllers.Master
 
             if (customer != null)
             {
-                _mCustomerRepository.Delete(customer);
                 _refAddressRepository.Delete(customer.AddressId);
+                _refPersonRepository.Delete(customer.PersonId);
+                _mCustomerRepository.Delete(customer);
             }
 
             try
@@ -194,6 +195,19 @@ namespace YTech.IM.Erha.Web.Controllers.Master
             address.AddressLine3 = formCollection["AddressLine3"];
             address.AddressPhone = formCollection["AddressPhone"];
             address.AddressCity = formCollection["AddressCity"];
+            address.AddressRt = formCollection["AddressRt"];
+            address.AddressRw = formCollection["AddressRw"];
+            address.AddressPostCode = formCollection["AddressPostCode"];
+
+
+            address.AddressIdCardLine1 = formCollection["AddressIdCardLine1"];
+            address.AddressIdCardLine2 = formCollection["AddressIdCardLine2"];
+            address.AddressIdCardLine3 = formCollection["AddressIdCardLine3"];
+            address.AddressIdCardPhone = formCollection["AddressIdCardPhone"];
+            address.AddressIdCardCity = formCollection["AddressIdCardCity"];
+            address.AddressIdCardRt = formCollection["AddressIdCardRt"];
+            address.AddressIdCardRw = formCollection["AddressIdCardRw"];
+            address.AddressIdCardPostCode = formCollection["AddressIdCardPostCode"];
 
         }
 
@@ -208,16 +222,31 @@ namespace YTech.IM.Erha.Web.Controllers.Master
             person.PersonFirstName = formCollection["PersonFirstName"];
             person.PersonLastName = formCollection["PersonLastName"];
             person.PersonGender = formCollection["PersonGender"];
-            if (formCollection["PersonDob"] != null)
+            if (!string.IsNullOrEmpty(formCollection["PersonDob"]))
                 person.PersonDob = Convert.ToDateTime(formCollection["PersonDob"]);
+            else
+                person.PersonDob = null;
             person.PersonPob = formCollection["PersonPob"];
             person.PersonPhone = formCollection["PersonPhone"];
             person.PersonMobile = formCollection["PersonMobile"];
             person.PersonEmail = formCollection["PersonEmail"];
-            person.PersonReligion = formCollection["PersonReligion"];
             //person.PersonRace = formCollection["PersonRace"];
-            //person.PersonIdCardType = formCollection["PersonIdCardType"];
-            //person.PersonIdCardNo = formCollection["PersonIdCardNo"];
+            person.PersonIdCardType = formCollection["PersonIdCardType"];
+            person.PersonIdCardNo = formCollection["PersonIdCardNo"];
+            person.PersonOccupation = formCollection["PersonOccupation"];
+            person.PersonNationality = formCollection["PersonNationality"];
+            person.PersonMarriedStatus = formCollection["PersonMarriedStatus"];
+            person.PersonReligion = formCollection["PersonReligion"];
+            person.PersonOccupation = formCollection["PersonOccupation"];
+            person.PersonOfficceName = formCollection["PersonOfficceName"];
+            person.PersonOfficceAddress = formCollection["PersonOfficceAddress"];
+            person.PersonOfficceCity = formCollection["PersonOfficceCity"];
+            person.PersonOfficcePhone = formCollection["PersonOfficcePhone"];
+            person.PersonOfficcePostCode = formCollection["PersonOfficcePostCode"];
+            person.PersonOfficceFax = formCollection["PersonOfficceFax"];
+            person.PersonLastEdu = formCollection["PersonLastEdu"];
+            person.PersonBloodType = formCollection["PersonBloodType"];
+            person.PersonHobby = formCollection["PersonHobby"];
         }
 
         [Transaction]
@@ -235,108 +264,65 @@ namespace YTech.IM.Erha.Web.Controllers.Master
         }
 
         [Transaction]
-        public ActionResult Registration(string customerId, bool? usePopup)
+        public ActionResult Edit(string customerId)
         {
             ViewData["CurrentItem"] = "Identitas Pasien";
             RegistrationFormViewModel viewModel =
                 RegistrationFormViewModel.CreateRegistrationFormViewModel(_mCustomerRepository, customerId);
-            if (usePopup.HasValue)
-            {
-                if (usePopup.Value)
-                    return View("Registration", "MasterPopup", viewModel);
-            }
+            return View(viewModel);
+        }
+
+        [Transaction]
+        public ActionResult Registration()
+        {
+            ViewData["CurrentItem"] = "Identitas Pasien";
+            RegistrationFormViewModel viewModel =
+                RegistrationFormViewModel.CreateRegistrationFormViewModel(_mCustomerRepository, null);
+            //if (usePopup.HasValue)
+            //{
+            //    if (usePopup.Value)
+            //        return View("Registration", "MasterPopup", viewModel);
+            //}
             return View(viewModel);
         }
 
         [ValidateAntiForgeryToken]      // Helps avoid CSRF attacks
         [Transaction]                   // Wraps a transaction around the action
         [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult Registration(MCustomer customer, RefAddress address, RefPerson person, FormCollection formCollection, string customerId)
+        public ActionResult Registration(MCustomer customer, FormCollection formCollection)
         {
-            if (string.IsNullOrEmpty(customerId))
+            _mCustomerRepository.DbContext.BeginTransaction();
+            RefAddress address = new RefAddress();
+            RefPerson person = new RefPerson();
+            TransferFormValuesTo(address, formCollection);
+            address.SetAssignedIdTo(Guid.NewGuid().ToString());
+            address.CreatedDate = DateTime.Now;
+            address.CreatedBy = User.Identity.Name;
+            address.DataStatus = EnumDataStatus.New.ToString();
+            _refAddressRepository.Save(address);
+
+            TransferFormValuesTo(person, formCollection);
+            person.SetAssignedIdTo(Guid.NewGuid().ToString());
+            person.CreatedDate = DateTime.Now;
+            person.CreatedBy = User.Identity.Name;
+            person.DataStatus = EnumDataStatus.New.ToString();
+            _refPersonRepository.Save(person);
+
+            //MCustomer customer = new MCustomer();
+            //TransferFormValuesTo(customer, cust);
+            if (customer == null)
             {
-                //RefAddress address = new RefAddress();
-                //TransferFormValuesTo(address, formCollection);
-                address.SetAssignedIdTo(Guid.NewGuid().ToString());
-                address.CreatedDate = DateTime.Now;
-                address.CreatedBy = User.Identity.Name;
-                address.DataStatus = EnumDataStatus.New.ToString();
-                _refAddressRepository.Save(address);
-
-                //RefPerson person = new RefPerson();
-                //TransferFormValuesTo(person, formCollection);
-                person.SetAssignedIdTo(Guid.NewGuid().ToString());
-                person.CreatedDate = DateTime.Now;
-                person.CreatedBy = User.Identity.Name;
-                person.DataStatus = EnumDataStatus.New.ToString();
-                _refPersonRepository.Save(person);
-
-                //MCustomer customer = new MCustomer();
-                //TransferFormValuesTo(customer, cust);
-                customer.SetAssignedIdTo(formCollection["Id"]);
-                customer.CreatedDate = DateTime.Now;
-                customer.CreatedBy = User.Identity.Name;
-                customer.DataStatus = EnumDataStatus.New.ToString();
-
-                customer.AddressId = address;
-                customer.PersonId = person;
-
-                _mCustomerRepository.Save(customer);
+                customer = new MCustomer();
             }
-            else
-            {
-                customer = _mCustomerRepository.Get(customerId);
-                customer.CustomerFaceTreatment = formCollection["CustomerFaceTreatment"];
-                customer.CustomerAllergy = formCollection["CustomerAllergy"];
-                customer.CustomerSkinProblem = formCollection["CustomerSkinProblem"];
-                customer.CustomerPlanTreatment = formCollection["CustomerPlanTreatment"];
-                customer.CustomerPhoneJakarta = formCollection["CustomerPhoneJakarta"];
-                customer.CustomerLetter = formCollection["CustomerLetter"]; 
-                customer.ModifiedDate = DateTime.Now;
-                customer.ModifiedBy = User.Identity.Name;
-                customer.DataStatus = EnumDataStatus.Updated.ToString();
+            customer.SetAssignedIdTo(formCollection["Id"]);
+            customer.CreatedDate = DateTime.Now;
+            customer.CreatedBy = User.Identity.Name;
+            customer.DataStatus = EnumDataStatus.New.ToString();
 
-                address = customer.AddressId;
-                address.AddressLine1 = formCollection["AddressLine1"];
-                address.AddressLine2 = formCollection["AddressLine2"];
-                address.AddressRt = formCollection["AddressRt"];
-                address.AddressRw = formCollection["AddressRw"];
-                address.AddressCity = formCollection["AddressCity"];
-                address.AddressPostCode = formCollection["AddressPostCode"];
-                address.AddressPhone = formCollection["AddressPhone"];
-                address.AddressFax = formCollection["AddressFax"];
-                address.AddressEmail = formCollection["AddressEmail"]; 
-                address.ModifiedDate = DateTime.Now;
-                address.ModifiedBy = User.Identity.Name;
-                address.DataStatus = EnumDataStatus.Updated.ToString();
+            customer.AddressId = address;
+            customer.PersonId = person;
 
-                person = customer.PersonId;
-                person.PersonFirstName = formCollection["PersonFirstName"];
-                person.PersonAnotherName = formCollection["PersonAnotherName"];
-                person.PersonPob = formCollection["PersonPob"];
-                if (!string.IsNullOrEmpty(formCollection["PersonDob"]))
-                    person.PersonDob = Convert.ToDateTime(formCollection["PersonDob"]);
-                else
-                    person.PersonDob = null;
-                person.PersonMobile = formCollection["PersonMobile"];
-                person.PersonJob = formCollection["PersonJob"];
-                person.PersonOfficceName = formCollection["PersonOfficceName"];
-                person.PersonOfficceAddress = formCollection["PersonOfficceAddress"];
-                person.PersonOfficceCity = formCollection["PersonOfficceCity"];
-                person.PersonOfficcePostCode = formCollection["PersonOfficcePostCode"];
-                person.PersonOfficcePhone = formCollection["PersonOfficcePhone"];
-                person.PersonOfficceFax = formCollection["PersonOfficceFax"];
-                person.PersonReligion = formCollection["PersonReligion"];
-                person.PersonLastEdu = formCollection["PersonLastEdu"];
-                person.PersonMarriedStatus = formCollection["PersonMarriedStatus"];
-                person.PersonHobby = formCollection["PersonHobby"];
-                person.ModifiedDate = DateTime.Now;
-                person.ModifiedBy = User.Identity.Name;
-                person.DataStatus = EnumDataStatus.Updated.ToString();
-
-                _mCustomerRepository.Update(customer);
-            }
-
+            _mCustomerRepository.Save(customer);
 
             try
             {
@@ -345,14 +331,130 @@ namespace YTech.IM.Erha.Web.Controllers.Master
             }
             catch (Exception e)
             {
-
                 _mCustomerRepository.DbContext.RollbackTransaction();
                 TempData[EnumCommonViewData.SaveState.ToString()] = EnumSaveState.Failed;
+                TempData[EnumCommonViewData.ErrorMessage.ToString()] = e.Message;
 
                 //throw e.GetBaseException(); 
+                var result = new
+                {
+                    Success = false,
+                    Message = e.Message
+                };
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+            var resultx = new
+            {
+                Success = true,
+                Message = //Helper.ViewHelper.RenderPartialToString("~/Views/Shared/Status.ascx", "", null, this.ControllerContext.RequestContext)
+                @" <div class='ui-state-highlight ui-corner-all' style='padding: 5pt; margin-bottom: 5pt;'>
+                            <p>
+                                <span class='ui-icon ui-icon-info' style='float: left; margin-right: 0.3em;'></span>
+                                Data berhasil disimpan.</p>
+                        </div>"
+            };
+            return Json(resultx, JsonRequestBehavior.AllowGet);
+            //return View("Status");
+        }
+
+        [ValidateAntiForgeryToken]      // Helps avoid CSRF attacks
+        [Transaction]                   // Wraps a transaction around the action
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult Edit(MCustomer customer, FormCollection formCollection, string customerId)
+        {
+            _mCustomerRepository.DbContext.BeginTransaction();
+            RefAddress address = new RefAddress();
+            RefPerson person = new RefPerson();
+
+            {
+                customer = _mCustomerRepository.Get(customerId);
+                //customer.CustomerFaceTreatment = formCollection["CustomerFaceTreatment"];
+                //customer.CustomerAllergy = formCollection["CustomerAllergy"];
+                //customer.CustomerSkinProblem = formCollection["CustomerSkinProblem"];
+                //customer.CustomerPlanTreatment = formCollection["CustomerPlanTreatment"];
+                //customer.CustomerPhoneJakarta = formCollection["CustomerPhoneJakarta"];
+                //customer.CustomerLetter = formCollection["CustomerLetter"]; 
+                customer.ModifiedDate = DateTime.Now;
+                customer.ModifiedBy = User.Identity.Name;
+                customer.DataStatus = EnumDataStatus.Updated.ToString();
+
+                address = customer.AddressId;
+                TransferFormValuesTo(address, formCollection);
+                //address.AddressLine1 = formCollection["AddressLine1"];
+                //address.AddressLine2 = formCollection["AddressLine2"];
+                //address.AddressRt = formCollection["AddressRt"];
+                //address.AddressRw = formCollection["AddressRw"];
+                //address.AddressCity = formCollection["AddressCity"];
+                //address.AddressPostCode = formCollection["AddressPostCode"];
+                //address.AddressPhone = formCollection["AddressPhone"];
+                //address.AddressFax = formCollection["AddressFax"];
+                //address.AddressEmail = formCollection["AddressEmail"]; 
+                address.ModifiedDate = DateTime.Now;
+                address.ModifiedBy = User.Identity.Name;
+                address.DataStatus = EnumDataStatus.Updated.ToString();
+
+                person = customer.PersonId;
+                TransferFormValuesTo(person, formCollection);
+                //person.PersonFirstName = formCollection["PersonFirstName"];
+                //person.PersonAnotherName = formCollection["PersonAnotherName"];
+                //person.PersonPob = formCollection["PersonPob"];
+                //if (!string.IsNullOrEmpty(formCollection["PersonDob"]))
+                //    person.PersonDob = Convert.ToDateTime(formCollection["PersonDob"]);
+                //else
+                //    person.PersonDob = null;
+                //person.PersonMobile = formCollection["PersonMobile"];
+                //person.PersonOccupation = formCollection["PersonJob"];
+                //person.PersonOfficceName = formCollection["PersonOfficceName"];
+                //person.PersonOfficceAddress = formCollection["PersonOfficceAddress"];
+                //person.PersonOfficceCity = formCollection["PersonOfficceCity"];
+                //person.PersonOfficcePostCode = formCollection["PersonOfficcePostCode"];
+                //person.PersonOfficcePhone = formCollection["PersonOfficcePhone"];
+                //person.PersonOfficceFax = formCollection["PersonOfficceFax"];
+                //person.PersonReligion = formCollection["PersonReligion"];
+                //person.PersonLastEdu = formCollection["PersonLastEdu"];
+                //person.PersonMarriedStatus = formCollection["PersonMarriedStatus"];
+                //person.PersonHobby = formCollection["PersonHobby"];
+                person.ModifiedDate = DateTime.Now;
+                person.ModifiedBy = User.Identity.Name;
+                person.DataStatus = EnumDataStatus.Updated.ToString();
+
+                _mCustomerRepository.Update(customer);
             }
 
-            return View("Status");
+            try
+            {
+                _mCustomerRepository.DbContext.CommitChanges();
+                TempData[EnumCommonViewData.SaveState.ToString()] = EnumSaveState.Success;
+
+            }
+            catch (Exception e)
+            {
+                _mCustomerRepository.DbContext.RollbackTransaction();
+                TempData[EnumCommonViewData.SaveState.ToString()] = EnumSaveState.Failed;
+                TempData[EnumCommonViewData.ErrorMessage.ToString()] = e.GetBaseException().Message;
+
+                //throw e.GetBaseException();
+
+                var result = new
+               {
+                   Success = false,
+                   Message = e.Message
+               };
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+            var resultx = new
+            {
+                Success = true,
+                Message = @" <div class='ui-state-highlight ui-corner-all' style='padding: 5pt; margin-bottom: 5pt;'>
+                            <p>
+                                <span class='ui-icon ui-icon-info' style='float: left; margin-right: 0.3em;'></span>
+                                Data berhasil disimpan.</p>
+                        </div>"
+            };
+            return Json(resultx, JsonRequestBehavior.AllowGet);
+            //}
+
+            //return View("Status");
         }
     }
 }

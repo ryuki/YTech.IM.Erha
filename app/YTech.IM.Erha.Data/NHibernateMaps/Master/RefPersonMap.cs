@@ -32,7 +32,7 @@ namespace YTech.IM.Erha.Data.NHibernateMaps.Master
             mapping.Map(x => x.PersonIdCardNo, "PERSON_ID_CARD_NO");
             mapping.Map(x => x.PersonDesc, "PERSON_DESC");
             mapping.Map(x => x.PersonAnotherName, "PERSON_ANOTHER_NAME");
-            mapping.Map(x => x.PersonJob, "PERSON_JOB");
+            mapping.Map(x => x.PersonOccupation, "PERSON_OCCUPATION");
             mapping.Map(x => x.PersonOfficceName, "PERSON_OFFICCE_NAME");
             mapping.Map(x => x.PersonOfficceAddress, "PERSON_OFFICCE_ADDRESS");
             mapping.Map(x => x.PersonOfficceCity, "PERSON_OFFICCE_CITY");
@@ -42,6 +42,8 @@ namespace YTech.IM.Erha.Data.NHibernateMaps.Master
             mapping.Map(x => x.PersonLastEdu, "PERSON_LAST_EDU");
             mapping.Map(x => x.PersonMarriedStatus, "PERSON_MARRIED_STATUS");
             mapping.Map(x => x.PersonHobby, "PERSON_HOBBY");
+            mapping.Map(x => x.PersonNationality, "PERSON_NATIONALITY");
+            mapping.Map(x => x.PersonBloodType, "PERSON_BLOOD_TYPE");
             
             mapping.Map(x => x.DataStatus, "DATA_STATUS");
             mapping.Map(x => x.CreatedBy, "CREATED_BY");

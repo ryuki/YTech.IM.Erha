@@ -7,7 +7,9 @@ namespace YTech.IM.Erha.Enums
 {
     public enum EnumGender
     {
+        [StringValue("Laki-laki")]
         L,
+        [StringValue("Perempuan")]
         P
     }
 }

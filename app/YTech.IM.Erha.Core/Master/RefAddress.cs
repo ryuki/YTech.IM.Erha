@@ -22,6 +22,15 @@ namespace YTech.IM.Erha.Core.Master
         public virtual string AddressRw { get; set; }
         public virtual string AddressPostCode { get; set; }
 
+        public virtual string AddressIdCardLine1 { get; set; }
+        public virtual string AddressIdCardLine2 { get; set; }
+        public virtual string AddressIdCardLine3 { get; set; }
+        public virtual string AddressIdCardPhone { get; set; }
+        public virtual string AddressIdCardCity { get; set; }
+        public virtual string AddressIdCardRt { get; set; }
+        public virtual string AddressIdCardRw { get; set; }
+        public virtual string AddressIdCardPostCode { get; set; }
+
         public virtual string DataStatus { get; set; }
         public virtual string CreatedBy { get; set; }
         public virtual DateTime? CreatedDate { get; set; }
