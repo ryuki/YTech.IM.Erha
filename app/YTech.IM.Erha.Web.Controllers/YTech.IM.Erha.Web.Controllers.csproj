@@ -72,10 +72,13 @@
   <ItemGroup>
     <Compile Include="ControllerEnums.cs" />
     <Compile Include="Helper\CommonHelper.cs" />
+    <Compile Include="Helper\ViewHelper.cs" />
     <Compile Include="HomeController.cs" />
     <Compile Include="..\..\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Master\ActionCatController.cs" />
+    <Compile Include="Master\ActionController.cs" />
     <Compile Include="Master\CustomerController.cs" />
     <Compile Include="Master\MasterAreaRegistration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

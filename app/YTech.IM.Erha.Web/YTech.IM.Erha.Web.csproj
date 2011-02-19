@@ -250,8 +250,9 @@
     <Content Include="Scripts\complex.js" />
     <Content Include="Scripts\default.js" />
     <Content Include="Scripts\grid.locale-en.js" />
-    <Content Include="Scripts\jquery-1.4.1-vsdoc.js" />
     <Content Include="Scripts\jquery-1.4.4.min.js" />
+    <Content Include="Scripts\jquery-1.5-vsdoc.js" />
+    <Content Include="Scripts\jquery-1.5.min.js" />
     <Content Include="Scripts\jquery-ui.min.js" />
     <Content Include="Scripts\jquery.jqGrid.min.js" />
     <Content Include="Scripts\jquery.layout.min.js" />
@@ -267,6 +268,10 @@
     <Content Include="Scripts\Templates\MicrosoftAjaxAdoNet.js" />
     <Content Include="Scripts\Templates\MicrosoftAjaxTemplates.js" />
     <Content Include="Views\Home\Index.aspx" />
+    <Content Include="Views\Master\ActionCat\Index.aspx" />
+    <Content Include="Views\Master\Action\Index.aspx" />
+    <Content Include="Views\Master\Customer\Edit.aspx" />
+    <Content Include="Views\Master\Customer\Detail.ascx" />
     <Content Include="Views\Master\Customer\Registration.aspx" />
     <Content Include="Views\Master\Customer\Index.aspx" />
     <Content Include="Views\Shared\Error.aspx" />
@@ -281,8 +286,6 @@
     <Content Include="Views\Utility\UserAccount\Register.aspx" />
     <Content Include="Web.config" />
     <Content Include="Content\Site.css" />
-    <Content Include="Scripts\jquery-1.4.2.js" />
-    <Content Include="Scripts\jquery-1.4.2.min.js" />
     <Content Include="Scripts\MicrosoftAjax.js" />
     <Content Include="Scripts\MicrosoftAjax.debug.js" />
     <Content Include="Scripts\MicrosoftMvcAjax.js" />
@@ -331,12 +334,11 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>False</UseIIS>
+          <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>1062</DevelopmentServerPort>
           <DevelopmentServerVPath>/erha</DevelopmentServerVPath>
-          <IISUrl>
-          </IISUrl>
+          <IISUrl>http://localhost:81/erha</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

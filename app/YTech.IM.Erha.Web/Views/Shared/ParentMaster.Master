@@ -54,7 +54,7 @@
                         </div>
                     </div>
                     <div class="panel-container">
-                     <% Html.RenderPartial("Menu", ViewData); %>
+                     <% Html.RenderPartial("Menu"); %>
                     </div>
                     <div class="panel-footer">
                         <div class="panel-footer-left">

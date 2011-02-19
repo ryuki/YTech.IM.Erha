@@ -298,7 +298,7 @@
         <div class="header">
            Menu</div>
         <div class="content">
-            <% Html.RenderPartial("Menu", ViewData); %>
+            <% Html.RenderPartial("Menu"); %>
         </div>
            <%-- <div class="footer"></div>--%>
     </div>

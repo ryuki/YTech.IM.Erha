@@ -61,10 +61,14 @@
     <Compile Include="..\..\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Master\MAction.cs" />
+    <Compile Include="Master\MActionCat.cs" />
     <Compile Include="Master\MCustomer.cs" />
     <Compile Include="Master\RefAddress.cs" />
     <Compile Include="Master\RefPerson.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RepositoryInterfaces\IMActionCatRepository.cs" />
+    <Compile Include="RepositoryInterfaces\IMActionRepository.cs" />
     <Compile Include="RepositoryInterfaces\IMCustomerRepository.cs" />
     <Compile Include="RepositoryInterfaces\IRefAddressRepository.cs" />
     <Compile Include="RepositoryInterfaces\IRefPersonRepository.cs" />
