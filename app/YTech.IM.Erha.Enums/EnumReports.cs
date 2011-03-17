@@ -15,6 +15,7 @@ namespace YTech.IM.Erha.Enums
         RptStockCard,
         RptStockItem,
         RptAnalyzeBudgetDetail,
-        RptTransDetail
+        RptTransDetail,
+        RptPrintFacturService
     }
 }

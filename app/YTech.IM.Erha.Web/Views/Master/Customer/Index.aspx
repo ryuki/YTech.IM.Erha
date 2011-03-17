@@ -9,7 +9,7 @@
     <div id="listPsetcols" class="scroll" style="text-align: center;">
     </div>
     <div id='popup'>
-        <iframe width='100%' height='340px' id="popup_frame"></iframe>
+        <iframe width='100%' height='340px' id="popup_frame" frameborder="0"></iframe>
     </div>
     <script type="text/javascript">
         $(document).ready(function () {

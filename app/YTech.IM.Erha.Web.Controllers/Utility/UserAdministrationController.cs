@@ -7,18 +7,18 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using SharpArch.Core;
 using SharpArch.Web.NHibernate;
-using YTech.IM.Paramita.Core.Master;
-using YTech.IM.Paramita.Core.RepositoryInterfaces;
-using YTech.IM.Paramita.Core.Transaction;
-using YTech.IM.Paramita.Core.Transaction.Accounting;
-using YTech.IM.Paramita.Enums;
-using YTech.IM.Paramita.Web.Controllers.ViewModel;
+using YTech.IM.Erha.Core.Master;
+using YTech.IM.Erha.Core.RepositoryInterfaces;
+using YTech.IM.Erha.Core.Transaction;
+using YTech.IM.Erha.Core.Transaction.Accounting;
+using YTech.IM.Erha.Enums;
+using YTech.IM.Erha.Web.Controllers.ViewModel;
 
 using System.Net.Mail;
 using System.Web.Security;
 using MvcMembership;
 using MvcMembership.Settings;
-using YTech.IM.Paramita.Web.Controllers.ViewModel.UserAdministration;
+using YTech.IM.Erha.Web.Controllers.ViewModel.UserAdministration;
 using System.Security.Principal;
 
 namespace YTech.IM.Erha.Web.Controllers.Utility

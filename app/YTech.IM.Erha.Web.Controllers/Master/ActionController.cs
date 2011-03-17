@@ -51,6 +51,7 @@ namespace YTech.IM.Erha.Web.Controllers.Master
                     {
                         i = action.Id,
                         cell = new string[] {
+                            string.Empty,
                             action.Id, 
                             action.ActionName,
                             action.ActionCatId != null ? action.ActionCatId.Id : null, 

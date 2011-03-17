@@ -67,6 +67,12 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\Microsoft.Practices.ServiceLocation.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.ReportViewer.Common, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WebForms, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.Web.Mvc, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\Microsoft.Web.Mvc.dll</HintPath>
@@ -141,6 +147,13 @@
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReportViewer.aspx.cs">
+      <DependentUpon>ReportViewer.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ReportViewer.aspx.designer.cs">
+      <DependentUpon>ReportViewer.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\css\complex.css" />
@@ -215,6 +228,7 @@
     <Content Include="Content\Images\topleft.png" />
     <Content Include="Content\Images\topright.png" />
     <Content Include="Content\Images\Trial-Button.png" />
+    <Content Include="Content\Images\window16.gif" />
     <Content Include="Content\img\80ade5_40x100_textures_04_highlight_hard_100.png" />
     <Content Include="Content\img\D1E6FC_40x100_textures_10_dots_medium_90.png" />
     <Content Include="Content\img\d6d6d6_40x100_textures_02_glass_80.png" />
@@ -246,6 +260,7 @@
     <Content Include="NHibernate.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="ReportViewer.aspx" />
     <Content Include="Scripts\autoNumeric-1.6.2.js" />
     <Content Include="Scripts\complex.js" />
     <Content Include="Scripts\default.js" />
@@ -268,18 +283,57 @@
     <Content Include="Scripts\Templates\MicrosoftAjaxAdoNet.js" />
     <Content Include="Scripts\Templates\MicrosoftAjaxTemplates.js" />
     <Content Include="Views\Home\Index.aspx" />
+    <Content Include="Views\Master\Account\Index.aspx" />
+    <Content Include="Views\Master\Account\Search.aspx" />
     <Content Include="Views\Master\ActionCat\Index.aspx" />
+    <Content Include="Views\Master\ActionItem\AddActionItem.aspx" />
     <Content Include="Views\Master\Action\Index.aspx" />
+    <Content Include="Views\Master\Brand\Index.aspx" />
+    <Content Include="Views\Master\CostCenter\Index.aspx" />
     <Content Include="Views\Master\Customer\Edit.aspx" />
     <Content Include="Views\Master\Customer\Detail.ascx" />
     <Content Include="Views\Master\Customer\Registration.aspx" />
     <Content Include="Views\Master\Customer\Index.aspx" />
+    <Content Include="Views\Master\Department\Index.aspx" />
+    <Content Include="Views\Master\Employee\Index.aspx" />
+    <Content Include="Views\Master\Employee\Search.aspx" />
+    <Content Include="Views\Master\Item\Index.aspx" />
+    <Content Include="Views\Master\Item\Search.aspx" />
+    <Content Include="Views\Master\MItemCat\Index.aspx" />
+    <Content Include="Views\Master\PacketItemCat\AddPacketItemCat.aspx" />
+    <Content Include="Views\Master\PacketItemCat\Index.aspx" />
+    <Content Include="Views\Master\Packet\Index.aspx" />
+    <Content Include="Views\Master\Packet\Search.aspx" />
+    <Content Include="Views\Master\Room\Index.aspx" />
+    <Content Include="Views\Master\Supplier\Index.aspx" />
+    <Content Include="Views\Master\Warehouse\Index.aspx" />
     <Content Include="Views\Shared\Error.aspx" />
     <Content Include="Views\Shared\DebugFormSubmission.ascx" />
     <Content Include="Views\Shared\Js.ascx" />
     <Content Include="Views\Shared\LogOnUserControl.ascx" />
     <Content Include="Views\Shared\Menu.ascx" />
     <Content Include="Views\Shared\Status.ascx" />
+    <Content Include="Views\Transaction\Accounting\CashForm.ascx" />
+    <Content Include="Views\Transaction\Accounting\CashIn.aspx" />
+    <Content Include="Views\Transaction\Accounting\CashOut.aspx" />
+    <Content Include="Views\Transaction\Accounting\Closing.aspx" />
+    <Content Include="Views\Transaction\Accounting\GeneralLedger.aspx" />
+    <Content Include="Views\Transaction\HR\Absent.aspx" />
+    <Content Include="Views\Transaction\Inventory\Adjusment.aspx" />
+    <Content Include="Views\Transaction\Inventory\Billing.aspx" />
+    <Content Include="Views\Transaction\Inventory\Budgeting.aspx" />
+    <Content Include="Views\Transaction\Inventory\Index.aspx" />
+    <Content Include="Views\Transaction\Inventory\Mutation.aspx" />
+    <Content Include="Views\Transaction\Inventory\Payment.ascx" />
+    <Content Include="Views\Transaction\Inventory\Purchase.aspx" />
+    <Content Include="Views\Transaction\Inventory\Received.aspx" />
+    <Content Include="Views\Transaction\Inventory\ReturPurchase.aspx" />
+    <Content Include="Views\Transaction\Inventory\ReturSales.aspx" />
+    <Content Include="Views\Transaction\Inventory\Sales.aspx" />
+    <Content Include="Views\Transaction\Inventory\TransactionForm.ascx" />
+    <Content Include="Views\Transaction\Inventory\Using.aspx" />
+    <Content Include="Views\Transaction\Report\Report.aspx" />
+    <Content Include="Views\Transaction\Report\ReportParamForm.ascx" />
     <Content Include="Views\Utility\UserAccount\ChangePassword.aspx" />
     <Content Include="Views\Utility\UserAccount\ChangePasswordSuccess.aspx" />
     <Content Include="Views\Utility\UserAccount\LogOn.aspx" />
@@ -322,6 +376,17 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\MasterPopup.master" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\Transaction\Report\RptAnalyzeBudgetDetail.rdlc" />
+    <EmbeddedResource Include="Views\Transaction\Report\RptBrand.rdlc" />
+    <EmbeddedResource Include="Views\Transaction\Report\RptCostCenter.rdlc" />
+    <EmbeddedResource Include="Views\Transaction\Report\RptJournal.rdlc" />
+    <EmbeddedResource Include="Views\Transaction\Report\RptLR.rdlc" />
+    <EmbeddedResource Include="Views\Transaction\Report\RptNeraca.rdlc" />
+    <EmbeddedResource Include="Views\Transaction\Report\RptPrintFacturService.rdlc" />
+    <EmbeddedResource Include="Views\Transaction\Report\RptStockCard.rdlc" />
+    <EmbeddedResource Include="Views\Transaction\Report\RptStockItem.rdlc" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
