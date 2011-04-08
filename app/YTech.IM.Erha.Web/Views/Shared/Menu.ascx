@@ -21,10 +21,10 @@
             <%= Html.ActionLinkForAreas<BrandController>(c => c.Index(),"Master Merek") %></div>
         <div>
             <%= Html.ActionLinkForAreas<ItemController>(c => c.Index(), "Master Produk")%></div>
-      <%--  <div>
-            <%= Html.ActionLinkForAreas<PacketController>(c => c.Index(), "Master Paket")%></div>
+       <%-- <div>
+            <%= Html.ActionLinkForAreas<PacketController>(c => c.Index(), "Master Paket")%></div>--%>
         <div>
-            <%= Html.ActionLinkForAreas<RoomController>(c => c.Index(), "Master Ruangan")%></div>--%>
+            <%= Html.ActionLinkForAreas<RoomController>(c => c.Index(), "Master Ruangan")%></div>
         <div>
             <hr />
         </div>
@@ -63,8 +63,8 @@
             <%= Html.ActionLinkForAreas<CustomerController>(c => c.Index(), "Daftar Pasien")%></div>
 
             <hr />
-       <%-- <div>
-            <%=Html.ActionLinkForAreas<HomeController>(c => c.Index(), "Rekam Medis") %></div>--%>
+        <div>
+            <%=Html.ActionLinkForAreas<InventoryController>(c => c.Billing(), "Tindakan Pasien") %></div>
     </div>
 
       <h3>
@@ -136,6 +136,18 @@
         </div>
         <div>
             <%= Html.ActionLinkForAreas<ReportController>(c => c.Report(EnumReports.RptStockItem), "Laporan Stok Per Gudang")%>
+        </div>
+        <div>
+            <hr />
+        </div>
+        <div>
+            <%= Html.ActionLinkForAreas<ReportController>(c => c.Report(EnumReports.RptServiceOmzet), "Laporan Omzet Penjualan")%>
+        </div>
+        <div>
+            <%= Html.ActionLinkForAreas<ReportController>(c => c.Report(EnumReports.RptSalesByAction), "Lap. Penjualan Berdasar Jlh Tindakan")%>
+        </div>
+        <div>
+            <%= Html.ActionLinkForAreas<ReportController>(c => c.Report(EnumReports.RptCommission), "Laporan Komisi Karyawan")%>
         </div>
         <div>
             <hr />

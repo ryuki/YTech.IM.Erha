@@ -4,6 +4,7 @@ using SharpArch.Core.DomainModel;
 using System;
 using SharpArch.Core;
 using YTech.IM.Erha.Core.Master;
+using YTech.IM.Erha.Core.Transaction.Inventory;
 
 namespace YTech.IM.Erha.Core.Transaction
 {
@@ -29,10 +30,12 @@ namespace YTech.IM.Erha.Core.Transaction
         public virtual decimal? TransDetDisc { get; set; }
         public virtual decimal? TransDetTotal { get; set; }
         public virtual string TransDetDesc { get; set; }
-        public virtual MPacket PacketId { get; set; }
+        public virtual MAction ActionId { get; set; }
         public virtual MEmployee EmployeeId { get; set; }
-        public virtual decimal? TransDetCommissionProduct { get; set; }
-        public virtual decimal? TransDetCommissionService { get; set; }
+
+        public virtual IList<TTransDetItem> TTransDetItems { get; protected set; }
+
+        public virtual IList<TCommission> Commissions { get; protected set; }
 
         public virtual string DataStatus { get; set; }
         public virtual string CreatedBy { get; set; }

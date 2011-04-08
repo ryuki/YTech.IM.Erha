@@ -88,6 +88,7 @@
     <Compile Include="NHibernateMaps\Master\RefAddressMap.cs" />
     <Compile Include="NHibernateMaps\Master\RefPersonMap.cs" />
     <Compile Include="NHibernateMaps\Transaction\TAbsentMap.cs" />
+    <Compile Include="NHibernateMaps\Transaction\TCommissionMap.cs" />
     <Compile Include="NHibernateMaps\Transaction\TJournalDetMap.cs" />
     <Compile Include="NHibernateMaps\Transaction\TJournalMap.cs" />
     <Compile Include="NHibernateMaps\Transaction\TJournalRefMap.cs" />
@@ -125,6 +126,7 @@
     <Compile Include="Repository\RefAddressRepository.cs" />
     <Compile Include="Repository\RefPersonRepository.cs" />
     <Compile Include="Repository\TAbsentRepository.cs" />
+    <Compile Include="Repository\TCommissionRepository.cs" />
     <Compile Include="Repository\TJournalDetRepository.cs" />
     <Compile Include="Repository\TJournalRefRepository.cs" />
     <Compile Include="Repository\TJournalRepository.cs" />

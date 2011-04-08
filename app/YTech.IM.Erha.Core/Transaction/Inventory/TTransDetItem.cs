@@ -21,7 +21,6 @@ namespace YTech.IM.Erha.Core.Transaction.Inventory
         [DomainSignature]
         [NotNull, NotEmpty]
         public virtual TTransDet TransDetId { get; protected set; }
-        public virtual MItemCat ItemCatId { get; set; }
         public virtual MItem ItemId { get; set; }
         public virtual MItemUom ItemUomId { get; set; }
         public virtual decimal? ItemQty { get; set; }

@@ -8,5 +8,6 @@ namespace YTech.IM.Erha.Web.Controllers.ViewModel.Reports
 {
     public class TransViewModel : TTrans
     {
+        public string CustomerName { get; set; }
     }
 }

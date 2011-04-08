@@ -7,6 +7,7 @@ using SharpArch.Data.NHibernate;
 using YTech.IM.Erha.Core.Master;
 using YTech.IM.Erha.Core.RepositoryInterfaces;
 using YTech.IM.Erha.Core.Transaction;
+using YTech.IM.Erha.Enums;
 
 namespace YTech.IM.Erha.Data.Repository
 {
@@ -124,6 +125,20 @@ namespace YTech.IM.Erha.Data.Repository
 
             IList<TTransDet> list = criteria.List<TTransDet>();
             return list;
+        }
+
+        public IList<TTransDet> GetListByDate(DateTime dateFrom, DateTime dateTo, EnumTransactionStatus transactionStatus)
+        {
+            StringBuilder sql = new StringBuilder();
+            sql.AppendLine(@"   select det
+                                from TTransDet as det
+                                    left outer join det.TransId trans 
+                                        where trans.TransStatus = :TransStatus and trans.TransDate between :dateFrom and :dateTo ");
+            IQuery q = Session.CreateQuery(sql.ToString());
+            q.SetString("TransStatus", transactionStatus.ToString());
+            q.SetDateTime("dateFrom", dateFrom);
+            q.SetDateTime("dateTo", dateTo);
+            return q.List<TTransDet>();
         }
     }
 }

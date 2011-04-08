@@ -29,9 +29,7 @@ namespace YTech.IM.Erha.Data.NHibernateMaps.Transaction
             mapping.Map(x => x.TransDetTotal, "TRANS_DET_TOTAL");
             mapping.Map(x => x.TransDetDesc, "TRANS_DET_DESC");
             mapping.References(x => x.EmployeeId, "EMPLOYEE_ID");
-            mapping.References(x => x.PacketId, "PACKET_ID");
-            mapping.Map(x => x.TransDetCommissionProduct, "TRANS_DET_COMMISSION_PRODUCT");
-            mapping.Map(x => x.TransDetCommissionService, "TRANS_DET_COMMISSION_SERVICE");
+            mapping.References(x => x.ActionId, "ACTION_ID");
 
             mapping.Map(x => x.DataStatus, "DATA_STATUS");
             mapping.Map(x => x.CreatedBy, "CREATED_BY");
@@ -39,6 +37,20 @@ namespace YTech.IM.Erha.Data.NHibernateMaps.Transaction
             mapping.Map(x => x.ModifiedBy, "MODIFIED_BY");
             mapping.Map(x => x.ModifiedDate, "MODIFIED_DATE");
             mapping.Map(x => x.RowVersion, "ROW_VERSION").ReadOnly();
+
+            mapping.HasMany(x => x.TTransDetItems)
+                //.Access.Property()
+                .AsBag()
+                .Inverse()
+                .KeyColumn("TRANS_DET_ID")
+                .Cascade.All();
+
+            mapping.HasMany(x => x.Commissions)
+                //.Access.Property()
+                .AsBag()
+                .Inverse()
+                .KeyColumn("TRANS_DET_ID")
+                .Cascade.All();
         }
 
         #endregion

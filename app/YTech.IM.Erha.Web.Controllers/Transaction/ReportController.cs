@@ -17,6 +17,8 @@ using YTech.IM.Erha.Enums;
 using YTech.IM.Erha.Web.Controllers.ViewModel;
 using Microsoft.Reporting.WebForms;
 using YTech.IM.Erha.Web.Controllers.ViewModel.Reports;
+using Newtonsoft.Json;
+using System.Web.Script.Serialization;
 
 namespace YTech.IM.Erha.Web.Controllers.Transaction
 {
@@ -42,8 +44,9 @@ namespace YTech.IM.Erha.Web.Controllers.Transaction
         private readonly ITTransDetRepository _tTransDetRepository;
         private readonly ITTransRoomRepository _tTransRoomRepository;
         private readonly ITTransRepository _tTransRepository;
+        private readonly ITCommissionRepository _tCommissionRepository;
 
-        public ReportController(ITJournalRepository tJournalRepository, ITJournalDetRepository tJournalDetRepository, IMCostCenterRepository mCostCenterRepository, IMAccountRepository mAccountRepository, ITRecAccountRepository tRecAccountRepository, ITRecPeriodRepository tRecPeriodRepository, IMBrandRepository mBrandRepository, IMSupplierRepository mSupplierRepository, IMWarehouseRepository mWarehouseRepository, IMItemRepository mItemRepository, ITStockCardRepository tStockCardRepository, ITStockItemRepository tStockItemRepository, ITTransDetRepository tTransDetRepository, ITTransRepository tTransRepository, ITTransRoomRepository tTransRoomRepository)
+        public ReportController(ITJournalRepository tJournalRepository, ITJournalDetRepository tJournalDetRepository, IMCostCenterRepository mCostCenterRepository, IMAccountRepository mAccountRepository, ITRecAccountRepository tRecAccountRepository, ITRecPeriodRepository tRecPeriodRepository, IMBrandRepository mBrandRepository, IMSupplierRepository mSupplierRepository, IMWarehouseRepository mWarehouseRepository, IMItemRepository mItemRepository, ITStockCardRepository tStockCardRepository, ITStockItemRepository tStockItemRepository, ITTransDetRepository tTransDetRepository, ITTransRepository tTransRepository, ITTransRoomRepository tTransRoomRepository, ITCommissionRepository tCommissionRepository)
         {
             Check.Require(tJournalRepository != null, "tJournalRepository may not be null");
             Check.Require(tJournalDetRepository != null, "tJournalDetRepository may not be null");
@@ -60,6 +63,7 @@ namespace YTech.IM.Erha.Web.Controllers.Transaction
             Check.Require(tTransDetRepository != null, "tTransDetRepository may not be null");
             Check.Require(tTransRepository != null, "tTransRepository may not be null");
             Check.Require(tTransRoomRepository != null, "tTransRoomRepository may not be null");
+            Check.Require(tCommissionRepository != null, "tCommissionRepository may not be null");
 
 
             this._tJournalRepository = tJournalRepository;
@@ -77,6 +81,7 @@ namespace YTech.IM.Erha.Web.Controllers.Transaction
             this._tTransDetRepository = tTransDetRepository;
             this._tTransRepository = tTransRepository;
             this._tTransRoomRepository = tTransRoomRepository;
+            this._tCommissionRepository = tCommissionRepository;
         }
 
         [Transaction]
@@ -125,6 +130,21 @@ namespace YTech.IM.Erha.Web.Controllers.Transaction
                     title = "Lap. Analisa Budget";
                     viewModel.ShowItem = true;
                     viewModel.ShowWarehouse = true;
+                    break;
+                case EnumReports.RptServiceOmzet:
+                    title = "Lap. Omzet Penjualan";
+                    viewModel.ShowDateFrom = true;
+                    viewModel.ShowDateTo = true;
+                    break;
+                case EnumReports.RptCommission:
+                    title = "Lap. Komisi Karyawan";
+                    viewModel.ShowDateFrom = true;
+                    viewModel.ShowDateTo = true;
+                    break;
+                case EnumReports.RptSalesByAction:
+                    title = "Lap. Penjualan Berdasar Jlh Tindakan";
+                    viewModel.ShowDateFrom = true;
+                    viewModel.ShowDateTo = true;
                     break;
             }
             ViewData["CurrentItem"] = title;
@@ -175,15 +195,26 @@ namespace YTech.IM.Erha.Web.Controllers.Transaction
                     repCol[1] = GetTransDet(trans.TransDets);
                     repCol[2] = GetTransRoom(viewModel.TransId);
                     break;
+                case EnumReports.RptServiceOmzet:
+                    repCol[0] = GetServiceOmzet(viewModel.DateFrom.Value, viewModel.DateTo.Value);
+                    break;
+                case EnumReports.RptCommission:
+                    repCol[0] = GetCommission(viewModel.DateFrom.Value, viewModel.DateTo.Value);
+                    break;
+                case EnumReports.RptSalesByAction:
+                    repCol[0] = GetTransDetForTotalAction(viewModel.DateFrom.Value, viewModel.DateTo.Value);
+                    break;
             }
             Session["ReportData"] = repCol;
 
             var e = new
-            {
-                Success = true,
-                Message = "redirect",
-                UrlReport = string.Format("{0}", reports.ToString())
-            };
+                        {
+                            Success = true,
+                            Message = "redirect",
+                            UrlReport = string.Format("{0}", reports.ToString())
+                            //DataSourceName = typeof (List<MBrand>).AssemblyQualifiedName,
+                            //RptDataSource =new JavaScriptSerializer().Serialize(repCol)// JsonConvert.SerializeObject(repCol)
+                        };
             return Json(e, JsonRequestBehavior.AllowGet);
             //string reportType = formCollection["ExportFormat"];
             //string mimeType, encoding, fileNameExtension;
@@ -221,6 +252,74 @@ namespace YTech.IM.Erha.Web.Controllers.Transaction
             //return File(renderedBytes, mimeType);
         }
 
+        private ReportDataSource GetTransDetForTotalAction(DateTime dateFrom, DateTime dateTo)
+        {
+            IList<TTransDet> dets = _tTransDetRepository.GetListByDate(dateFrom, dateTo, EnumTransactionStatus.Service);
+
+            var list = from det in dets
+                       select new
+                       {
+                           det.Id,
+                           det.TransDetNo,
+                           det.TransDetQty,
+                           det.TransDetDesc,
+                           det.TransDetTotal,
+                           det.TransDetPrice,
+                           det.TransDetDisc,
+                           ActionId = det.ActionId.Id,
+                           det.ActionId.ActionName,
+                           det.TransId.TransDate
+                       }
+            ;
+
+            ReportDataSource reportDataSource = new ReportDataSource("TransDetViewModel", list.ToList());
+            return reportDataSource;
+        }
+
+        private ReportDataSource GetCommission(DateTime dateFrom, DateTime dateTo)
+        {
+            IList<TCommission> listComms = _tCommissionRepository.GetByTransDate(dateFrom, dateTo);
+            var listViewModel = from t in listComms
+                                select new
+                                {
+                                    t.CommissionValue,
+                                    t.TransDetId.ActionId.ActionName,
+                                    EmployeeId = t.EmployeeId.Id,
+                                    EmployeeName = t.EmployeeId.PersonId.PersonName,
+                                    t.TransDetId.TransId.TransDate,
+                                    t.TransDetId.TransId.TransFactur,
+                                    t.TransDetId.TransDetQty,
+                                    t.TransDetId.TransDetTotal
+                                }
+    ;
+            ReportDataSource reportDataSource = new ReportDataSource("CommissionViewModel", listViewModel.ToList());
+            return reportDataSource;
+        }
+
+        private ReportDataSource GetServiceOmzet(DateTime dateFrom, DateTime dateTo)
+        {
+            IList<TTransRoom> listTransroom = _tTransRoomRepository.GetListByTransDate(dateFrom, dateTo, EnumTransRoomStatus.Paid);
+            var listRoom = from t in listTransroom
+                           select new
+                           {
+                               t.RoomVoucherPaid,
+                               t.RoomCashPaid,
+                               t.RoomCreditPaid,
+                               t.RoomDesc,
+                               t.RoomInDate,
+                               t.RoomOutDate,
+                               t.RoomStatus,
+                               t.TransId.TransFactur,
+                               t.TransId.TransSubTotal,
+                               t.TransId.TransDiscount,
+                               t.TransId.TransDate,
+                               t.TransId.TransGrandTotal
+                           }
+      ;
+            ReportDataSource reportDataSource = new ReportDataSource("TransRoomViewModel", listRoom.ToList());
+            return reportDataSource;
+        }
+
         private ReportDataSource GetTransRoom(string TransId)
         {
             TTransRoom troom = _tTransRoomRepository.Get(TransId);
@@ -252,13 +351,13 @@ namespace YTech.IM.Erha.Web.Controllers.Transaction
                               //det.PacketId,
                               EmployeeId = det.EmployeeId.Id,
                               EmployeeName = det.EmployeeId.PersonId.PersonName,
-                              PacketId = det.PacketId.Id,
-                              det.PacketId.PacketName,
+                              PacketId = det.ActionId.Id,
+                              det.ActionId.ActionName,
                               det.TransDetPrice,
                               det.TransDetQty,
                               det.TransDetDisc,
-                              det.TransDetCommissionProduct,
-                              det.TransDetCommissionService,
+                              TransDetCommissionProduct = 0,
+                              TransDetCommissionService = 0,
                               det.TransDetNo,
                               det.TransDetTotal
                           }
@@ -455,6 +554,19 @@ namespace YTech.IM.Erha.Web.Controllers.Transaction
 
         private ReportDataSource GetBrand()
         {
+            //  var list = from brand in _mBrandRepository.GetAll()
+            //             select new
+            //             {
+            //                 brand.Id,
+            //                 brand.BrandName,
+            //                 brand.BrandDesc,
+            //                 brand.DataStatus,
+            //                 brand.CreatedBy,
+            //                 brand.CreatedDate,
+            //                 brand.ModifiedBy,
+            //                 brand.ModifiedDate
+            //             }
+            //;
             ReportDataSource reportDataSource = new ReportDataSource("Brand", _mBrandRepository.GetAll());
             return reportDataSource;
         }

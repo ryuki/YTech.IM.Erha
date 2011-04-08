@@ -7,5 +7,7 @@ namespace YTech.IM.Erha.Core.RepositoryInterfaces
     public interface IMActionRepository : INHibernateRepositoryWithTypedId<MAction, string>
     {
         IEnumerable<MAction> GetPagedActionList(string orderCol, string orderBy, int pageIndex, int maxRows, ref int totalRows);
+
+        IEnumerable<MAction> GetPagedActionListByStatus(string orderCol, string orderBy, int pageIndex, int maxRows, ref int totalRows, string actionStatus);
     }
 }

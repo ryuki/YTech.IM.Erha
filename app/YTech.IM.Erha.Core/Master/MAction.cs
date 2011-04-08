@@ -1,4 +1,5 @@
-﻿using NHibernate.Validator.Constraints;
+﻿using System.Collections.Generic;
+using NHibernate.Validator.Constraints;
 using SharpArch.Core.DomainModel;
 using System;
 using SharpArch.Core;
@@ -24,6 +25,8 @@ namespace YTech.IM.Erha.Core.Master
         public virtual string ModifiedBy { get; set; }
         public virtual DateTime? ModifiedDate { get; set; }
         public virtual byte[] RowVersion { get; set; }
+
+        public virtual IList<MActionItem> ActionItems { get; protected set; }
 
         #region Implementation of IHasAssignedId<string>
 

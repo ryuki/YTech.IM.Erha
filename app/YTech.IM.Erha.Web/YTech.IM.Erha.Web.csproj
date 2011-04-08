@@ -263,6 +263,7 @@
     <Content Include="ReportViewer.aspx" />
     <Content Include="Scripts\autoNumeric-1.6.2.js" />
     <Content Include="Scripts\complex.js" />
+    <Content Include="Scripts\date.format.js" />
     <Content Include="Scripts\default.js" />
     <Content Include="Scripts\grid.locale-en.js" />
     <Content Include="Scripts\jquery-1.4.4.min.js" />
@@ -276,8 +277,10 @@
     <Content Include="Scripts\jquery.mousewheel-3.0.4.js" />
     <Content Include="Scripts\jquery.tooltip.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\json2.js" />
     <Content Include="Scripts\MicrosoftMvcValidation.debug.js" />
     <Content Include="Scripts\MicrosoftMvcValidation.js" />
+    <Content Include="Scripts\NumberFormat.js" />
     <Content Include="Scripts\samplebrowser.js" />
     <Content Include="Scripts\Templates\MicrosoftAjax.js" />
     <Content Include="Scripts\Templates\MicrosoftAjaxAdoNet.js" />
@@ -287,6 +290,7 @@
     <Content Include="Views\Master\Account\Search.aspx" />
     <Content Include="Views\Master\ActionCat\Index.aspx" />
     <Content Include="Views\Master\ActionItem\AddActionItem.aspx" />
+    <Content Include="Views\Master\Action\Search.aspx" />
     <Content Include="Views\Master\Action\Index.aspx" />
     <Content Include="Views\Master\Brand\Index.aspx" />
     <Content Include="Views\Master\CostCenter\Index.aspx" />
@@ -294,6 +298,7 @@
     <Content Include="Views\Master\Customer\Detail.ascx" />
     <Content Include="Views\Master\Customer\Registration.aspx" />
     <Content Include="Views\Master\Customer\Index.aspx" />
+    <Content Include="Views\Master\Customer\Search.aspx" />
     <Content Include="Views\Master\Department\Index.aspx" />
     <Content Include="Views\Master\Employee\Index.aspx" />
     <Content Include="Views\Master\Employee\Search.aspx" />
@@ -321,6 +326,8 @@
     <Content Include="Views\Transaction\HR\Absent.aspx" />
     <Content Include="Views\Transaction\Inventory\Adjusment.aspx" />
     <Content Include="Views\Transaction\Inventory\Billing.aspx" />
+    <Content Include="Views\Transaction\Inventory\DetailItem.aspx" />
+    <Content Include="Views\Transaction\Inventory\ListBilling.aspx" />
     <Content Include="Views\Transaction\Inventory\Budgeting.aspx" />
     <Content Include="Views\Transaction\Inventory\Index.aspx" />
     <Content Include="Views\Transaction\Inventory\Mutation.aspx" />
@@ -380,11 +387,15 @@
   <ItemGroup>
     <EmbeddedResource Include="Views\Transaction\Report\RptAnalyzeBudgetDetail.rdlc" />
     <EmbeddedResource Include="Views\Transaction\Report\RptBrand.rdlc" />
+    <Content Include="Views\Transaction\Report\RptCommission.rdlc" />
     <EmbeddedResource Include="Views\Transaction\Report\RptCostCenter.rdlc" />
     <EmbeddedResource Include="Views\Transaction\Report\RptJournal.rdlc" />
     <EmbeddedResource Include="Views\Transaction\Report\RptLR.rdlc" />
     <EmbeddedResource Include="Views\Transaction\Report\RptNeraca.rdlc" />
-    <EmbeddedResource Include="Views\Transaction\Report\RptPrintFacturService.rdlc" />
+    <Content Include="Views\Transaction\Report\RptPrintFacturService.rdlc" />
+    <Content Include="Views\Transaction\Report\RptPrintFacturServiceMini.rdlc" />
+    <Content Include="Views\Transaction\Report\RptServiceOmzet.rdlc" />
+    <Content Include="Views\Transaction\Report\RptSalesByAction.rdlc" />
     <EmbeddedResource Include="Views\Transaction\Report\RptStockCard.rdlc" />
     <EmbeddedResource Include="Views\Transaction\Report\RptStockItem.rdlc" />
   </ItemGroup>

@@ -7,8 +7,11 @@ namespace YTech.IM.Erha.Enums
 {
     public enum EnumRoomType
     {
-        SpaWomen,
-        SpaMan,
-        Reflexy
+        Facial,
+        Peeling,
+        VBeam,
+        Laser,
+        Konsul,
+        Others
     }
 }

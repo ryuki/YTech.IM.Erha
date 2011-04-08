@@ -9,8 +9,8 @@
     <style type="text/css">
         .button_room
         {
-            width: 110px;
-            height: 75px;
+            width: 90px;
+            height: 65px;
             margin: 5px;
         }
         .used
@@ -27,67 +27,23 @@
         }
     </style>
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="title" runat="server">
-</asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="MainContent" runat="server">
     <table>
-        <tr>
-            <td align="center" colspan="2" style="width: 45%;">
+       <tr>
+            <td align="center" style="width: 45%;">
                 <h2>
-                    SPA</h2>
-            </td>
-            <td align="center" rowspan="2" style="width: 45%;">
-                <h2>
-                    Refleksi</h2>
-            </td>
-        </tr>
-        <tr>
-            <td align="center" style="width: 22%;">
-                <h2>
-                    Pria</h2>
-            </td>
-            <td align="center" style="width: 22%;">
-                <h2>
-                    Wanita</h2>
+                    Ruangan</h2>
             </td>
         </tr>
         <tr>
             <td align="center">
                 <% //if (Model.SpaManRoomList != null)
                     {
-                        for (int i = 0; i < Model.SpaManRoomList.Count; i++)
+                        for (int i = 0; i < Model.RoomsList.Count; i++)
                         {
-                            RoomViewModel room = Model.SpaManRoomList[i];
+                            RoomViewModel room = Model.RoomsList[i];
                 %>
                 <input type="button" value='<%= room.RoomName %>' title='<%= room.RoomName %>' class="button_room <% if (room.RoomInUsed) { %>used<% } %>"
-                    onclick="OpenRoomDetail('<%= room.Id %>','<%= room.RoomName %>');" id="btn_<%= room.Id %>" />
-                <%
-                    }
-                    }
-                %>
-            </td>
-            <td align="center">
-                <% //if (Model.SpaWomanRoomList != null)
-                    {
-                        for (int i = 0; i < Model.SpaWomanRoomList.Count; i++)
-                        {
-                            RoomViewModel room = Model.SpaWomanRoomList[i];
-                %>
-                <input type="button" value='<%=room.RoomName%>' title='<%=room.RoomName%>' class="button_room <% if (room.RoomInUsed) { %>used<% } %>"
-                    onclick="OpenRoomDetail('<%= room.Id %>','<%= room.RoomName %>');" id="btn_<%= room.Id %>" />
-                <%
-                    }
-                    }
-                %>
-            </td>
-            <td align="center">
-                <% //if (Model.ReflexyRoomList != null)
-                    {
-                        for (int i = 0; i < Model.ReflexyRoomList.Count; i++)
-                        {
-                            RoomViewModel room = Model.ReflexyRoomList[i];
-                %>
-                <input type="button" value='<%=room.RoomName%>' title='<%=room.RoomName%>' class="button_room <% if (room.RoomInUsed) { %>used<% } %>"
                     onclick="OpenRoomDetail('<%= room.Id %>','<%= room.RoomName %>');" id="btn_<%= room.Id %>" />
                 <%
                     }
@@ -119,6 +75,7 @@
                     </div>
                     <%= Html.AntiForgeryToken() %>
                     <%= Html.Hidden("TransId", (ViewData.Model.Trans != null) ? ViewData.Model.Trans.Id : "")%>
+                    <input id="HidIsVipRoom" type="hidden" />
                     <table>
                         <tr>
                             <td colspan="2" align="center">
@@ -147,13 +104,25 @@
                         </tr>
                         <tr>
                             <td>
-                                <label for="TransRoom_RoomInDate">
+                                <label for="TransDate">
+                                    Tanggal :</label>
+                            </td>
+                            <td>
+                                <%=Html.TextBox("TransDate",
+                                          Model.Trans.TransDate.HasValue
+                                                                                                                      ? Model.Trans.TransDate.Value.ToString(CommonHelper.DateFormat)
+                                              : null)%>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="RoomInDate">
                                     Jam Masuk :</label>
                             </td>
                             <td>
                                 <%=Html.TextBox("RoomInDate",
                                           Model.TransRoom.RoomInDate.HasValue
-                                              ? Model.TransRoom.RoomInDate.Value.ToString("HH:mm")
+                                              ? Model.TransRoom.RoomInDate.Value.ToString(CommonHelper.TimeFormat)
                                               : null)%>
                             </td>
                         </tr>
@@ -238,7 +207,7 @@
         </div>
     </div>
     <div id='popup'>
-        <iframe width='100%' height='380px' id="popup_frame"></iframe>
+        <iframe width='100%' height='100%' id="popup_frame" frameborder="0"></iframe>
     </div>
     <div id="dialog" title="Status">
         <p>
@@ -268,6 +237,23 @@
             else {
                 $("#RoomInDate").val('');
             }
+
+            //get transaction date
+            //alert('debug 1');
+            if (troom.TransDate) {
+            //alert('debug 2');
+                var transDate = new Date(parseInt(troom.TransDate.substr(6)));
+            //alert('debug 3');
+                $("#TransDate").val(transDate.format('dd-mmm-yyyy'));
+            //alert('debug 4');
+                }
+                else {
+                 $("#TransDate").val('');
+                }
+
+                //save to temporaray hidden field for is vip room used
+                $('#HidIsVipRoom').val(troom.IsVipRoom);
+                
 //           if (troom.RoomOutDate) {
 //                var dateOut = new Date(parseInt(troom.RoomOutDate.substr(6)));
 //                var dateOutTime = dateOut.format('HH:MM');
@@ -312,8 +298,6 @@
               $("#TransBy").val(trans.TransBy);
               $("#TransDiscount").val(trans.TransDiscount);
               $("#txtCustomerName").val(trans.CustomerName);
-              
-
         }
 
         function onSavedSuccess(e)
@@ -331,8 +315,8 @@
     window.open(urlreport);
 }
 
-                $('#dialog p:first').text(msg);
-                $("#dialog").dialog("open"); 
+//                $('#dialog p:first').text(msg);
+//                $("#dialog").dialog("open"); 
                      return false ;  
                 }
 }
@@ -351,6 +335,7 @@
             $('#btnOut').attr('disabled', 'disabled');
             $('#btnCancel').attr('disabled', 'disabled');
             $('#btnPrint').attr('disabled', '');
+            $('#btnPrint').click();
 }
            else if (roomstatus == 'New') {
     $("#payment").dialog("close");
@@ -362,7 +347,7 @@
     function CalculateTotal() {
         var price = $('#TransDetPrice').val().replace(",","");
         var qty = $('#TransDetQty').val().replace(",","");
-        var disc = $('#TransDetDisc').val().replace(",","");
+        var disc = 0;//$('#TransDetDisc').val().replace(",","");
         var subtotal = (price * qty)
         var total = subtotal - (disc * subtotal / 100);
 
@@ -371,14 +356,14 @@
 
     function CalculatePaymentSisa()
     {
-     var grandtotal = parseFloat($('#paymentGrandTotal').text().replace(",",""));
+        var grandtotal = parseFloat($('#paymentGrandTotal').text().replace(",",""));
         var voucher = parseFloat($('#paymentVoucher').val().replace(",",""));
         var cash = parseFloat($('#paymentCash').val().replace(",",""));
         var creditcard = parseFloat($('#paymentCreditCard').val().replace(",",""));
         var totalpaid =  (voucher + cash + creditcard);
-//        alert(totalpaid);
+        //        alert(totalpaid);
         var sisa = totalpaid - grandtotal;
-       $('#paymentSisa').text(FormatNumberBy3(sisa));
+        $('#paymentSisa').text(FormatNumberBy3(sisa));
     }
 
         function GetTotal()
@@ -396,6 +381,7 @@
         }
 
         $(document).ready(function () {
+        $("#TransDate").datepicker({ dateFormat: "dd-M-yy" });
             $("#detail_list").hide();
                     $('#btnPaid').hide();
             $("#TransDiscount").autoNumeric();
@@ -417,6 +403,9 @@
                  buttons: { 
                 "OK": function() {
                     $(this).dialog("close");
+                    $('#hidpaymentCash').val($('#paymentCash').val());
+                    $('#hidpaymentVoucher').val($('#paymentVoucher').val());
+                    $('#hidpaymentCreditCard').val($('#paymentCreditCard').val());
                     $('#btnPaid').click();
                 },
                 "Batal": function() { 
@@ -429,15 +418,17 @@
                 autoOpen: false,
                 modal:true,
                 title:'Detail Transaksi',
-                width:'900px'
+                width:'900px',
+                height: 380
             });
             $("#popup").dialog({
                 autoOpen: false,
-                height: 420,
+                height: 480,
                 width: '80%',
                 modal: true,
                 close: function (event, ui) {
                     $("#list").trigger("reloadGrid");
+                    GetTotal();
                 }
             }); 
             $('#imgCustomerId').click(function(){
@@ -473,6 +464,10 @@
              $('#paymentCreditCard').change(function(){
              CalculatePaymentSisa();
               });  
+                            
+                    $('#TransDiscount').change(function () {
+                        GetTotal();
+                    });
 //            $('#btnIn').click(function(){
 //                $("#detail_list").show("slow");
 //                $("#list").trigger("reloadGrid");
@@ -523,14 +518,20 @@
                     $('#TransDetQty').change(function () {
                         CalculateTotal();
                     });
-                    $('#TransDetDisc').change(function () {
-                        CalculateTotal();
-                    }); 
-                     $('#imgPacketId').click(function(){
-                        OpenPopupPacketSearch();
+//                    $('#TransDetDisc').change(function () {
+//                        CalculateTotal();
+//                    }); 
+                     $('#imgActionId').click(function(){
+                        OpenPopupActionSearch();
                         });
-                     $('#imgEmployeeId').click(function(){
-                        OpenPopupEmployeeSearch();
+                     $('#imgDrId').click(function(){
+                        OpenPopupEmployeeSearch("DrId");
+                        });
+                     $('#imgTherapistId').click(function(){
+                        OpenPopupEmployeeSearch("TherapistId");
+                        });
+                     $('#imgMedicianId').click(function(){
+                        OpenPopupEmployeeSearch("MedicianId");
                         });
                     
                 }
@@ -541,11 +542,15 @@
                 , afterComplete: function (response, postdata, formid) {
                     $('#dialog p:first').text(response.responseText);
                     $("#dialog").dialog("open");
-                    
+
+//                    //get packet id and qty base ajax
+//                    var res = JSON.parse(response.responseText);
+////                    alert(res);
+//                    OpenPopupTransDetItem(res.Id,res.PacketId,res.TransDetQty);
                     GetTotal();
-                  
                 }
                 , width: "400"
+                , recreateForm : true
         };
         var deleteDialog = {
             url: '<%= Url.Action("DeleteBill", "Inventory") %>'
@@ -573,15 +578,17 @@
                 },
             datatype: 'json',
             mtype: 'GET',
-            colNames: ['Id', 'Kode Paket', 'Nama Paket', 'Kuantitas', 'Harga', 'Diskon', 'Total', 'Kode Terapis', 'Nama Terapis'],
+            colNames: ['Id', 'Kode Tindakan', 'Nama Tindakan', 'Kuantitas', 'Harga', 
+            //'Diskon', 
+            'Total', 'Kode Dokter', 'Nama Dokter', 'Kode Terapis', 'Nama Terapis', 'Kode Jasa Medis', 'Nama Jasa Medis'],
             colModel: [
                     { name: 'Id', index: 'Id', width: 100, align: 'left', key: true, editrules: { required: true, edithidden: false }, hidedlg: true, hidden: true, editable: false },
-                    { name: 'PacketId', index: 'PacketId', width: 200, align: 'left', editable: true, edittype: 'text', editrules: {  required: true,edithidden: true }, hidden: true,
+                    { name: 'ActionId', index: 'ActionId', width: 200, align: 'left', editable: true, edittype: 'text', editrules: {  required: true,edithidden: true }, hidden: true,
                        formoptions: {
-                        "elmsuffix": "&nbsp;<img src='" + imgLov + "' style='cursor:hand;' id='imgPacketId' />"
+                        "elmsuffix": "&nbsp;<img src='" + imgLov + "' style='cursor:hand;' id='imgActionId' />"
                     } 
                     }, 
-                    { name: 'PacketName', index: 'PacketName', width: 200, align: 'left', editable: true, edittype: 'text', editrules: { edithidden: true} },
+                    { name: 'ActionName', index: 'ActionName', width: 200, align: 'left', editable: true, edittype: 'text', editrules: { edithidden: true} },
                      { name: 'TransDetQty', index: 'TransDetQty', width: 200, sortable: false, align: 'right', editable: true, editrules: { required: true  },
                        editoptions: {
                            dataInit: function (elem) {
@@ -598,14 +605,14 @@
                            }
                        }
                         },
-                   { name: 'TransDetDisc', index: 'TransDetDisc', width: 200, sortable: false, align: 'right', editable: true, editrules: { required: false },
-                       editoptions: {
-                           dataInit: function (elem) {
-                               $(elem).autoNumeric();
-                               $(elem).attr("style","text-align:right;");
-                           }
-                       }
-                        },
+//                   { name: 'TransDetDisc', index: 'TransDetDisc', width: 200, sortable: false, align: 'right', editable: true, editrules: { required: false },
+//                       editoptions: {
+//                           dataInit: function (elem) {
+//                               $(elem).autoNumeric();
+//                               $(elem).attr("style","text-align:right;");
+//                           }
+//                       }
+//                        },
                    { name: 'TransDetTotal', index: 'TransDetTotal', width: 200, sortable: false, align: 'right', editable: true, editrules: { required: false } ,
                        editoptions: {
                            dataInit: function (elem) {
@@ -614,11 +621,21 @@
                            }
                        }
                         }, 
-               { name: 'EmployeeId', index: 'EmployeeId', width: 200, align: 'left', editable: true, edittype: 'text', editrules: { required: true,edithidden: true }, hidden: true,
+               { name: 'DrId', index: 'DrId', width: 200, align: 'left', editable: true, edittype: 'text', editrules: { required: true,edithidden: true }, hidden: true,
                        formoptions: {
-                        "elmsuffix": "&nbsp;<img src='" + imgLov + "' style='cursor:hand;' id='imgEmployeeId' />"
+                        "elmsuffix": "&nbsp;<img src='" + imgLov + "' style='cursor:hand;' id='imgDrId' />"
                     } }, 
-                    { name: 'EmployeeName', index: 'EmployeeName', width: 200, align: 'left', editable: true, edittype: 'text', editrules: { edithidden: true} }],
+                    { name: 'DrName', index: 'DrName', width: 200, align: 'left', editable: true, edittype: 'text', editrules: { edithidden: true} }, 
+               { name: 'TherapistId', index: 'TherapistId', width: 200, align: 'left', editable: true, edittype: 'text', editrules: { required: true,edithidden: true }, hidden: true,
+                       formoptions: {
+                        "elmsuffix": "&nbsp;<img src='" + imgLov + "' style='cursor:hand;' id='imgTherapistId' />"
+                    } }, 
+                    { name: 'TherapistName', index: 'TherapistName', width: 200, align: 'left', editable: true, edittype: 'text', editrules: { edithidden: true} }, 
+               { name: 'MedicianId', index: 'MedicianId', width: 200, align: 'left', editable: true, edittype: 'text', editrules: { required: true,edithidden: true }, hidden: true,
+                       formoptions: {
+                        "elmsuffix": "&nbsp;<img src='" + imgLov + "' style='cursor:hand;' id='imgMedicianId' />"
+                    } }, 
+                    { name: 'MedicianName', index: 'MedicianName', width: 200, align: 'left', editable: true, edittype: 'text', editrules: { edithidden: true} }],
 
             pager: $('#listPager'),
             rowNum: -1,
@@ -650,9 +667,9 @@
 
             });
             
-        function OpenPopupPacketSearch()
+        function OpenPopupActionSearch()
         {
-            $("#popup_frame").attr("src", "<%= ResolveUrl("~/Master/Packet/Search?Price=") %><%= EnumPrice.Sale.ToString() %>");
+            $("#popup_frame").attr("src", "<%= ResolveUrl("~/Master/Action/Search") %>");
             $("#popup").dialog("open");
             return false;   
         }
@@ -671,9 +688,9 @@
             return false;   
         }
 
-        function OpenPopupEmployeeSearch()
+        function OpenPopupEmployeeSearch(src)
         {
-            $("#popup_frame").attr("src", "<%= ResolveUrl("~/Master/Employee/Search") %>");
+            $("#popup_frame").attr("src", "<%= ResolveUrl("~/Master/Employee/Search") %>?src="+src);
             $("#popup").dialog("open");
             return false;   
         }
@@ -690,24 +707,53 @@
        
         }
 
-         function SetPacketDetail(packetId, packetName, price)
+         function SetActionDetail(actionId, actionName, price)
         {
 //        alert(itemId);
 //        alert(itemName);
 //        alert(price);
   $("#popup").dialog("close");
-          $('#PacketId').attr('value', packetId);
-          $('#PacketName').attr('value', packetName);
-               $('#TransDetPrice').attr('value', price.toString());
-            CalculateTotal();
-       
+          $('#ActionId').attr('value', actionId);
+          $('#ActionName').attr('value', actionName);
+         $('#TransDetPrice').attr('value', price.toString());
+            CalculateTotal();       
         }
 
-         function SetEmployeeDetail(employeeId, employeeName)
+         function SetEmployeeDetail(src,employeeId, employeeName)
         { 
+            if (src == "DrId")
+            {
+        //alert(src);
+             $('#DrId').attr('value', employeeId);
+          $('#DrName').attr('value', employeeName);  
+            }
+            else if (src == "TherapistId")
+            {
+             $('#TherapistId').attr('value', employeeId);
+          $('#TherapistName').attr('value', employeeName);
+
+            }
+            else if (src == "MedicianId")
+            {
+             $('#MedicianId').attr('value', employeeId);
+          $('#MedicianName').attr('value', employeeName); 
+            }
             $("#popup").dialog("close");
-          $('#EmployeeId').attr('value', employeeId);
-          $('#EmployeeName').attr('value', employeeName);        
+        }
+        
+            
+        function OpenPopupTransDetItem(detailId,packetId,transDetQty)
+        {
+            var src = '<%= Url.Action("DetailItem", "Inventory") %>';
+            src += '?detailId='+detailId+'&packetId='+packetId+'&transDetQty='+transDetQty;
+            $("#popup_frame").attr("src", src);
+            $("#popup").dialog("open");
+            return false;   
+        }
+
+        function ClosePopUp()
+        {
+         $("#popup").dialog("close");
         }
     </script>
 </asp:Content>

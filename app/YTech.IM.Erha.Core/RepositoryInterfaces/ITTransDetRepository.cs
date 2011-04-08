@@ -3,6 +3,7 @@ using SharpArch.Core.PersistenceSupport.NHibernate;
 using YTech.IM.Erha.Core.Master;
 using YTech.IM.Erha.Core.Transaction;
 using YTech.IM.Erha.Core.Transaction.Inventory;
+using YTech.IM.Erha.Enums;
 
 namespace YTech.IM.Erha.Core.RepositoryInterfaces
 {
@@ -17,5 +18,7 @@ namespace YTech.IM.Erha.Core.RepositoryInterfaces
         IList<TTransDet> GetListByTransId(string transId, Enums.EnumTransactionStatus enumTransactionStatus);
 
         IList<TTransDet> GetListByTrans(TTrans trans);
+
+        IList<TTransDet> GetListByDate(System.DateTime dateFrom, System.DateTime dateTo,EnumTransactionStatus transactionStatus);
     }
 }

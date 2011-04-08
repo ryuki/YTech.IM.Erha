@@ -21,7 +21,6 @@ namespace YTech.IM.Erha.Data.NHibernateMaps.Transaction
                  .GeneratedBy.Assigned();
 
             mapping.References(x => x.TransDetId, "TRANS_DET_ID").Not.Nullable();
-            mapping.References(x => x.ItemCatId, "ITEM_CAT_ID") ;
             mapping.References(x => x.ItemId, "ITEM_ID") ;
             mapping.References(x => x.ItemUomId, "ITEM_UOM_ID") ;
             mapping.Map(x => x.ItemQty, "ITEM_QTY");

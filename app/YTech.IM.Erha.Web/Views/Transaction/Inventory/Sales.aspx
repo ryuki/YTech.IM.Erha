@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/MyMaster.master" AutoEventWireup="true"
-    Inherits="System.Web.Mvc.ViewPage<YTech.IM.Erha.Web.Controllers.ViewModel.TransactionFormViewModel>" %>
+    Inherits="System.Web.Mvc.ViewPage" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
   

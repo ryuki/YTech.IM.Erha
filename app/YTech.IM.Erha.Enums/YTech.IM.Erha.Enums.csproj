@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="EnumAccountCatType.cs" />
     <Compile Include="EnumBloodType.cs" />
+    <Compile Include="EnumCommissionPeople.cs" />
     <Compile Include="EnumCommissionType.cs" />
     <Compile Include="EnumCommonViewData.cs" />
     <Compile Include="EnumCustomerStatus.cs" />

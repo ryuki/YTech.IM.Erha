@@ -19,6 +19,14 @@ namespace YTech.IM.Erha.Enums
         Mutation,
         Adjusment,
         Received,
-        Budgeting
+        Budgeting,
+        Service,
+        DefaultWarehouse,
+        PurchaseAccountId,
+        CashAccountId,
+        IkhtiarLRAccountId,
+        SalesAccountId,
+        ReturPurchaseAccountId,
+        ReturSalesAccountId
     }
 }

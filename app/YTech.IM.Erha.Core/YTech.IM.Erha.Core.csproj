@@ -105,6 +105,7 @@
     <Compile Include="RepositoryInterfaces\IRefAddressRepository.cs" />
     <Compile Include="RepositoryInterfaces\IRefPersonRepository.cs" />
     <Compile Include="RepositoryInterfaces\ITAbsentRepository.cs" />
+    <Compile Include="RepositoryInterfaces\ITCommissionRepository.cs" />
     <Compile Include="RepositoryInterfaces\ITJournalDetRepository.cs" />
     <Compile Include="RepositoryInterfaces\ITJournalRefRepository.cs" />
     <Compile Include="RepositoryInterfaces\ITJournalRepository.cs" />
@@ -126,6 +127,7 @@
     <Compile Include="Transaction\Accounting\TRecAccount.cs" />
     <Compile Include="Transaction\Accounting\TRecPeriod.cs" />
     <Compile Include="Transaction\HR\TAbsent.cs" />
+    <Compile Include="Transaction\Inventory\TCommission.cs" />
     <Compile Include="Transaction\Inventory\TStock.cs" />
     <Compile Include="Transaction\Inventory\TStockCard.cs" />
     <Compile Include="Transaction\Inventory\TStockItem.cs" />

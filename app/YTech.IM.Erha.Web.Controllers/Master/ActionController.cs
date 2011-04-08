@@ -33,6 +33,11 @@ namespace YTech.IM.Erha.Web.Controllers.Master
             return View();
         }
 
+        public ActionResult Search()
+        {
+            return View();
+        }
+
         [Transaction]
         public virtual ActionResult List(string sidx, string sord, int page, int rows)
         {
@@ -56,11 +61,44 @@ namespace YTech.IM.Erha.Web.Controllers.Master
                             action.ActionName,
                             action.ActionCatId != null ? action.ActionCatId.Id : null, 
                             action.ActionCatId != null ? action.ActionCatId.ActionCatName : null, 
+                            action.ActionStatus,
                             action.ActionPrice.HasValue ? action.ActionPrice.Value.ToString(Helper.CommonHelper.NumberFormat):null,
                             action.ActionComponentTool.HasValue ? action.ActionComponentTool.Value.ToString(Helper.CommonHelper.NumberFormat):null,
                             action.ActionComponentMedician.HasValue ? action.ActionComponentMedician.Value.ToString(Helper.CommonHelper.NumberFormat):null,
                             action.ActionComponentDoctor.HasValue ? action.ActionComponentDoctor.Value.ToString(Helper.CommonHelper.NumberFormat):null,
                             action.ActionComponentTherapist.HasValue ? action.ActionComponentTherapist.Value.ToString(Helper.CommonHelper.NumberFormat):null, 
+                          action.ActionDesc
+                        }
+                    }).ToArray()
+            };
+
+
+            return Json(jsonData, JsonRequestBehavior.AllowGet);
+        }
+
+        [Transaction]
+        public virtual ActionResult ListSearch(string sidx, string sord, int page, int rows)
+        {
+            int totalRecords = 0;
+            var actions = _mActionRepository.GetPagedActionListByStatus(sidx, sord, page, rows, ref totalRecords, "Aktif");
+            int pageSize = rows;
+            int totalPages = (int)Math.Ceiling((float)totalRecords / (float)pageSize);
+            var jsonData = new
+            {
+                total = totalPages,
+                page = page,
+                records = totalRecords,
+                rows = (
+                    from action in actions
+                    select new
+                    {
+                        i = action.Id,
+                        cell = new string[] {
+                            action.Id, 
+                            action.ActionName,
+                            action.ActionCatId != null ? action.ActionCatId.Id : null, 
+                            action.ActionCatId != null ? action.ActionCatId.ActionCatName : null, 
+                            action.ActionPrice.HasValue ? action.ActionPrice.Value.ToString(Helper.CommonHelper.NumberFormat):null,
                           action.ActionDesc
                         }
                     }).ToArray()

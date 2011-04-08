@@ -14,7 +14,11 @@ namespace YTech.IM.Erha.Web.Controllers.ViewModel.Reports
         public decimal TotalUsed { get; set; }
         public string WarehouseId { get; set; }
         public string WarehouseName { get; set; }
-        public string PacketName { get; set; }
+        public string ActionName { get; set; }
         public string EmployeeName { get; set; }
+        public string DoctorName { get; set;  }
+        public string TherapistName { get; set;  }
+        public string MedicianName { get; set; }
+        public DateTime TransDate { get; set; }
     }
 }

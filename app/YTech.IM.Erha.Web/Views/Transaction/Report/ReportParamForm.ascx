@@ -101,12 +101,28 @@
     </tr>
 </table>
 <% } %>
+
+<form action='<%= ResolveUrl("~/ReportViewer.aspx") %>' method="post" target="_blank" id="formid">
+   <input type="hidden" name="rpt" id="rpt" />
+   <input type="hidden" name="dataSource" id="dataSource" />
+   <input type="hidden" name="dataSourceName" id="dataSourceName" />
+</form>
+
 <script language="javascript" type="text/javascript">
     function onSavedSuccess(e) {
         var json = e.get_response().get_object();
+        //set value reports
+//        alert(json.UrlReport);
+//        $("#rpt").val(json.UrlReport);
+//        alert(json.DataSourceName);
+//        $("#dataSourceName").val(json.DataSourceName);
+//        alert(json.RptDataSource);
+//        $("#dataSource").val(json.RptDataSource);
+
         var urlreport ='<%= ResolveUrl("~/ReportViewer.aspx?rpt=") %>' + json.UrlReport;
         //alert(urlreport);
         window.open(urlreport);
+        //$("#formid").submit();
     }
     
     $(document).ready(function () {

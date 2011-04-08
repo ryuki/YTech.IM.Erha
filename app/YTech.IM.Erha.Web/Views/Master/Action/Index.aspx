@@ -128,13 +128,14 @@
                 url: '<%= Url.Action("List", "Action") %>',
                 datatype: 'json',
                 mtype: 'GET',
-                colNames: ['','Kode Tindakan', 'Nama', 'Kategori Tindakan', 'Kategori Tindakan', 'Harga Jual', 'Alat & Bahan', 'Jasa Medis', 'Jasa Dokter', 'Jasa Terapis', 'Keterangan'],
+                colNames: ['','Kode Tindakan', 'Nama', 'Kategori Tindakan', 'Kategori Tindakan','Status', 'Harga Jual', 'Alat & Bahan', 'Jasa Medis', 'Jasa Dokter', 'Jasa Terapis', 'Keterangan'],
                 colModel: [
                     { name: 'act', index: 'act', width: 75, sortable: false },
                     { name: 'Id', index: 'Id', width: 100, align: 'left', key: true, editrules: { required: true, edithidden: false }, hidedlg: true, hidden: false, editable: true },
                     { name: 'ActionName', index: 'ActionName', width: 200, align: 'left', editable: true, edittype: 'text', editrules: { required: true }, formoptions: { elmsuffix: ' *'} },
                     { name: 'ActionCatId', index: 'ActionCatId', width: 200, align: 'left', editable: true, edittype: 'select', editrules: { edithidden: true }, hidden: true },
                     { name: 'ActionCatName', index: 'ActionCatName', width: 200, align: 'left', editable: false, edittype: 'select', editrules: { edithidden: true} },
+                   { name: 'ActionStatus', index: 'ActionStatus', width: 200, sortable: true, align: 'left', editable: true, edittype: 'checkbox', editoptions: { value: "Aktif:Tidak Aktif" }, editrules: { required: false} },
                      { name: 'ActionPrice', index: 'ActionPrice', width: 200, sortable: false, align: 'right', editable: true, editrules: { required: false },
                          editoptions: {
                              dataInit: function (elem) {

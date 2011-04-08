@@ -21,9 +21,7 @@ namespace YTech.IM.Erha.Web.Controllers.ViewModel
         {
             BillingFormViewModel viewModel = new BillingFormViewModel();
 
-            viewModel.SpaManRoomList = GetRoomViewModel(transRoomRepository, mRoomRepository.GetListByRoomType(EnumRoomType.SpaMan));
-            viewModel.SpaWomanRoomList = GetRoomViewModel(transRoomRepository, mRoomRepository.GetListByRoomType(EnumRoomType.SpaWomen));
-            viewModel.ReflexyRoomList = GetRoomViewModel(transRoomRepository, mRoomRepository.GetListByRoomType(EnumRoomType.Reflexy));
+            viewModel.RoomsList = GetRoomViewModel(transRoomRepository, mRoomRepository.GetAll());
 
             //var listCustomer = mCustomerRepository.GetAll();
             //MCustomer mCustomer = new MCustomer();
@@ -45,6 +43,7 @@ namespace YTech.IM.Erha.Web.Controllers.ViewModel
             TTrans trans = new TTrans();
             trans.SetAssignedIdTo(Guid.NewGuid().ToString());
             trans.TransDiscount = 0;
+            trans.TransDate = DateTime.Today;
             viewModel.Trans = trans;
 
             TTransRoom transRoom = new TTransRoom();
@@ -78,9 +77,7 @@ namespace YTech.IM.Erha.Web.Controllers.ViewModel
         public TTransRoom TransRoom { get; internal set; }
         public IList<TTransDet> ListOfTransDet { get; internal set; }
 
-        public IList<RoomViewModel> SpaManRoomList { get; internal set; }
-        public IList<RoomViewModel> SpaWomanRoomList { get; internal set; }
-        public IList<RoomViewModel> ReflexyRoomList { get; internal set; }
+        public IList<RoomViewModel> RoomsList { get; internal set; }
         public SelectList CustomerList { get; internal set; }
         public SelectList TherapistList { get; internal set; }
     }

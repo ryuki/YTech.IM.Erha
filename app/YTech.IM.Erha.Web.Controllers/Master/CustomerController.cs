@@ -34,9 +34,50 @@ namespace YTech.IM.Erha.Web.Controllers.Master
             this._refAddressRepository = refAddressRepository;
         }
 
+
+
+        public ActionResult Search()
+        {
+            return View();
+        }
+
         public ActionResult Index()
         {
             return View();
+        }
+
+        [Transaction]
+        public virtual ActionResult ListSearch(string sidx, string sord, int page, int rows, string searchBy, string searchText)
+        {
+            int totalRecords = 0;
+            var custs = _mCustomerRepository.GetPagedCustomerList(sidx, sord, page, rows, ref totalRecords, searchBy, searchText);
+            int pageSize = rows;
+            int totalPages = (int)Math.Ceiling((float)totalRecords / (float)pageSize);
+            var jsonData = new
+            {
+                total = totalPages,
+                page = page,
+                records = totalRecords,
+                rows = (
+                    from cust in custs
+                    select new
+                    {
+                        i = cust.Id.ToString(),
+                        cell = new string[] {
+                            cust.Id,  
+                          cust.PersonId != null?  cust.PersonId.PersonName : null,  
+                          cust.PersonId != null?  cust.PersonId.PersonGender : null, 
+                             cust.AddressId != null?  cust.AddressId.AddressLine1 : null, 
+                          cust.AddressId != null?  cust.AddressId.AddressLine2 : null,
+                          cust.AddressId != null?  cust.AddressId.AddressPhone : null,
+                          cust.AddressId != null?  cust.AddressId.AddressCity : null,
+                            cust.CustomerDesc,
+                        }
+                    }).ToArray()
+            };
+
+
+            return Json(jsonData, JsonRequestBehavior.AllowGet);
         }
 
         [Transaction]

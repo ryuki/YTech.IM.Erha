@@ -6,9 +6,12 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Microsoft.Reporting.WebForms;
+using YTech.IM.Erha.Core.Master;
 using YTech.IM.Erha.Core.RepositoryInterfaces;
 using YTech.IM.Erha.Core.Transaction;
 using YTech.IM.Erha.Data.Repository;
+using Newtonsoft.Json;
+using System.Web.Script.Serialization;
 
 namespace YTech.IM.Erha.Web
 {
@@ -26,6 +29,30 @@ namespace YTech.IM.Erha.Web
                 rv.LocalReport.ReportPath = Server.MapPath(string.Format("~/Views/Transaction/Report/{0}.rdlc", rpt));
 
                 rv.LocalReport.DataSources.Clear();
+                ////get datasorce
+                //var ds = Request.Form["dataSource"];
+                //string dsName =string.Format("{0}", Request.Form["dataSourceName"]);
+                //var datasource = JsonConvert.DeserializeObject<ReportDataSource[]>(ds);
+                //Type t = Type.GetType(dsName);
+                //var r = Activator.CreateInstance(t);
+          
+                ////ReportDataSource reportDataSource = new ReportDataSource(dsName, datasource);
+                ////rv.LocalReport.DataSources.Add(reportDataSource);
+                //ReportDataSource[] repCol = datasource as ReportDataSource[];
+                //if (repCol != null)
+                //{
+                //    foreach (ReportDataSource d in repCol)
+                //    {
+                //        ReportDataSource newds = new ReportDataSource();
+                //        newds.Name = d.Name;
+                //        newds.Value = GetList(d.Value.ToString(),dsName);
+
+                //        //new JavaScriptSerializer().Deserialize<IList<MBrand>>(d.Value.ToString());
+                //        // JsonConvert.DeserializeAnonymousType(d.Value.ToString(), t);
+                //        rv.LocalReport.DataSources.Add(newds);
+                //    }
+                //}
+
                 ReportDataSource[] repCol = Session["ReportData"] as ReportDataSource[];
                 if (repCol != null)
                 {
@@ -41,6 +68,16 @@ namespace YTech.IM.Erha.Web
 
                 rv.LocalReport.Refresh();
             }
+        }
+
+        private object GetList(string datasource, string dsName)
+        {
+            Type t = Type.GetType(dsName);
+            //if (dsName.Equals(typeof(MBrand).AssemblyQualifiedName))
+            {
+                return JsonConvert.DeserializeObject(datasource, t);
+            }
+            return null;
         }
     }
 }

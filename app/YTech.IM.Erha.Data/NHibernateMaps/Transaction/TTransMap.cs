@@ -19,13 +19,13 @@ namespace YTech.IM.Erha.Data.NHibernateMaps.Transaction
             mapping.Id(x => x.Id, "TRANS_ID")
                  .GeneratedBy.Assigned();
 
-            mapping.References(x => x.WarehouseId, "WAREHOUSE_ID").Fetch.Join();
-            mapping.References(x => x.WarehouseIdTo, "WAREHOUSE_ID_TO").Fetch.Join();
+            mapping.References(x => x.WarehouseId, "WAREHOUSE_ID").LazyLoad();
+            mapping.References(x => x.WarehouseIdTo, "WAREHOUSE_ID_TO").LazyLoad();
             mapping.Map(x => x.TransDate, "TRANS_DATE");
             mapping.Map(x => x.TransBy, "TRANS_BY");
-            mapping.References(x => x.TransRefId, "TRANS_REF_ID").Fetch.Join();
+            mapping.References(x => x.TransRefId, "TRANS_REF_ID").LazyLoad();
             mapping.Map(x => x.TransFactur, "TRANS_FACTUR");
-            mapping.References(x => x.EmployeeId, "EMPLOYEE_ID").Fetch.Join();
+            mapping.References(x => x.EmployeeId, "EMPLOYEE_ID").LazyLoad();
             mapping.Map(x => x.TransDueDate, "TRANS_DUE_DATE");
             mapping.Map(x => x.TransPaymentMethod, "TRANS_PAYMENT_METHOD");
             mapping.Map(x => x.TransSubTotal, "TRANS_SUB_TOTAL");
