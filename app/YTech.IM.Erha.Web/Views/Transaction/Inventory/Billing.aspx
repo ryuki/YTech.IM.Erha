@@ -30,7 +30,7 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="MainContent" runat="server">
     <table>
        <tr>
-            <td align="center" style="width: 45%;">
+            <td align="center" style="width: 95%;">
                 <h2>
                     Ruangan</h2>
             </td>
@@ -220,7 +220,7 @@
             $("#RoomId").val(roomId); 
 //            alert('debug 1');
             
-            var troom = JSON.parse($.ajax({ url: '<%= Url.Action("GetJsonTransRoom","Inventory") %>?roomId=' + roomId, async: false, cache: false, success: function (data, result) { if (!result) alert('Failure to retrieve the troom.'); } }).responseText);
+            var troom = $.parseJSON($.ajax({ url: '<%= Url.Action("GetJsonTransRoom","Inventory") %>?roomId=' + roomId, async: false, cache: false, success: function (data, result) { if (!result) alert('Failure to retrieve the troom.'); } }).responseText);
             $("#TransId").val(troom.Id);
 //            alert(troom.Id);
             if (troom.RoomInDate) {
@@ -293,7 +293,7 @@
             //get trans
             var t = $.ajax({ url: '<%= Url.Action("GetJsonTrans","Inventory") %>?transId=' + troom.Id, async: false, cache: false, success: function (data, result) { if (!result) alert('Failure to retrieve the troom.'); } }).responseText;
 //            alert(t);
-             var trans = JSON.parse(t);
+             var trans = $.parseJSON(t);
 //            alert('debug 4');
               $("#TransBy").val(trans.TransBy);
               $("#TransDiscount").val(trans.TransDiscount);
@@ -310,7 +310,7 @@
                 if (msg) {
 
                 if (msg == "redirect") {
-    var urlreport = '<%= ResolveUrl("~/ReportViewer.aspx?rpt=RptPrintFacturService") %>';
+    var urlreport = '<%= ResolveUrl("~/ReportViewer.aspx?rpt=RptPrintFacturServiceMini") %>';
 //    alert(urlreport);
     window.open(urlreport);
 }
@@ -347,7 +347,7 @@
     function CalculateTotal() {
         var price = $('#TransDetPrice').val().replace(",","");
         var qty = $('#TransDetQty').val().replace(",","");
-        var disc = 0;//$('#TransDetDisc').val().replace(",","");
+        var disc = $('#TransDetDisc').val().replace(",","");
         var subtotal = (price * qty)
         var total = subtotal - (disc * subtotal / 100);
 
@@ -518,9 +518,9 @@
                     $('#TransDetQty').change(function () {
                         CalculateTotal();
                     });
-//                    $('#TransDetDisc').change(function () {
-//                        CalculateTotal();
-//                    }); 
+                    $('#TransDetDisc').change(function () {
+                        CalculateTotal();
+                    }); 
                      $('#imgActionId').click(function(){
                         OpenPopupActionSearch();
                         });
@@ -579,8 +579,8 @@
             datatype: 'json',
             mtype: 'GET',
             colNames: ['Id', 'Kode Tindakan', 'Nama Tindakan', 'Kuantitas', 'Harga', 
-            //'Diskon', 
-            'Total', 'Kode Dokter', 'Nama Dokter', 'Kode Terapis', 'Nama Terapis', 'Kode Jasa Medis', 'Nama Jasa Medis'],
+            'Diskon', 
+            'Total', 'Kode Dokter', 'Nama Dokter', 'Kode Terapis', 'Nama Terapis', 'Kode Perawat', 'Nama Perawat'],
             colModel: [
                     { name: 'Id', index: 'Id', width: 100, align: 'left', key: true, editrules: { required: true, edithidden: false }, hidedlg: true, hidden: true, editable: false },
                     { name: 'ActionId', index: 'ActionId', width: 200, align: 'left', editable: true, edittype: 'text', editrules: {  required: true,edithidden: true }, hidden: true,
@@ -605,14 +605,14 @@
                            }
                        }
                         },
-//                   { name: 'TransDetDisc', index: 'TransDetDisc', width: 200, sortable: false, align: 'right', editable: true, editrules: { required: false },
-//                       editoptions: {
-//                           dataInit: function (elem) {
-//                               $(elem).autoNumeric();
-//                               $(elem).attr("style","text-align:right;");
-//                           }
-//                       }
-//                        },
+                   { name: 'TransDetDisc', index: 'TransDetDisc', width: 200, sortable: false, align: 'right', editable: true, editrules: { required: false },
+                       editoptions: {
+                           dataInit: function (elem) {
+                               $(elem).autoNumeric();
+                               $(elem).attr("style","text-align:right;");
+                           }
+                       }
+                        },
                    { name: 'TransDetTotal', index: 'TransDetTotal', width: 200, sortable: false, align: 'right', editable: true, editrules: { required: false } ,
                        editoptions: {
                            dataInit: function (elem) {
@@ -621,17 +621,17 @@
                            }
                        }
                         }, 
-               { name: 'DrId', index: 'DrId', width: 200, align: 'left', editable: true, edittype: 'text', editrules: { required: true,edithidden: true }, hidden: true,
+               { name: 'DrId', index: 'DrId', width: 200, align: 'left', editable: true, edittype: 'text', editrules: { required: false,edithidden: true }, hidden: true,
                        formoptions: {
                         "elmsuffix": "&nbsp;<img src='" + imgLov + "' style='cursor:hand;' id='imgDrId' />"
                     } }, 
                     { name: 'DrName', index: 'DrName', width: 200, align: 'left', editable: true, edittype: 'text', editrules: { edithidden: true} }, 
-               { name: 'TherapistId', index: 'TherapistId', width: 200, align: 'left', editable: true, edittype: 'text', editrules: { required: true,edithidden: true }, hidden: true,
+               { name: 'TherapistId', index: 'TherapistId', width: 200, align: 'left', editable: true, edittype: 'text', editrules: { required: false,edithidden: true }, hidden: true,
                        formoptions: {
                         "elmsuffix": "&nbsp;<img src='" + imgLov + "' style='cursor:hand;' id='imgTherapistId' />"
                     } }, 
                     { name: 'TherapistName', index: 'TherapistName', width: 200, align: 'left', editable: true, edittype: 'text', editrules: { edithidden: true} }, 
-               { name: 'MedicianId', index: 'MedicianId', width: 200, align: 'left', editable: true, edittype: 'text', editrules: { required: true,edithidden: true }, hidden: true,
+               { name: 'MedicianId', index: 'MedicianId', width: 200, align: 'left', editable: true, edittype: 'text', editrules: { required: false,edithidden: true }, hidden: true,
                        formoptions: {
                         "elmsuffix": "&nbsp;<img src='" + imgLov + "' style='cursor:hand;' id='imgMedicianId' />"
                     } }, 

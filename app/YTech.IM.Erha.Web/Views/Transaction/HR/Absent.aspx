@@ -30,7 +30,11 @@
         function refreshEmployeeTable() {
             var ex = $('#tableAbsent');
             var workdate = $('#txtWorkDate').val();
-            var itemCats = JSON.parse($.ajax({ url: '<%= Url.Action("GetAbsentByDate","HR") %>?workDate=' + workdate, async: false, cache: false, success: function (data, result) { if (!result) alert('Failure to retrieve the ItemCats.'); } }).responseText);
+            //alert(workdate);
+            var absents = $.ajax({ url: '<%= Url.Action("GetAbsentByDate","HR") %>?workDate=' + workdate, async: false, cache: false, success: function (data, result) { if (!result) alert('Failure to retrieve the absents.'); } }).responseText;
+            //alert(absents);
+            var itemCats = $.parseJSON(absents);
+            //alert(itemCats);
             var tbl = '<tr><th>Kode Karyawan</th><th>Nama Karyawan</th><th>Status</th><th>Jam Masuk</th><th>Jam Keluar</th><th>Keterangan</th></tr>';
             ex.html(tbl);
 

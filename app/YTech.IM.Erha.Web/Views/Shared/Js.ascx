@@ -18,6 +18,7 @@
     <script src="<%= Url.Content("~/Scripts/Templates/MicrosoftAjaxTemplates.js") %>"
         type="text/javascript"></script>
     <script src="<%= Url.Content("~/Scripts/MicrosoftMvcValidation.debug.js") %>" type="text/javascript"></script>--%>
+   <%-- <script src="<%= Url.Content("~/Scripts/json2.js") %>" type="text/javascript"></script>--%>
     <script src="<%= Url.Content("~/Scripts/jquery-1.4.4.min.js") %>" type="text/javascript"></script>
    <%-- <script src="<%= Url.Content("~/Scripts/samplebrowser.js") %>" type="text/javascript"></script>--%>
     <link href="<%= Url.Content("~/Content/ui.jqgrid.css") %>" rel="stylesheet" type="text/css" />

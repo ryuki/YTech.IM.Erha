@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Report xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2008/01/reportdefinition">
   <DataSources>
     <DataSource Name="YTechIMSenseWebControllersViewModelReports">
@@ -339,10 +339,10 @@
         <TablixBody>
           <TablixColumns>
             <TablixColumn>
-              <Width>0.42325in</Width>
+              <Width>0.99139in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>0.97404in</Width>
+              <Width>0.41294in</Width>
             </TablixColumn>
             <TablixColumn>
               <Width>1.20595in</Width>
@@ -432,7 +432,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Fields!TransDetQty.Value</Value>
+                              <Value>=Format(Fields!TransDetQty.Value,"N0") &amp; " @ " &amp; Format(Fields!TransDetPrice.Value,"N2")</Value>
                               <Style>
                                 <FontFamily>Times New Roman</FontFamily>
                                 <Format>N0</Format>
@@ -440,7 +440,7 @@
                             </TextRun>
                           </TextRuns>
                           <Style>
-                            <TextAlign>Right</TextAlign>
+                            <TextAlign>Left</TextAlign>
                           </Style>
                         </Paragraph>
                       </Paragraphs>
@@ -459,14 +459,14 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="TransDetPrice">
+                    <Textbox Name="TransDetDisc">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Fields!TransDetPrice.Value</Value>
+                              <Value>=Fields!TransDetDisc.Value</Value>
                               <Style>
                                 <FontFamily>Times New Roman</FontFamily>
                                 <Format>N2</Format>
@@ -478,7 +478,7 @@
                           </Style>
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>TransDetPrice</rd:DefaultName>
+                      <rd:DefaultName>TransDetDisc</rd:DefaultName>
                       <Style>
                         <Border>
                           <Style>None</Style>
@@ -489,6 +489,7 @@
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
                     </Textbox>
+                    <rd:Selected>true</rd:Selected>
                   </CellContents>
                 </TablixCell>
                 <TablixCell>
@@ -550,7 +551,7 @@
         <DataSetName>TransDetViewModel</DataSetName>
         <Top>0.77882in</Top>
         <Height>0.47244in</Height>
-        <Width>2.60324in</Width>
+        <Width>2.61028in</Width>
         <Style>
           <Border>
             <Style>None</Style>

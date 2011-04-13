@@ -486,7 +486,7 @@ namespace YTech.IM.Erha.Web.Controllers.Transaction
                                                          det.ActionId != null ? det.ActionId.ActionName : null,
                                                          det.TransDetQty.HasValue ?  det.TransDetQty.Value.ToString(Helper.CommonHelper.NumberFormat) : null,
                                                         det.TransDetPrice.HasValue ?  det.TransDetPrice.Value.ToString(Helper.CommonHelper.NumberFormat) : null,
-                                                        //det.TransDetDisc.HasValue ?   det.TransDetDisc.Value.ToString(Helper.CommonHelper.NumberFormat) : null,
+                                                       det.TransDetDisc.HasValue ?   det.TransDetDisc.Value.ToString(Helper.CommonHelper.NumberFormat) : null,
                                                         det.TransDetTotal.HasValue ?   det.TransDetTotal.Value.ToString(Helper.CommonHelper.NumberFormat) : null,
 EnumCommissionPeople.Doctor.ToString(),
                                                  GetCommissionEmployeeName(det,EnumCommissionPeople.Doctor)   ,
@@ -552,11 +552,21 @@ GetCommissionEmployeeName(det,EnumCommissionPeople.Therapist)   ,
             SaveTransDetailItem(transDetToInsert);
 
             //save commission for doctor
-            SaveCommission(transDetToInsert, action.ActionComponentDoctor, (formCollection["DrId"]), EnumCommissionPeople.Doctor);
+            if (!string.IsNullOrEmpty(formCollection["DrId"]))
+            {
+                  SaveCommission(transDetToInsert, action.ActionComponentDoctor, (formCollection["DrId"]), EnumCommissionPeople.Doctor);
+            }
+          
             //save commission for terapist
+            if (!string.IsNullOrEmpty(formCollection["TherapistId"]))
+            {
             SaveCommission(transDetToInsert, action.ActionComponentTherapist, (formCollection["TherapistId"]), EnumCommissionPeople.Therapist);
+            }
             //save commission for Medician
-            SaveCommission(transDetToInsert, action.ActionComponentMedician, (formCollection["MedicianId"]), EnumCommissionPeople.Medician);
+            if (!string.IsNullOrEmpty(formCollection["MedicianId"]))
+            {
+                SaveCommission(transDetToInsert, action.ActionComponentMedician, (formCollection["MedicianId"]), EnumCommissionPeople.Medician);
+            }
             try
             {
                 _tTransDetRepository.DbContext.CommitTransaction();
