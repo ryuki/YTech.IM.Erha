@@ -30,11 +30,9 @@ namespace YTech.IM.Erha.Data.Repository
             {
                 q.SetEntity("room", room);
             }
-            //q.SetMaxResults(1);
+            q.SetMaxResults(1);
             return q.UniqueResult<TTransRoom>();
         }
-
-
 
         public IList<TTransRoom> GetListByTransDate(DateTime? dateFrom, DateTime? dateTo, EnumTransRoomStatus RoomStatus)
         {
