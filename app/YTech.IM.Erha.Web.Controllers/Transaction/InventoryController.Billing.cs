@@ -100,7 +100,10 @@ namespace YTech.IM.Erha.Web.Controllers.Transaction
                               TransDetCommissionProduct = 0,
                               TransDetCommissionService = 0,
                               det.TransDetNo,
-                              det.TransDetTotal
+                              det.TransDetTotal,
+                              DoctorName = GetCommissionEmployeeName(det, EnumCommissionPeople.Doctor),
+                              TherapistName = GetCommissionEmployeeName(det, EnumCommissionPeople.Therapist),
+                              MedicianName = GetCommissionEmployeeName(det, EnumCommissionPeople.Medician)
                           }
       ;
             reportDataSource = new ReportDataSource("TransDetViewModel", listDet.ToList());
@@ -554,13 +557,13 @@ GetCommissionEmployeeName(det,EnumCommissionPeople.Therapist)   ,
             //save commission for doctor
             if (!string.IsNullOrEmpty(formCollection["DrId"]))
             {
-                  SaveCommission(transDetToInsert, action.ActionComponentDoctor, (formCollection["DrId"]), EnumCommissionPeople.Doctor);
+                SaveCommission(transDetToInsert, action.ActionComponentDoctor, (formCollection["DrId"]), EnumCommissionPeople.Doctor);
             }
-          
+
             //save commission for terapist
             if (!string.IsNullOrEmpty(formCollection["TherapistId"]))
             {
-            SaveCommission(transDetToInsert, action.ActionComponentTherapist, (formCollection["TherapistId"]), EnumCommissionPeople.Therapist);
+                SaveCommission(transDetToInsert, action.ActionComponentTherapist, (formCollection["TherapistId"]), EnumCommissionPeople.Therapist);
             }
             //save commission for Medician
             if (!string.IsNullOrEmpty(formCollection["MedicianId"]))

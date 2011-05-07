@@ -86,8 +86,8 @@
                         </tr>
                         <tr>
                             <td>
-                                <label for="Trans_TransBy">
-                                    Konsumen :</label>
+                                <label for="TransBy">
+                                    Pasien :</label>
                             </td>
                             <td nowrap="nowrap">
                                 <%=Html.TextBox("TransBy", Model.Trans != null ? Model.Trans.TransBy : "", new {style="width:120px;"})%>
@@ -269,7 +269,7 @@
                 $('#btnIn').attr('disabled', '');
                 $('#btnOut').attr('disabled', 'disabled');
                 $('#btnCancel').attr('disabled', 'disabled');  
-                $('#btnPrint').attr('disabled', 'disabled');                
+                $('#btnPrint').attr('disabled', 'disabled');                     $("#imgCustomerId").click();
             }
             else if (troom.RoomStatus == 'In') {
                 $("#detail_list").show();
