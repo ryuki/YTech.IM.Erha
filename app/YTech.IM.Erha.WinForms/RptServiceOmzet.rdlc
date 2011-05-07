@@ -831,7 +831,6 @@
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
                     </Textbox>
-                    <rd:Selected>true</rd:Selected>
                   </CellContents>
                 </TablixCell>
                 <TablixCell>
@@ -1225,6 +1224,14 @@
             </TablixMember>
             <TablixMember>
               <Group Name="Details" />
+              <SortExpressions>
+                <SortExpression>
+                  <Value>=Fields!TransDate.Value</Value>
+                </SortExpression>
+                <SortExpression>
+                  <Value>=Fields!TransFactur.Value</Value>
+                </SortExpression>
+              </SortExpressions>
             </TablixMember>
             <TablixMember>
               <KeepWithGroup>Before</KeepWithGroup>
@@ -1522,7 +1529,7 @@ Format(Max(Fields!TransDate.Value, "TransRoomViewModel"),"dd-MMM-yyyy")</Value>
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>(                               )</Value>
+                <Value>( _____________ )</Value>
                 <Style>
                   <FontWeight>Bold</FontWeight>
                 </Style>
@@ -1577,9 +1584,6 @@ Format(Max(Fields!TransDate.Value, "TransRoomViewModel"),"dd-MMM-yyyy")</Value>
           <Border>
             <Style>None</Style>
           </Border>
-          <TopBorder>
-            <Style>Solid</Style>
-          </TopBorder>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
           <PaddingTop>2pt</PaddingTop>
@@ -1593,9 +1597,12 @@ Format(Max(Fields!TransDate.Value, "TransRoomViewModel"),"dd-MMM-yyyy")</Value>
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>(                            )</Value>
+                <Value>( _____________ )</Value>
                 <Style>
+                  <FontStyle>Normal</FontStyle>
                   <FontWeight>Bold</FontWeight>
+                  <TextDecoration>None</TextDecoration>
+                  <Color>#000000</Color>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -1648,9 +1655,6 @@ Format(Max(Fields!TransDate.Value, "TransRoomViewModel"),"dd-MMM-yyyy")</Value>
           <Border>
             <Style>None</Style>
           </Border>
-          <TopBorder>
-            <Style>Solid</Style>
-          </TopBorder>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
           <PaddingTop>2pt</PaddingTop>
@@ -1664,9 +1668,12 @@ Format(Max(Fields!TransDate.Value, "TransRoomViewModel"),"dd-MMM-yyyy")</Value>
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>(                                  )</Value>
+                <Value>( _____________ )</Value>
                 <Style>
+                  <FontStyle>Normal</FontStyle>
                   <FontWeight>Bold</FontWeight>
+                  <TextDecoration>None</TextDecoration>
+                  <Color>#000000</Color>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -1719,9 +1726,6 @@ Format(Max(Fields!TransDate.Value, "TransRoomViewModel"),"dd-MMM-yyyy")</Value>
           <Border>
             <Style>None</Style>
           </Border>
-          <TopBorder>
-            <Style>Solid</Style>
-          </TopBorder>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
           <PaddingTop>2pt</PaddingTop>

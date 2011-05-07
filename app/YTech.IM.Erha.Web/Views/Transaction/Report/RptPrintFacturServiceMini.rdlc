@@ -394,7 +394,9 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value />
+                              <Value>=iif(Fields!DoctorName.Value &lt;&gt; "",Fields!DoctorName.Value &amp; system.Environment.NewLine,"") &amp;
+iif	(Fields!TherapistName.Value &lt;&gt; "",Fields!TherapistName.Value &amp; system.Environment.NewLine,"") &amp;
+iif	(Fields!MedicianName.Value &lt;&gt; "",Fields!MedicianName.Value &amp; system.Environment.NewLine,"")</Value>
                               <Style>
                                 <FontFamily>Times New Roman</FontFamily>
                               </Style>
@@ -489,7 +491,6 @@
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
                     </Textbox>
-                    <rd:Selected>true</rd:Selected>
                   </CellContents>
                 </TablixCell>
                 <TablixCell>
@@ -1360,7 +1361,7 @@
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>Jl. Gatot Subroto </Value>
+                  <Value>Jl. Gatot Subroto No. 36 D</Value>
                   <Style>
                     <FontFamily>Times New Roman</FontFamily>
                   </Style>
