@@ -1387,7 +1387,7 @@ iif	(Fields!MedicianName.Value &lt;&gt; "",Fields!MedicianName.Value &amp; syste
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>Telp. (0761) </Value>
+                  <Value>Telp. (0761) 856078 / 888890</Value>
                   <Style>
                     <FontFamily>Times New Roman</FontFamily>
                   </Style>
