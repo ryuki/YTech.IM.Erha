@@ -78,7 +78,7 @@ namespace YTech.IM.Erha.Web.Controllers.Transaction
                            t.TransDesc,
                            t.TransDiscount,
                            t.TransStatus,
-                           CustomerName = GetCustomerName(t.TransBy),
+                           CustomerName = Helper.CommonHelper.GetCustomerName(_mCustomerRepository, t.TransBy),
                            t.TransGrandTotal
                        }
        ;
@@ -129,19 +129,6 @@ namespace YTech.IM.Erha.Web.Controllers.Transaction
             reportDataSource = new ReportDataSource("TransRoomViewModel", listRoom.ToList());
             repCol[2] = reportDataSource;
             Session["ReportData"] = repCol;
-        }
-
-        private string GetCustomerName(string customerId)
-        {
-            if (!string.IsNullOrEmpty(customerId))
-            {
-                MCustomer cust = _mCustomerRepository.Get(customerId);
-                if (cust != null)
-                {
-                    return cust.PersonId.PersonName;
-                }
-            }
-            return string.Empty;
         }
 
         private ActionResult CancelTransRoom(TTrans Trans, FormCollection formCollection)
@@ -376,7 +363,7 @@ namespace YTech.IM.Erha.Web.Controllers.Transaction
             string CustomerName = string.Empty;
             if (!string.IsNullOrEmpty(trans.TransBy))
             {
-                CustomerName = GetCustomerName(trans.TransBy);
+                CustomerName = Helper.CommonHelper.GetCustomerName(_mCustomerRepository, trans.TransBy);
             }
             var j = new
             {
@@ -710,7 +697,7 @@ GetCommissionEmployeeName(det,EnumCommissionPeople.Therapist)   ,
                             troom.Id,  
                             troom.TransId.TransFactur,
                         troom.TransId.TransDate.HasValue ?  troom.TransId.TransDate.Value.ToString(Helper.CommonHelper.DateFormat) : null,
-                      GetCustomerName(troom.TransId.TransBy),
+                        Helper.CommonHelper.GetCustomerName(_mCustomerRepository, troom.TransId.TransBy),
                           troom.RoomId.RoomName,
                         troom.RoomInDate.HasValue ?  troom.RoomInDate.Value.ToString(Helper.CommonHelper.TimeFormat) : null,
                         troom.RoomOutDate.HasValue ?  troom.RoomOutDate.Value.ToString(Helper.CommonHelper.TimeFormat) : null,

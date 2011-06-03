@@ -45,8 +45,9 @@ namespace YTech.IM.Erha.Web.Controllers.Transaction
         private readonly ITTransRoomRepository _tTransRoomRepository;
         private readonly ITTransRepository _tTransRepository;
         private readonly ITCommissionRepository _tCommissionRepository;
+        private readonly IMCustomerRepository _mCustomerRepository;
 
-        public ReportController(ITJournalRepository tJournalRepository, ITJournalDetRepository tJournalDetRepository, IMCostCenterRepository mCostCenterRepository, IMAccountRepository mAccountRepository, ITRecAccountRepository tRecAccountRepository, ITRecPeriodRepository tRecPeriodRepository, IMBrandRepository mBrandRepository, IMSupplierRepository mSupplierRepository, IMWarehouseRepository mWarehouseRepository, IMItemRepository mItemRepository, ITStockCardRepository tStockCardRepository, ITStockItemRepository tStockItemRepository, ITTransDetRepository tTransDetRepository, ITTransRepository tTransRepository, ITTransRoomRepository tTransRoomRepository, ITCommissionRepository tCommissionRepository)
+        public ReportController(ITJournalRepository tJournalRepository, ITJournalDetRepository tJournalDetRepository, IMCostCenterRepository mCostCenterRepository, IMAccountRepository mAccountRepository, ITRecAccountRepository tRecAccountRepository, ITRecPeriodRepository tRecPeriodRepository, IMBrandRepository mBrandRepository, IMSupplierRepository mSupplierRepository, IMWarehouseRepository mWarehouseRepository, IMItemRepository mItemRepository, ITStockCardRepository tStockCardRepository, ITStockItemRepository tStockItemRepository, ITTransDetRepository tTransDetRepository, ITTransRepository tTransRepository, ITTransRoomRepository tTransRoomRepository, ITCommissionRepository tCommissionRepository, IMCustomerRepository mCustomerRepository)
         {
             Check.Require(tJournalRepository != null, "tJournalRepository may not be null");
             Check.Require(tJournalDetRepository != null, "tJournalDetRepository may not be null");
@@ -64,6 +65,7 @@ namespace YTech.IM.Erha.Web.Controllers.Transaction
             Check.Require(tTransRepository != null, "tTransRepository may not be null");
             Check.Require(tTransRoomRepository != null, "tTransRoomRepository may not be null");
             Check.Require(tCommissionRepository != null, "tCommissionRepository may not be null");
+            Check.Require(mCustomerRepository != null, "mCustomerRepository may not be null");
 
 
             this._tJournalRepository = tJournalRepository;
@@ -82,6 +84,7 @@ namespace YTech.IM.Erha.Web.Controllers.Transaction
             this._tTransRepository = tTransRepository;
             this._tTransRoomRepository = tTransRoomRepository;
             this._tCommissionRepository = tCommissionRepository;
+            this._mCustomerRepository = mCustomerRepository;
         }
 
         [Transaction]
@@ -106,8 +109,9 @@ namespace YTech.IM.Erha.Web.Controllers.Transaction
                     break;
                 case EnumReports.RptNeraca:
                     title = "Laporan Neraca";
+                    viewModel.ShowDateFrom = true;
+                    viewModel.ShowDateTo = true;
                     viewModel.ShowCostCenter = true;
-                    viewModel.ShowRecPeriod = true;
                     break;
                 case EnumReports.RptLR:
                     title = "Laporan Laba / Rugi";
@@ -145,6 +149,12 @@ namespace YTech.IM.Erha.Web.Controllers.Transaction
                     title = "Lap. Penjualan Berdasar Jlh Tindakan";
                     viewModel.ShowDateFrom = true;
                     viewModel.ShowDateTo = true;
+                    break;
+                case EnumReports.RptBukuBesar:
+                    title = "Laporan Buku Besar";
+                    viewModel.ShowDateFrom = true;
+                    viewModel.ShowDateTo = true;
+                    viewModel.ShowCostCenter = true;
                     break;
             }
             ViewData["CurrentItem"] = title;
@@ -204,6 +214,9 @@ namespace YTech.IM.Erha.Web.Controllers.Transaction
                 case EnumReports.RptSalesByAction:
                     repCol[0] = GetTransDetForTotalAction(viewModel.DateFrom.Value, viewModel.DateTo.Value);
                     break;
+                case EnumReports.RptBukuBesar:
+                    repCol[0] = GetJournalDet(viewModel.DateFrom, viewModel.DateTo, viewModel.CostCenterId);
+                    break;
             }
             Session["ReportData"] = repCol;
 
@@ -212,44 +225,8 @@ namespace YTech.IM.Erha.Web.Controllers.Transaction
                             Success = true,
                             Message = "redirect",
                             UrlReport = string.Format("{0}", reports.ToString())
-                            //DataSourceName = typeof (List<MBrand>).AssemblyQualifiedName,
-                            //RptDataSource =new JavaScriptSerializer().Serialize(repCol)// JsonConvert.SerializeObject(repCol)
                         };
             return Json(e, JsonRequestBehavior.AllowGet);
-            //string reportType = formCollection["ExportFormat"];
-            //string mimeType, encoding, fileNameExtension;
-
-            ////The DeviceInfo settings should be changed based on the reportType
-            ////http://msdn2.microsoft.com/en-us/library/ms155397.aspx
-
-            //string deviceInfo =
-            //"<DeviceInfo>" +
-            //string.Format("  <OutputFormat>{0}</OutputFormat>", formCollection["ExportFormat"]) +
-            //"  <PageWidth>8.5in</PageWidth>" +
-            //"  <PageHeight>11in</PageHeight>" +
-            //"  <MarginTop>0.5in</MarginTop>" +
-            //"  <MarginLeft>0.5in</MarginLeft>" +
-            //"  <MarginRight>0.5in</MarginRight>" +
-            //"  <MarginBottom>0.5in</MarginBottom>" +
-            //"</DeviceInfo>";
-
-            //Warning[] warnings;
-            //string[] streams;
-            //byte[] renderedBytes;
-
-            ////Render the report
-            //renderedBytes = localReport.Render(
-            //    reportType,
-            //    deviceInfo,
-            //    out mimeType,
-            //    out encoding,
-            //    out fileNameExtension,
-            //    out streams,
-            //    out warnings);
-
-            //Response.AddHeader("content-disposition", string.Format("attachment; filename={0}.{1}", reports.ToString(), fileNameExtension));
-
-            //return File(renderedBytes, mimeType);
         }
 
         private ReportDataSource GetTransDetForTotalAction(DateTime dateFrom, DateTime dateTo)
@@ -313,7 +290,8 @@ namespace YTech.IM.Erha.Web.Controllers.Transaction
                                t.TransId.TransSubTotal,
                                t.TransId.TransDiscount,
                                t.TransId.TransDate,
-                               t.TransId.TransGrandTotal
+                               t.TransId.TransGrandTotal,
+                               CustomerName = Helper.CommonHelper.GetCustomerName(_mCustomerRepository, t.TransId.TransBy)
                            }
       ;
             ReportDataSource reportDataSource = new ReportDataSource("TransRoomViewModel", listRoom.ToList());

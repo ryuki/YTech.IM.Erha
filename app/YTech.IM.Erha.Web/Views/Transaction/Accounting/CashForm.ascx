@@ -1,15 +1,15 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="System.Web.Mvc.ViewUserControl<CashFormViewModel>" %>
 <% if (false)
    { %>
-<script src="../../../Scripts/jquery-1.4.1-vsdoc.js" type="text/javascript"></script>
+<script src="../../Scripts/jquery-1.4.1-vsdoc.js" type="text/javascript"></script>
 <% } %>
 <%-- <% using (Html.BeginForm())
    {%> --%>
 <% using (Ajax.BeginForm(new AjaxOptions
                                        {
-                                           UpdateTargetId = "status",
+                                           //UpdateTargetId = "status",
                                            InsertionMode = InsertionMode.Replace,
-                                           OnBegin = "ajaxValidate",
+                                           // OnBegin = "ajaxValidate",
                                            OnSuccess = "onSavedSuccess"
                                        }
 
@@ -31,10 +31,16 @@
     <div>
         <span id="toolbar" class="ui-widget-header ui-corner-all"><a id="newJournal" href="<%= Url.Action(ViewData.Model.Journal.JournalType, "Accounting") %>">
             Baru</a>
-            <button id="Save" type="submit">
+            <button id="btnSave" name="btnSave" type="submit">
                 Simpan</button>
-            <a id="print" href="<%= Url.Action(ViewData.Model.Journal.JournalType, "Accounting") %>">
-                Cetak</a> </span>
+            <button id="btnPrint" name="btnPrint" type="submit">
+                Cetak Bukti</button>
+            <button id="btnPrintKwitansi" name="btnPrintKwitansi" type="submit">
+                Cetak Kwitansi</button>
+            <button id="btnList" name="btnList" type="button">
+                Daftar
+                <%= ViewData.Model.Title %></button>
+        </span>
     </div>
     <table>
         <tr>
@@ -60,7 +66,7 @@
                                 No Voucher :</label>
                         </td>
                         <td>
-                            <%= Html.TextBox("Journal.JournalVoucherNo", Model.Journal.JournalVoucherNo)%>
+                            <%= Html.TextBox("Journal.JournalVoucherNo", Model.Journal.JournalVoucherNo,new { @readonly = "readonly" }) %>
                             <%= Html.ValidationMessage("Journal.JournalVoucherNo")%>
                         </td>
                     </tr>
@@ -84,16 +90,27 @@
                                 Akun Kas :</label>
                         </td>
                         <td>
-                            <%= Html.TextBox("CashAccountId", Model.CashAccountId)%>&nbsp;<img src='<%= Url.Content("~/Content/Images/window16.gif") %>' style='cursor:hand;' id='imgCashAccountId' />
+                            <%= Html.TextBox("CashAccountId", Model.CashAccountId)%>&nbsp;<img src='<%= Url.Content("~/Content/Images/window16.gif") %>'
+                                style='cursor: hand;' id='imgCashAccountId' />
                             <%= Html.ValidationMessage("CashAccountId")%>
                         </td>
                     </tr>
                     <tr>
-                        <td> 
+                        <td>
                         </td>
                         <td>
                             <%= Html.TextBox("CashAccountName", Model.CashAccountName)%>
                             <%= Html.ValidationMessage("CashAccountName")%>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="Journal_JournalPic">
+                                Penerima Kas :</label>
+                        </td>
+                        <td>
+                            <%= Html.TextBox("Journal.JournalPic", Model.Journal.JournalPic)%>
+                            <%= Html.ValidationMessage("Journal.JournalPic")%>
                         </td>
                     </tr>
                     <tr>
@@ -112,7 +129,7 @@
     </table>
 </div>
 <%
-    }
+   }
 %>
 <table id="list" class="scroll" cellpadding="0" cellspacing="0">
 </table>
@@ -125,16 +142,46 @@
     </p>
 </div>
 <div id='popup'>
-    <iframe width='100%' height='380px' id="popup_frame"></iframe>
+    <iframe width='100%' height='380px' id="popup_frame" frameborder="0"></iframe>
 </div>
 <script language="javascript" type="text/javascript">
 
-function onSavedSuccess() {
- $("#Save").attr('disabled', 'disabled');
-}
+    function onSavedSuccess(e) {
+        //alert(e);
+        //$("#Save").attr('disabled', 'disabled');
+        var json = e.get_response().get_object();
+        //alert(json);
+        var success = json.Success;
+        // alert(json.Success);
+        if (success == false) {
+            var msg = json.Message;
+            //        alert(json.Message);
+            if (msg) {
+                if (msg == "redirect") {
+                    var urlreport = json.Data; // '<%= ResolveUrl("~/ReportViewer.aspx?rpt=RptPrintCash") %>';
+                    // alert(urlreport);
+                    window.open(urlreport);
+                }
+                else {
+                    $('#dialog p:first').text(msg);
+                    $("#dialog").dialog("open"); 
+                }
+            return false ;  
+            }
+        }
+        else{
+            $("#btnSave").attr('disabled', 'disabled');
+            $("#btnPrint").attr('disabled', '');
+            $("#btnPrintKwitansi").attr('disabled', '');
+            $('#dialog p:first').text(msg);
+            $("#Journal_JournalVoucherNo").val(json.voucherNo);
+            $("#dialog").dialog("open"); 
+        }
+    }
 
 
 function ajaxValidate() {
+var imgerror = '<%= Url.Content("~/Content/Images/cross.gif") %>';
     return $('form').validate({
     rules: {
         "Journal.JournalDate": { required: true
@@ -151,15 +198,17 @@ function ajaxValidate() {
         "AccountId": { required: true  }
     },
     messages: {
-        "Journal.JournalDate": "<img id='JournalDateerror' src='<%= Url.Content("~/Content/Images/cross.gif") %>' hovertext='Tanggal tidak boleh kosong' />"
+        "Journal.JournalDate": "<img id='JournalDateerror' src='"+imgerror+"' hovertext='Tanggal tidak boleh kosong' />"
 //        {
 //            required: "Tanggal tidak boleh kosong",
 //            date: "Format tanggal salah"
 //            }
             ,
-        "Journal.CostCenterId": "<img id='CostCenterIderror' src='<%= Url.Content("~/Content/Images/cross.gif") %>' hovertext='Pilih cost center' />",
-        "AccountId": "<img id='AccountIderror' src='<%= Url.Content("~/Content/Images/cross.gif") %>' hovertext='Pilih akun kas' />"
-        },        invalidHandler: function(form, validator) {          var errors = validator.numberOfInvalids();
+        "Journal.CostCenterId": "<img id='CostCenterIderror' src='"+imgerror+"' hovertext='Pilih cost center' />",
+        "AccountId": "<img id='AccountIderror' src='"+imgerror+"' hovertext='Pilih akun kas' />"
+        },
+        invalidHandler: function(form, validator) {
+          var errors = validator.numberOfInvalids();
 						  if (errors) {
                           var message = "Validasi data kurang";
 //										var message = errors == 1
@@ -176,41 +225,64 @@ function ajaxValidate() {
 		errorPlacement: function(error, element) { 
 			error.insertAfter(element);
 			//generateTooltips();
-		},
+		}
+
     }).form();
 }
 
 
     $(function () {
         $("#newJournal").button();
-        $("#Save").button();
-        $("#print").hide();
+//        $("#btnSave").button();
+//        $("#btnPrint").button();
+        //$("#btnPrint").hide();
         <% if (TempData[EnumCommonViewData.SaveState.ToString()] != null)
 {
     if (TempData[EnumCommonViewData.SaveState.ToString()].Equals(EnumSaveState.Failed))
     {%>
-   $("#print").attr('disabled', 'disabled');
+   $("#btnPrint").attr('disabled', 'disabled');
+   $("#btnPrintKwitansi").attr('disabled', 'disabled');
     <%
     }
 } else { %>
-  $("#print").attr('disabled', 'disabled');
+  $("#btnPrint").attr('disabled', 'disabled');
+   $("#btnPrintKwitansi").attr('disabled', 'disabled');
 <% } %>
 
         $("#Journal_JournalDate").datepicker({ dateFormat: "dd-M-yy" });
     });
 
+//    var form = $('form');
+//    form.submit(function() {
+//    alert(form.attr('action'));
+//    alert(form.attr('method'));
+//    alert(form.serialize());
+//        $.ajax({
+//            url: form.attr('action'),
+//            type: form.attr('method'),
+//            data: form.serialize(),
+//            success: function(result) {
+//            alert(result);
+//             onSavedSuccess(result);
+//            }
+//        });
+//         return false;
+//});
+ 
     $(document).ready(function () {
+
+//     $("btnPrint").click(function () {
+//               alert($("#Journal.Id").val());
+
+//        });
+
       $("form").mouseover(function () {
                 generateTooltips();
             });
         $("#dialog").dialog({
             autoOpen: false
         });
-
-        $("div#error").dialog({
-            autoOpen: false
-        });
-            
+        
             $("#popup").dialog({
                 autoOpen: false,
                 height: 420,
@@ -223,6 +295,16 @@ function ajaxValidate() {
             
                      $('#imgCashAccountId').click(function () {
                                    OpenPopupCashAccountSearch();
+                               });
+
+        $("div#error").dialog({
+            autoOpen: false
+        });
+
+        $("#btnList").click(function () {
+        var urlList = '<%= ResolveUrl("~/Transaction/Accounting/ListCash") %>';
+          $("#popup_frame").attr("src", urlList+"?src=cc&journalType="+$("#Journal_JournalType").val());
+            $("#popup").dialog("open");
                                });
 
         var editDialog = {
@@ -294,9 +376,9 @@ function ajaxValidate() {
             url: '<%= Url.Action("List", "Accounting") %>',
             datatype: 'json',
             mtype: 'GET',
-            colNames: ['Id', 'Kode Akun', 'Nama Akun', 'No Bukti', 'Status', 'Jumlah', 'Debet', 'Kredit', 'Keterangan'],
+            colNames: ['Id', 'Akun', 'Akun', 'No Bukti', 'Status', 'Jumlah', 'Debet', 'Kredit', 'Keterangan'],
             colModel: [
-                    { name: 'Id', index: 'Id', width: 100, align: 'left', key: true, editrules: { required: true, edithidden: false }, hidedlg: true, hidden: true, editable: false },                  
+                    { name: 'Id', index: 'Id', width: 100, align: 'left', key: true, editrules: { required: true, edithidden: false }, hidedlg: true, hidden: true, editable: false },                 
                    { name: 'AccountId', index: 'AccountId', width: 200, align: 'left', editable: true, edittype: 'text', editrules: { required: false },
                        formoptions: {
                         "elmsuffix": "&nbsp;<img src='" + imgLov + "' style='cursor:hand;' id='imgAccountId' />"
@@ -304,7 +386,7 @@ function ajaxValidate() {
                    { name: 'AccountName', index: 'AccountName', width: 200, align: 'left', editable: true, edittype: 'text', editrules: { required: false} },
                     { name: 'JournalDetEvidenceNo', index: 'JournalDetEvidenceNo', width: 200, sortable: false, align: 'left', editable: true, editrules: { edithidden: true} },
                     { name: 'JournalDetStatus', index: 'JournalDetStatus', width: 200, align: 'left', editable: true, edittype: 'select', editoptions: { value: "D:Debet;K:Kredit" }, editrules: { edithidden: true }, hidden: true, editable: false },
-                    { name: 'JournalDetAmmount', index: 'JournalDetAmmount', width: 200, align: 'right', editable: true, editrules: { edithidden: true }, hidden: false,
+                    { name: 'JournalDetAmmount', index: 'JournalDetAmmount', width: 200, align: 'left', editable: true, editrules: { edithidden: true }, hidden: false,
                         editoptions: {
                             dataInit: function (elem) {
                                 $(elem).autoNumeric();
@@ -327,7 +409,7 @@ function ajaxValidate() {
             caption: 'Daftar Detail',
             autowidth: true,
             loadComplete: function () {
-//                $('#list').setColProp('AccountId', { editoptions: { value: accounts} });
+               // $('#list').setColProp('AccountId', { editoptions: { value: accounts} });
                 $('#listPager_center').hide();
             },
             ondblClickRow: function (rowid, iRow, iCol, e) {
@@ -343,12 +425,13 @@ function ajaxValidate() {
             );
     });
 
-                var accounts = $.ajax({ url: '<%= ResolveUrl("~/Master/Account/GetList") %>', async: false, cache: false, success: function (data, result) { if (!result) alert('Failure to retrieve the accounts.'); } }).responseText;
+                //var accounts = $.ajax({ url: '<%= ResolveUrl("~/Master/Account/GetList") %>', async: false, cache: false, success: function (data, result) { if (!result) alert('Failure to retrieve the accounts.'); } }).responseText;
 
                 
 //function to generate tooltips
 		function generateTooltips() {
-		  //make sure tool tip is enabled for any new error label//          alert('s');
+		  //make sure tool tip is enabled for any new error label
+//          alert('s');
 			$("img[id*='error']").tooltip({
 				showURL: false,
 				opacity: 0.99,
@@ -357,7 +440,8 @@ function ajaxValidate() {
 					bodyHandler: function() {
 						return $("#"+this.id).attr("hovertext");
 					}
-			});
+			});
+
 			//make sure tool tip is enabled for any new valid label
 			$("img[src*='tick.gif']").tooltip({
 				showURL: false,
@@ -367,6 +451,7 @@ function ajaxValidate() {
 			});
 		}
 
+        
         function OpenPopupCashAccountSearch()
   {
           $("#popup_frame").attr("src", "<%= ResolveUrl("~/Master/Account/Search") %>?src=CashAccountId");
@@ -396,7 +481,33 @@ function ajaxValidate() {
      $('#CashAccountId').attr('value', accountId);
           $('#CashAccountName').attr('value', accountName);
 
-  }
-       
-        }   
+  }       
+        } 
+
+        function SetJournalDetail(src,journalId)
+        {
+            $("#popup").dialog("close");
+            var journal = $.parseJSON($.ajax({ url: '<%= Url.Action("GetJsonJournal","Accounting") %>?journalId=' + journalId, async: false, cache: false, success: function (data, result) { if (!result) alert('Failure to retrieve the journal.'); } }).responseText);
+            if (journal) {
+            if (journal.JournalDate)
+                {
+                    var transDate = new Date(parseInt(journal.JournalDate.substr(6)));
+                    //alert('debug 3');
+                    $("#Journal_JournalDate").val(transDate.format('dd-mmm-yyyy'));
+                }
+
+            $("#Journal_Id").val(journal.JournalId); 
+            $("#Journal_JournalVoucherNo").val(journal.JournalVoucherNo);
+            $("#Journal_CostCenterId").val(journal.CostCenterId);
+            $("#CashAccountId").val(journal.CashAccountId);
+            $("#CashAccountName").val(journal.CashAccountName);
+            $("#Journal_JournalPic").val(journal.JournalPic);
+            $("#Journal_JournalDesc").val(journal.JournalDesc); 
+
+            setTimeout("$('#list').trigger('reloadGrid')",1000); 
+            $("#btnPrint").attr('disabled', '');
+            $("#btnPrintKwitansi").attr('disabled', '');
+        }
+
+        } 
 </script>

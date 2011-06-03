@@ -683,7 +683,7 @@ Fields!StockCardQty.Value,
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value>Item</Value>
+                                                    <Value>Produk</Value>
                                                     <Style>
                                                       <FontFamily>Verdana</FontFamily>
                                                       <FontSize>9pt</FontSize>
@@ -742,7 +742,6 @@ Fields!StockCardQty.Value,
                           </TablixRowHierarchy>
                           <DataSetName>StockCard</DataSetName>
                           <Top>0.27778in</Top>
-                          <Left>0in</Left>
                           <Height>1in</Height>
                           <Width>6.1271in</Width>
                           <Style>

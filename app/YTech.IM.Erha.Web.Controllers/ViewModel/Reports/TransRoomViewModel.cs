@@ -13,5 +13,6 @@ namespace YTech.IM.Erha.Web.Controllers.ViewModel.Reports
         public DateTime? TransDate { get; set; }
         public string TransFactur { get; set; }
         public decimal? TransGrandTotal { get; set; }
+        public string CustomerName { get; set; }
     }
 }

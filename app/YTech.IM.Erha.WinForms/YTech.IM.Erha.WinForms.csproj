@@ -55,6 +55,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Content Include="RptBukuBesar.rdlc" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -81,6 +82,9 @@
     <Content Include="RptStockCard.rdlc" />
     <Content Include="RptStockItem.rdlc" />
     <Content Include="RptSalesByAction.rdlc" />
+    <EmbeddedResource Include="RptPrintCash.rdlc" />
+    <EmbeddedResource Include="RptPrintKwitansi.rdlc" />
+    <EmbeddedResource Include="RptTransDetail.rdlc" />
     <None Include="Properties\DataSources\YTech.IM.Erha.Core.Master.MAccount.datasource" />
     <None Include="Properties\DataSources\YTech.IM.Erha.Core.Master.MBrand.datasource" />
     <None Include="Properties\DataSources\YTech.IM.Erha.Core.Master.MCostCenter.datasource" />

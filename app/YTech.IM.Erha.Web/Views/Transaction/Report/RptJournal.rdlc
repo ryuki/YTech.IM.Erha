@@ -789,7 +789,9 @@
                                                 </Style>
                                               </TextRun>
                                             </TextRuns>
-                                            <Style />
+                                            <Style>
+                                              <TextAlign>Right</TextAlign>
+                                            </Style>
                                           </Paragraph>
                                         </Paragraphs>
                                         <rd:DefaultName>JournalDetStatus</rd:DefaultName>
@@ -824,7 +826,9 @@
                                                 </Style>
                                               </TextRun>
                                             </TextRuns>
-                                            <Style />
+                                            <Style>
+                                              <TextAlign>Right</TextAlign>
+                                            </Style>
                                           </Paragraph>
                                         </Paragraphs>
                                         <rd:DefaultName>JournalDetAmmount</rd:DefaultName>
@@ -905,7 +909,7 @@
                           <DataSetName>JournalDetViewModel</DataSetName>
                           <Top>0.31944in</Top>
                           <Height>0.5in</Height>
-                          <Width>9.28452in</Width>
+                          <Width>9.2845in</Width>
                           <ZIndex>2</ZIndex>
                           <Style>
                             <Border>

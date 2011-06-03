@@ -156,6 +156,9 @@
             <%= Html.ActionLinkForAreas<ReportController>(c => c.Report(EnumReports.RptJournal), "Lap. Jurnal")%>
         </div>
         <div>
+            <%= Html.ActionLinkForAreas<ReportController>(c => c.Report(EnumReports.RptBukuBesar), "Lap. Buku Besar")%>
+        </div>
+        <div>
             <%= Html.ActionLinkForAreas<ReportController>(c => c.Report(EnumReports.RptNeraca), "Lap. Neraca")%>
         </div>
         <div>
@@ -171,6 +174,9 @@
             Ganti Password</div>
         <div>
             Backup Database</div>--%>
+        <div>
+            <%= Html.ActionLinkForAreas<InventoryController>(c => c.ListBilling(), "Daftar Tindakan Pasien")%>
+        </div>
         <div>
             <%= Html.ActionLinkForAreas<AccountingController>(c => c.Closing(), "Tutup Buku")%>
         </div>
