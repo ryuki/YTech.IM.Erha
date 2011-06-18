@@ -255,6 +255,7 @@
     <Content Include="Content\img\toggle-rt.gif" />
     <Content Include="Content\img\toggle-up.gif" />
     <Content Include="Content\MvcMembership.css" />
+    <Content Include="Content\MvcMembership\MvcMembership.css" />
     <Content Include="Content\ui.jqgrid.css" />
     <Content Include="Default.aspx" />
     <Content Include="Global.asax" />
@@ -290,6 +291,7 @@
     <Content Include="Views\Master\Account\Index.aspx" />
     <Content Include="Views\Master\Account\Search.aspx" />
     <Content Include="Views\Master\ActionCat\Index.aspx" />
+    <Content Include="Views\Master\ActionComm\PopupAdd.aspx" />
     <Content Include="Views\Master\ActionItem\AddActionItem.aspx" />
     <Content Include="Views\Master\Action\Search.aspx" />
     <Content Include="Views\Master\Action\Index.aspx" />
@@ -348,6 +350,12 @@
     <Content Include="Views\Utility\UserAccount\ChangePasswordSuccess.aspx" />
     <Content Include="Views\Utility\UserAccount\LogOn.aspx" />
     <Content Include="Views\Utility\UserAccount\Register.aspx" />
+    <Content Include="Views\Utility\UserAdministration\Details.aspx" />
+    <Content Include="Views\Utility\UserAdministration\Index.aspx" />
+    <Content Include="Views\Utility\UserAdministration\ListUsers.aspx" />
+    <Content Include="Views\Utility\UserAdministration\Password.aspx" />
+    <Content Include="Views\Utility\UserAdministration\Role.aspx" />
+    <Content Include="Views\Utility\UserAdministration\UsersRoles.aspx" />
     <Content Include="Web.config" />
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\MicrosoftAjax.js" />
@@ -408,6 +416,9 @@
   <ItemGroup>
     <Content Include="Views\Transaction\Report\RptPrintCash.rdlc" />
     <Content Include="Views\Transaction\Report\RptPrintKwitansi.rdlc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Transaction\Report\RptCommissionRecap.rdlc" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

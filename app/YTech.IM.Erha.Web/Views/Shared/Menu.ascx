@@ -1,5 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="System.Web.Mvc.ViewUserControl" %>
 <%@ Import Namespace="YTech.IM.Erha.Web.Controllers.Transaction" %>
+<%@ Import Namespace="YTech.IM.Erha.Web.Controllers.Utility" %>
 <div id="accordion">
     <h3>
         <a href="#">Home</a></h3>
@@ -147,7 +148,10 @@
             <%= Html.ActionLinkForAreas<ReportController>(c => c.Report(EnumReports.RptSalesByAction), "Lap. Penjualan Berdasar Jlh Tindakan")%>
         </div>
         <div>
-            <%= Html.ActionLinkForAreas<ReportController>(c => c.Report(EnumReports.RptCommission), "Laporan Komisi Karyawan")%>
+            <%= Html.ActionLinkForAreas<ReportController>(c => c.Report(EnumReports.RptCommission), "Lap. Detail Komisi Karyawan")%>
+        </div>
+        <div>
+            <%= Html.ActionLinkForAreas<ReportController>(c => c.Report(EnumReports.RptCommissionRecap), "Lap. Rekap Komisi Karyawan")%>
         </div>
         <div>
             <hr />
@@ -168,15 +172,24 @@
     <h3>
         <a href="#">Utiliti</a></h3>
     <div>
-       <%-- <div>
-            <%= Html.ActionLinkForAreas<UserAdministrationController>(c => c.Index(null), "Daftar Pengguna")%></div>
+<% if(Membership.GetUser().UserName.ToLower().Equals("admin")) { %> 
         <div>
+            <%= Html.ActionLinkForAreas<UserAdministrationController>(c => c.ListUsers(), "Daftar Pengguna")%></div>
+    <% } %>
+        <%--<div>
+            <%= Html.ActionLinkForAreas<UserAdministrationController>(c => c.Index(null), "Daftar Pengguna")%></div>--%>
+       <%-- <div>
             Ganti Password</div>
         <div>
             Backup Database</div>--%>
         <div>
-            <%= Html.ActionLinkForAreas<InventoryController>(c => c.ListBilling(), "Daftar Tindakan Pasien")%>
+            <%= Html.ActionLinkForAreas<InventoryController>(c => c.ListBilling("Print"), "Cetak Faktur Tindakan")%>
         </div>
+<% if(Membership.GetUser().UserName.ToLower().Equals("admin")) { %> 
+        <div>
+            <%= Html.ActionLinkForAreas<InventoryController>(c => c.ListBilling("Delete"), "Hapus Faktur Tindakan")%>
+        </div>
+    <% } %>
         <div>
             <%= Html.ActionLinkForAreas<AccountingController>(c => c.Closing(), "Tutup Buku")%>
         </div>

@@ -1158,7 +1158,6 @@
                     </SortExpression>
                   </SortExpressions>
                   <Visibility>
-                    <Hidden>true</Hidden>
                     <ToggleItem>EmployeeId</ToggleItem>
                   </Visibility>
                 </TablixMember>

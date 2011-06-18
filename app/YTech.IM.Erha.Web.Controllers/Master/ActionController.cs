@@ -259,5 +259,20 @@ namespace YTech.IM.Erha.Web.Controllers.Master
                 viewModel.ActionComponentTherapist = null;
             }
         }
+
+        [Transaction]
+        public virtual ActionResult GetList()
+        {
+            var actions = _mActionRepository.GetAll();
+            StringBuilder sb = new StringBuilder();
+            MAction act = new MAction();
+            sb.AppendFormat("{0}:{1}", string.Empty, "-Pilih Tindakan-");
+            for (int i = 0; i < actions.Count; i++)
+            {
+                act = actions[i];
+                sb.AppendFormat(";{0}:{1}", act.Id, act.ActionName);
+            }
+            return Content(sb.ToString());
+        }
     }
 }

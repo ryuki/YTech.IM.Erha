@@ -50,8 +50,9 @@ namespace YTech.IM.Erha.Web.Controllers.Transaction
         private readonly IMAccountRepository _mAccountRepository;
         private readonly IMActionRepository _mActionRepository;
         private readonly ITCommissionRepository _tCommissionRepository;
+        private readonly IMActionCommRepository _mActionCommRepository;
 
-        public InventoryController(ITTransRepository tTransRepository, IMWarehouseRepository mWarehouseRepository, IMSupplierRepository mSupplierRepository, IMItemRepository mItemRepository, ITStockCardRepository tStockCardRepository, ITStockItemRepository tStockItemRepository, ITTransRefRepository tTransRefRepository, ITStockRepository tStockRepository, ITStockRefRepository tStockRefRepository, IMCustomerRepository mCustomerRepository, IMRoomRepository mRoomRepository, IMEmployeeRepository mEmployeeRepository, ITTransDetRepository tTransDetRepository, ITTransRoomRepository tTransRoomRepository, IMPacketRepository mPacketRepository, IMPacketItemCatRepository mPacketItemCatRepository, ITTransDetItemRepository tTransDetItemRepository, IMAccountRefRepository mAccountRefRepository, ITJournalRepository tJournalRepository, ITJournalDetRepository tJournalDetRepository, IMAccountRepository mAccountRepository, IMActionRepository mActionRepository, ITCommissionRepository tCommissionRepository)
+        public InventoryController(ITTransRepository tTransRepository, IMWarehouseRepository mWarehouseRepository, IMSupplierRepository mSupplierRepository, IMItemRepository mItemRepository, ITStockCardRepository tStockCardRepository, ITStockItemRepository tStockItemRepository, ITTransRefRepository tTransRefRepository, ITStockRepository tStockRepository, ITStockRefRepository tStockRefRepository, IMCustomerRepository mCustomerRepository, IMRoomRepository mRoomRepository, IMEmployeeRepository mEmployeeRepository, ITTransDetRepository tTransDetRepository, ITTransRoomRepository tTransRoomRepository, IMPacketRepository mPacketRepository, IMPacketItemCatRepository mPacketItemCatRepository, ITTransDetItemRepository tTransDetItemRepository, IMAccountRefRepository mAccountRefRepository, ITJournalRepository tJournalRepository, ITJournalDetRepository tJournalDetRepository, IMAccountRepository mAccountRepository, IMActionRepository mActionRepository, ITCommissionRepository tCommissionRepository, IMActionCommRepository mActionCommRepository)
         {
             Check.Require(tTransRepository != null, "tTransRepository may not be null");
             Check.Require(mWarehouseRepository != null, "mWarehouseRepository may not be null");
@@ -77,6 +78,7 @@ namespace YTech.IM.Erha.Web.Controllers.Transaction
             Check.Require(mAccountRepository != null, "mAccountRepository may not be null");
             Check.Require(mActionRepository != null, "mActionRepository may not be null");
             Check.Require(tCommissionRepository != null, "tCommissionRepository may not be null");
+            Check.Require(mActionCommRepository != null, "mActionCommRepository may not be null");
             
             this._tTransRepository = tTransRepository;
             this._mWarehouseRepository = mWarehouseRepository;
@@ -102,6 +104,7 @@ namespace YTech.IM.Erha.Web.Controllers.Transaction
             this._mAccountRepository = mAccountRepository;
             this._mActionRepository = mActionRepository;
             this._tCommissionRepository = tCommissionRepository;
+            this._mActionCommRepository = mActionCommRepository;
         }
 
         public ActionResult Index()

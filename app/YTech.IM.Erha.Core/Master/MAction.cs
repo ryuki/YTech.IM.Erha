@@ -17,7 +17,10 @@ namespace YTech.IM.Erha.Core.Master
         public virtual decimal? ActionComponentDoctor { get; set; }
         public virtual decimal? ActionComponentTherapist { get; set; }
         public virtual string ActionStatus { get; set; }
-        public virtual string ActionDesc { get; set; }  
+        public virtual string ActionDesc { get; set; }
+        public virtual string ActionComponentMedicianType { get; set; }
+        public virtual string ActionComponentDoctorType { get; set; }
+        public virtual string ActionComponentTherapistType { get; set; }
 
         public virtual string DataStatus { get; set; }
         public virtual string CreatedBy { get; set; }

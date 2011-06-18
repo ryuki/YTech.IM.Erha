@@ -4,7 +4,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <% if (false)
        { %>
-    <script src="../../../Scripts/jquery-1.4.1-vsdoc.js" type="text/javascript"></script>
+    <script src="../../Scripts/jquery-1.4.1-vsdoc.js" type="text/javascript"></script>
     <% } %>
     <style type="text/css">
         .button_room
@@ -43,7 +43,7 @@
                         {
                             RoomViewModel room = Model.RoomsList[i];
                 %>
-                <input type="button" value='<%= room.RoomName %>' title='<%= room.RoomName %>' class="button_room <% if (room.RoomInUsed) { %>used<% } %>"
+                <input type="button" value='<%= room.RoomName %>&#13;&#10;<%= room.CustomerName %>' title='<%= room.RoomName %>' class="button_room <% if (room.RoomInUsed) { %>used<% } %>"
                     onclick="OpenRoomDetail('<%= room.Id %>','<%= room.RoomName %>');" id="btn_<%= room.Id %>" />
                 <%
                     }
@@ -302,7 +302,8 @@
 
         function onSavedSuccess(e)
         {
-     var roomId =  $("#RoomId").val();
+             var roomId =  $("#RoomId").val();
+             var roomName =  $("#ActiveRoom").text();
              var json = e.get_response().get_object();
              var success = json.Success;
              if (success == false) {
@@ -328,6 +329,8 @@
             $('#btnOut').attr('disabled', '');
             $('#btnCancel').attr('disabled', '');
             $('#btnPrint').attr('disabled', 'disabled');
+                var customerName = json.CustomerName;
+            $('#btn_' + roomId).attr('value',roomName + '\n' + customerName);
 }
            else if (roomstatus == 'Paid') { 
             $('#btn_' + roomId).removeClass('used');
@@ -336,11 +339,13 @@
             $('#btnCancel').attr('disabled', 'disabled');
             $('#btnPrint').attr('disabled', '');
             $('#btnPrint').click();
+             $('#btn_' + roomId).val(roomName);
 }
            else if (roomstatus == 'New') {
     $("#payment").dialog("close");
     $("#detail_room").dialog("close");
             $('#btn_' + roomId).removeClass('used');
+             $('#btn_' + roomId).val(roomName);
 }
         }
         
@@ -449,8 +454,12 @@
                  $("#paymentVoucher").val(0);              
                  $("#paymentCash").val(0);              
                  $("#paymentCreditCard").val(0);
+                 CalculatePaymentSisa();
                
                  $("#payment").dialog("open"); 
+                 
+                 $("#paymentVoucher").focus(); 
+
             });
                    
              $('#paymentVoucher').change(function(){

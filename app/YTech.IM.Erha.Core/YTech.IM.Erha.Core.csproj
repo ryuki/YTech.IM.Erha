@@ -61,6 +61,7 @@
     <Compile Include="..\..\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Master\MActionComm.cs" />
     <Compile Include="Master\MActionItem.cs" />
     <Compile Include="Master\MAccount.cs" />
     <Compile Include="Master\MAccountCat.cs" />
@@ -83,6 +84,7 @@
     <Compile Include="Master\RefAddress.cs" />
     <Compile Include="Master\RefPerson.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RepositoryInterfaces\IMActionCommRepository.cs" />
     <Compile Include="RepositoryInterfaces\IMActionItemRepository.cs" />
     <Compile Include="RepositoryInterfaces\IMAccountCatRepository.cs" />
     <Compile Include="RepositoryInterfaces\IMAccountRefRepository.cs" />

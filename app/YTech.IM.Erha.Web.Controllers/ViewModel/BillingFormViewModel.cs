@@ -21,7 +21,7 @@ namespace YTech.IM.Erha.Web.Controllers.ViewModel
         {
             BillingFormViewModel viewModel = new BillingFormViewModel();
 
-            viewModel.RoomsList = GetRoomViewModel(transRoomRepository, mRoomRepository.GetAll());
+            viewModel.RoomsList = GetRoomViewModel(transRoomRepository, mCustomerRepository, mRoomRepository.GetAll());
 
             //var listCustomer = mCustomerRepository.GetAll();
             //MCustomer mCustomer = new MCustomer();
@@ -54,7 +54,7 @@ namespace YTech.IM.Erha.Web.Controllers.ViewModel
             return viewModel;
         }
 
-        private static IList<RoomViewModel> GetRoomViewModel(ITTransRoomRepository transRoomRepository, IList<MRoom> listRoom)
+        private static IList<RoomViewModel> GetRoomViewModel(ITTransRoomRepository transRoomRepository, IMCustomerRepository mCustomerRepository, IList<MRoom> listRoom)
         {
             IList<RoomViewModel> result = new List<RoomViewModel>();
             RoomViewModel rvm = null;
@@ -64,9 +64,14 @@ namespace YTech.IM.Erha.Web.Controllers.ViewModel
             {
                 rvm = new RoomViewModel();
                 r = listRoom[i];
+                troom = transRoomRepository.GetByRoom(r);
                 rvm.SetAssignedIdTo(r.Id);
                 rvm.RoomName = r.RoomName;
-                rvm.RoomInUsed = transRoomRepository.GetByRoom(r) != null;
+                if (troom != null)
+                {
+                    rvm.RoomInUsed = true;
+                    rvm.CustomerName = Helper.CommonHelper.GetCustomerName(mCustomerRepository, troom.TransId.TransBy);
+                }
 
                 result.Add(rvm);
             }
@@ -85,5 +90,6 @@ namespace YTech.IM.Erha.Web.Controllers.ViewModel
     public class RoomViewModel : MRoom
     {
         public bool RoomInUsed { get; internal set; }
+        public string CustomerName { get; internal set; }
     }
 }

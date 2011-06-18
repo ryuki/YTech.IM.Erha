@@ -86,6 +86,12 @@ namespace YTech.IM.Erha.Web.Controllers.Utility
                             });
         }
 
+        public ViewResult ListUsers()
+        {
+            return View();
+        }
+
+
         [Transaction]
         public virtual ActionResult List(string sidx, string sord, int page, int rows)
         {
@@ -103,10 +109,12 @@ namespace YTech.IM.Erha.Web.Controllers.Utility
                     from u in membershipUsers
                     select new
                     {
-                        i = u.UserName,
+                        i = u.ProviderUserKey.ToString(),
                         cell = new string[] {
+                            string.Empty,
+                            u.ProviderUserKey.ToString(), 
                             u.UserName, 
-                            string.Empty, 
+                            string.Empty,
                             string.Empty, 
                             u.Comment, 
                             GetOfflineSince(u.LastActivityDate)

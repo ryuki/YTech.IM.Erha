@@ -28,6 +28,9 @@ namespace YTech.IM.Erha.Data.NHibernateMaps.Master
             mapping.Map(x => x.ActionComponentTherapist, "ACTION_COMPONENT_THERAPIST");
             mapping.Map(x => x.ActionStatus, "ACTION_STATUS");
             mapping.Map(x => x.ActionDesc, "ACTION_DESC");
+            mapping.Map(x => x.ActionComponentMedicianType, "ACTION_COMPONENT_MEDICIAN_TYPE");
+            mapping.Map(x => x.ActionComponentDoctorType, "ACTION_COMPONENT_DOCTOR_TYPE");
+            mapping.Map(x => x.ActionComponentTherapistType, "ACTION_COMPONENT_THERAPIST_TYPE");
 
             mapping.Map(x => x.DataStatus, "DATA_STATUS");
             mapping.Map(x => x.CreatedBy, "CREATED_BY");

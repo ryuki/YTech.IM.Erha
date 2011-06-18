@@ -62,6 +62,29 @@ namespace YTech.IM.Erha.Web.Controllers.Transaction
             return View();
         }
 
+        public ActionResult PrintFactur(string TransId)
+        {
+            bool Success = true;
+            string Message = string.Empty;
+            try
+            {
+            SetReportDataForPrint(TransId);
+            Success = true;
+            }
+            catch (Exception ex)
+            {
+                Success = false;
+                Message = ex.GetBaseException().Message;
+            }
+            var e = new
+            {
+                Success,
+                Message
+            };
+
+            return Json(e, JsonRequestBehavior.AllowGet); 
+        }
+
         private void SetReportDataForPrint(string TransId)
         {
             ReportDataSource[] repCol = new ReportDataSource[3];
@@ -123,7 +146,8 @@ namespace YTech.IM.Erha.Web.Controllers.Transaction
                                det.RoomCashPaid,
                                det.RoomCreditPaid,
                                det.RoomCommissionProduct,
-                               det.RoomCommissionService
+                               det.RoomCommissionService,
+                               det.ModifiedBy
                            }
       ;
             reportDataSource = new ReportDataSource("TransRoomViewModel", listRoom.ToList());
@@ -310,7 +334,8 @@ namespace YTech.IM.Erha.Web.Controllers.Transaction
             {
                 Success,
                 Message,
-                RoomStatus = EnumTransRoomStatus.In.ToString()
+                RoomStatus = EnumTransRoomStatus.In.ToString(),
+                CustomerName = Helper.CommonHelper.GetCustomerName(_mCustomerRepository, Trans.TransBy)
             };
             return Json(e, JsonRequestBehavior.AllowGet);
             //return View("Status");
@@ -604,14 +629,33 @@ GetCommissionEmployeeName(det,EnumCommissionPeople.Therapist)   ,
 
         private void SaveCommission(TTransDet det, decimal? commission, string employeeId, EnumCommissionPeople commissionPeople)
         {
+            //search employee commission
+            MEmployee emp = _mEmployeeRepository.Get(employeeId);
+            string typeCommission = EnumCommissionType.Fix.ToString();
+            decimal? commissionVal = commission;
+            MActionComm actionComm = _mActionCommRepository.GetByEmployeeAndAction(emp, det.ActionId);
+            if (actionComm != null)
+            {
+                typeCommission = actionComm.ActionCommType;
+                commissionVal = actionComm.ActionCommVal;
+                if (typeCommission == EnumCommissionType.Percent.ToString())
+                {
+                    commission = det.TransDetTotal.Value * (commissionVal / 100);
+                }
+                else
+                {
+                    commission = commissionVal;
+                }
+            }
             TCommission comm = new TCommission(det);
             comm.SetAssignedIdTo(Guid.NewGuid().ToString());
-            comm.EmployeeId = _mEmployeeRepository.Get(employeeId);
+            comm.EmployeeId = emp;
             comm.CommissionType = commissionPeople.ToString();
             comm.CommissionValue = commission;
             comm.CreatedDate = DateTime.Now;
             comm.CreatedBy = User.Identity.Name;
             comm.DataStatus = EnumDataStatus.New.ToString();
+
             _tCommissionRepository.Save(comm);
         }
 
@@ -671,9 +715,10 @@ GetCommissionEmployeeName(det,EnumCommissionPeople.Therapist)   ,
 
         #endregion
 
-        public ActionResult ListBilling()
+        public ActionResult ListBilling(string disp)
         {
-            return View();
+            ListBillingViewModel viewModel = ListBillingViewModel.Create(disp);
+            return View(viewModel);
         }
 
         public ActionResult ListBillingForEdit(string sidx, string sord, int page, int rows, string searchBy, string searchText)
@@ -693,6 +738,7 @@ GetCommissionEmployeeName(det,EnumCommissionPeople.Therapist)   ,
                     {
                         i = troom.Id,
                         cell = new string[] {
+                            string.Empty,
                             troom.Id,  
                             troom.Id,  
                             troom.TransId.TransFactur,
@@ -701,8 +747,8 @@ GetCommissionEmployeeName(det,EnumCommissionPeople.Therapist)   ,
                           troom.RoomId.RoomName,
                         troom.RoomInDate.HasValue ?  troom.RoomInDate.Value.ToString(Helper.CommonHelper.TimeFormat) : null,
                         troom.RoomOutDate.HasValue ?  troom.RoomOutDate.Value.ToString(Helper.CommonHelper.TimeFormat) : null,
-                        troom.TransId.TransSubTotal.HasValue ?  troom.TransId.TransSubTotal.Value.ToString(Helper.CommonHelper.NumberFormat) : null,
-                        troom.TransId.TransDiscount.HasValue ?  troom.TransId.TransDiscount.Value.ToString(Helper.CommonHelper.NumberFormat) : null
+                        troom.TransId.TransDiscount.HasValue ?  troom.TransId.TransDiscount.Value.ToString(Helper.CommonHelper.NumberFormat) : null,
+                        troom.TransId.TransSubTotal.HasValue ?  troom.TransId.TransSubTotal.Value.ToString(Helper.CommonHelper.NumberFormat) : null
                         }
                     }).ToArray()
             };

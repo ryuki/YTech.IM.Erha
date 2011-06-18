@@ -550,7 +550,7 @@ iif	(Fields!MedicianName.Value &lt;&gt; "",Fields!MedicianName.Value &amp; syste
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>TransDetViewModel</DataSetName>
-        <Top>0.77882in</Top>
+        <Top>1.02882in</Top>
         <Height>0.47244in</Height>
         <Width>2.61028in</Width>
         <Style>
@@ -1067,9 +1067,9 @@ iif	(Fields!MedicianName.Value &lt;&gt; "",Fields!MedicianName.Value &amp; syste
             </Paragraphs>
             <rd:DefaultName>TransSubTotal</rd:DefaultName>
             <Top>1.50409in</Top>
-            <Left>0.30749in</Left>
+            <Left>0.29124in</Left>
             <Height>0.6cm</Height>
-            <Width>1.11309in</Width>
+            <Width>1.12934in</Width>
             <ZIndex>13</ZIndex>
             <Style>
               <Border>
@@ -1086,7 +1086,7 @@ iif	(Fields!MedicianName.Value &lt;&gt; "",Fields!MedicianName.Value &amp; syste
           </Textbox>
         </ReportItems>
         <KeepTogether>true</KeepTogether>
-        <Top>1.32646in</Top>
+        <Top>1.57646in</Top>
         <Height>1.74031in</Height>
         <Width>2.59539in</Width>
         <ZIndex>1</ZIndex>
@@ -1115,7 +1115,7 @@ iif	(Fields!MedicianName.Value &lt;&gt; "",Fields!MedicianName.Value &amp; syste
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>TransBy</rd:DefaultName>
-            <Top>0.23622in</Top>
+            <Top>0.48622in</Top>
             <Left>0.78406in</Left>
             <Height>0.6cm</Height>
             <Width>1.81133in</Width>
@@ -1194,41 +1194,6 @@ iif	(Fields!MedicianName.Value &lt;&gt; "",Fields!MedicianName.Value &amp; syste
               <PaddingBottom>2pt</PaddingBottom>
             </Style>
           </Textbox>
-          <Textbox Name="TransSubTotal7">
-            <CanGrow>true</CanGrow>
-            <KeepTogether>true</KeepTogether>
-            <Paragraphs>
-              <Paragraph>
-                <TextRuns>
-                  <TextRun>
-                    <Value>Kepada :</Value>
-                    <Style>
-                      <FontFamily>Times New Roman</FontFamily>
-                      <Format>N2</Format>
-                    </Style>
-                  </TextRun>
-                </TextRuns>
-                <Style>
-                  <TextAlign>Left</TextAlign>
-                </Style>
-              </Paragraph>
-            </Paragraphs>
-            <rd:DefaultName>TransSubTotal</rd:DefaultName>
-            <Top>0.23622in</Top>
-            <Left>0.00943in</Left>
-            <Height>0.6cm</Height>
-            <Width>0.77463in</Width>
-            <ZIndex>3</ZIndex>
-            <Style>
-              <Border>
-                <Style>None</Style>
-              </Border>
-              <PaddingLeft>2pt</PaddingLeft>
-              <PaddingRight>2pt</PaddingRight>
-              <PaddingTop>2pt</PaddingTop>
-              <PaddingBottom>2pt</PaddingBottom>
-            </Style>
-          </Textbox>
           <Textbox Name="TransBy2">
             <CanGrow>true</CanGrow>
             <KeepTogether>true</KeepTogether>
@@ -1249,11 +1214,11 @@ iif	(Fields!MedicianName.Value &lt;&gt; "",Fields!MedicianName.Value &amp; syste
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>TransBy</rd:DefaultName>
-            <Top>0.47244in</Top>
+            <Top>0.72244in</Top>
             <Left>0.79191in</Left>
             <Height>0.6cm</Height>
             <Width>1.81133in</Width>
-            <ZIndex>4</ZIndex>
+            <ZIndex>3</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -1284,8 +1249,43 @@ iif	(Fields!MedicianName.Value &lt;&gt; "",Fields!MedicianName.Value &amp; syste
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>TransSubTotal</rd:DefaultName>
-            <Top>0.47244in</Top>
+            <Top>0.72244in</Top>
             <Left>0.01728in</Left>
+            <Height>0.6cm</Height>
+            <Width>0.77463in</Width>
+            <ZIndex>4</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="TransSubTotal15">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Kepada :</Value>
+                    <Style>
+                      <FontFamily>Times New Roman</FontFamily>
+                      <Format>N2</Format>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Left</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>TransSubTotal</rd:DefaultName>
+            <Top>0.23622in</Top>
+            <Left>0.00864in</Left>
             <Height>0.6cm</Height>
             <Width>0.77463in</Width>
             <ZIndex>5</ZIndex>
@@ -1299,9 +1299,41 @@ iif	(Fields!MedicianName.Value &lt;&gt; "",Fields!MedicianName.Value &amp; syste
               <PaddingBottom>2pt</PaddingBottom>
             </Style>
           </Textbox>
+          <Textbox Name="TransBy3">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=First(Fields!TransBy.Value, "TransViewModel")</Value>
+                    <Style>
+                      <FontFamily>Times New Roman</FontFamily>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>TransBy</rd:DefaultName>
+            <Top>0.23622in</Top>
+            <Left>0.78327in</Left>
+            <Height>0.6cm</Height>
+            <Width>1.81133in</Width>
+            <ZIndex>6</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
         </ReportItems>
         <KeepTogether>true</KeepTogether>
-        <Height>0.70866in</Height>
+        <Height>0.95866in</Height>
         <Width>2.60324in</Width>
         <ZIndex>2</ZIndex>
         <Style>
@@ -1329,9 +1361,10 @@ iif	(Fields!MedicianName.Value &lt;&gt; "",Fields!MedicianName.Value &amp; syste
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox10</rd:DefaultName>
-        <Top>3.07638in</Top>
+        <Top>3.70138in</Top>
+        <Left>0.29124in</Left>
         <Height>0.25886in</Height>
-        <Width>2.5812in</Width>
+        <Width>2.28996in</Width>
         <ZIndex>3</ZIndex>
         <Style>
           <Border>
@@ -1343,8 +1376,42 @@ iif	(Fields!MedicianName.Value &lt;&gt; "",Fields!MedicianName.Value &amp; syste
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
       </Textbox>
+      <Textbox Name="Textbox12">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>="Dicetak oleh " &amp; First(Fields!ModifiedBy.Value, "TransRoomViewModel")</Value>
+                <Style>
+                  <FontFamily>Times New Roman</FontFamily>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style>
+              <TextAlign>Center</TextAlign>
+            </Style>
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox10</rd:DefaultName>
+        <Top>3.44252in</Top>
+        <Left>0.28918in</Left>
+        <Height>0.25886in</Height>
+        <Width>2.28996in</Width>
+        <ZIndex>4</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
     </ReportItems>
-    <Height>8.69233cm</Height>
+    <Height>10.05901cm</Height>
     <Style />
   </Body>
   <Width>7.60001cm</Width>

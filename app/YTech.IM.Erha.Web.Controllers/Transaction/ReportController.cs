@@ -156,6 +156,11 @@ namespace YTech.IM.Erha.Web.Controllers.Transaction
                     viewModel.ShowDateTo = true;
                     viewModel.ShowCostCenter = true;
                     break;
+                case EnumReports.RptCommissionRecap:
+                    title = "Lap. Rekap Komisi Karyawan";
+                    viewModel.ShowDateFrom = true;
+                    viewModel.ShowDateTo = true;
+                    break;
             }
             ViewData["CurrentItem"] = title;
 
@@ -216,6 +221,9 @@ namespace YTech.IM.Erha.Web.Controllers.Transaction
                     break;
                 case EnumReports.RptBukuBesar:
                     repCol[0] = GetJournalDet(viewModel.DateFrom, viewModel.DateTo, viewModel.CostCenterId);
+                    break;
+                case EnumReports.RptCommissionRecap:
+                    repCol[0] = GetCommission(viewModel.DateFrom.Value, viewModel.DateTo.Value);
                     break;
             }
             Session["ReportData"] = repCol;

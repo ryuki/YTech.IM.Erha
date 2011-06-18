@@ -20,6 +20,7 @@ namespace YTech.IM.Erha.Enums
         RptServiceOmzet,
         RptCommission,
         RptSalesByAction,
-        RptBukuBesar
+        RptBukuBesar,
+        RptCommissionRecap
     }
 }

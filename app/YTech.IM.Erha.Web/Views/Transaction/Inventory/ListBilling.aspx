@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/MyMaster.master" AutoEventWireup="true"
-    Inherits="System.Web.Mvc.ViewPage" %>
+    Inherits="System.Web.Mvc.ViewPage<ListBillingViewModel>" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
    
@@ -8,7 +8,7 @@
   <%
     if (false)
     {%>
-<script src="../../../Scripts/jquery-1.4.1-vsdoc.js" type="text/javascript"></script>
+<script src="../../Scripts/jquery-1.4.1-vsdoc.js" type="text/javascript"></script>
 <%
     }%>
     <div>  
@@ -60,7 +60,7 @@
                 },
                 datatype: 'json',
                 mtype: 'GET',
-                colNames: ['Kode Billing',
+                colNames: ['', 'Kode Billing',
                 'Kode Billing',
                             'No Faktur',
                             'Tanggal',
@@ -71,6 +71,7 @@
                             'Diskon (%)',
                             'Subtotal (Rp)'],
                 colModel: [
+                    { name: 'act', index: 'act', width: 110, sortable: false },
                     { name: 'Id', index: 'Id', width: 100, align: 'left', key: true, editrules: { required: true, edithidden: true }, hidedlg: true, hidden: true, editable: false },
                    { name: 'TransId', index: 'TransId', width: 200, align: 'left', editable: true, editrules: { required: false, edithidden: true }, hidden: true },
                    { name: 'TransFactur', index: 'TransFactur', width: 200, align: 'left', editable: false, editrules: { required: false, edithidden: true} },
@@ -95,11 +96,25 @@
                 caption: 'Daftar Billing',
                 autowidth: true,
                 loadComplete: function () {
-
+                <% if (ViewData.Model.ViewPrint)
+                   {	%>
+                    var ids = jQuery("#list").getDataIDs();
+                    for (var i = 0; i < ids.length; i++) {
+                        var cl = ids[i];
+                        var be = "<input type='button' value='Cetak' tooltips='Cetak Faktur' onClick=\"PrintFactur('" + cl + "');\" />";
+                        //                        alert(be);
+                        $(this).setRowData(ids[i], { act: be });
+                    }
+                     <% } %>
                 }
             }).navGrid('#listPager',
                 {
-                    edit: false, add: false, del: true, search: false, refresh: true
+                    edit: false, add: false, del: 
+                <% if (ViewData.Model.ViewDelete)
+                   {%>true<%
+                   } else
+                   {%>false<%
+                   }%>, search: false, refresh: true
                 },
                 null,
                 null,
@@ -110,6 +125,20 @@
                 $("#list").jqGrid().setGridParam().trigger("reloadGrid");
 
             });
-        });          
+        });
+        function PrintFactur(id) {
+            //sent print command
+            var result = $.ajax({ url: '<%= Url.Action("PrintFactur","Inventory") %>?TransId=' + id, async: false, cache: false, success: function (data, result) { if (!result) alert('Failure to call PrintFactur.'); } }).responseText;
+            var json = $.parseJSON(result);
+            var success = json.Success;
+            if (success) {
+                var urlreport = '<%= ResolveUrl("~/ReportViewer.aspx?rpt=RptPrintFacturServiceMini") %>';
+                //    alert(urlreport);
+                window.open(urlreport);
+            }
+            else {
+                alert(json.Message);
+            }
+        }
     </script>
 </asp:Content>

@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/MyMaster.Master" Inherits="System.Web.Mvc.ViewPage<YTech.IM.Paramita.Web.Controllers.ViewModel.UserAdministration.RoleViewModel>" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/MasterPopup.Master" Inherits="System.Web.Mvc.ViewPage<YTech.IM.Erha.Web.Controllers.ViewModel.UserAdministration.RoleViewModel>" %>
 
 <asp:Content ContentPlaceHolderID="title" runat="server">
 	Role: <%= Model.Role %>

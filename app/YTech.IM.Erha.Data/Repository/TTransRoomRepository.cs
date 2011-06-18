@@ -52,15 +52,16 @@ namespace YTech.IM.Erha.Data.Repository
         {
             StringBuilder sql = new StringBuilder();
             sql.AppendLine(@"  from TTransRoom as troom
-                                    left outer join troom.TransId trans ");
+                                    left outer join troom.TransId trans
+                                where troom.RoomStatus = :roomStatus ");
             if (!string.IsNullOrEmpty(searchText))
             {
-                sql.AppendFormat(@" where {0} like :searchText", searchBy);
+                sql.AppendFormat(@" and {0} like :searchText", searchBy);
             }
-            //sql.AppendFormat(@" order by  {0} {1}", orderCol, orderBy);
 
             string queryCount = string.Format(" select count(troom.Id) {0}", sql);
             IQuery q = Session.CreateQuery(queryCount);
+            q.SetString("roomStatus", EnumTransRoomStatus.Paid.ToString());
             if (!string.IsNullOrEmpty(searchText))
             {
                 q.SetString("searchText", string.Format("%{0}%", searchText));
@@ -70,8 +71,10 @@ namespace YTech.IM.Erha.Data.Repository
             //totalRows = (int)q.UniqueResult();// q.FutureValue<int>().Value;
 
 
+            sql.AppendLine(@" order by trans.TransDate desc, trans.TransFactur ");
             string query = string.Format(" select troom {0}", sql);
             q = Session.CreateQuery(query);
+            q.SetString("roomStatus", EnumTransRoomStatus.Paid.ToString());
             if (!string.IsNullOrEmpty(searchText))
             {
                 q.SetString("searchText", string.Format("%{0}%", searchText));

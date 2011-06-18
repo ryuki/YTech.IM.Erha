@@ -56,6 +56,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="RptBukuBesar.rdlc" />
+    <Content Include="RptCommissionRecap.rdlc" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -71,7 +72,6 @@
     <Content Include="RptAnalyzeBudgetDetail.rdlc" />
     <Content Include="RptBrand.rdlc" />
     <Content Include="RptCommission.rdlc" />
-    <Content Include="RptCommissionRecap.rdlc" />
     <Content Include="RptCostCenter.rdlc" />
     <Content Include="RptJournal.rdlc" />
     <Content Include="RptLR.rdlc" />
