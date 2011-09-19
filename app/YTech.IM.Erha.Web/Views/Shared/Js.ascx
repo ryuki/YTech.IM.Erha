@@ -26,7 +26,7 @@
         type="text/css" />
 
     <script src="<%= Url.Content("~/Scripts/jquery-ui.min.js") %>" type="text/javascript"></script>
-    <script src="<%= Url.Content("~/Scripts/jquery.validate.min.js") %>" type="text/javascript"></script>
+    <script src="<%= Url.Content("~/Scripts/jquery.validate-1.8.1.min.js") %>" type="text/javascript"></script>
     <script src="<%= Url.Content("~/Scripts/grid.locale-en.js") %>" type="text/javascript"></script>
     <script src="<%= Url.Content("~/Scripts/jquery.jqGrid.min.js") %>" type="text/javascript"></script>
     <script src="<%= Url.Content("~/Scripts/jquery.maskedinput-1.2.2.min.js") %>" type="text/javascript"></script>
@@ -35,7 +35,7 @@
     <script src="<%= Url.Content("~/Scripts/jquery.layout.state.js") %>" type="text/javascript"></script>
     <script src="<%= Url.Content("~/Scripts/autoNumeric-1.6.2.js") %>" type="text/javascript"></script>
     <script src="<%= Url.Content("~/Scripts/jquery.tooltip.js") %>" type="text/javascript"></script>
-    <script src="<%= Url.Content("~/Scripts/default.js") %>" type="text/javascript"></script>
+    <script src="<%= Url.Content("~/Scripts/default.js?v1.1") %>" type="text/javascript"></script>
     <script src="<%= Url.Content("~/Scripts/date.format.js") %>" type="text/javascript"></script>
     <script src="<%= Url.Content("~/Scripts/NumberFormat.js") %>" type="text/javascript"></script>
     <script src="<%= Url.Content("~/Scripts/complex.js") %>" type="text/javascript"></script>

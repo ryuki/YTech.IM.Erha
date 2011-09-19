@@ -9,6 +9,8 @@ namespace YTech.IM.Erha.Enums
     {
         Warehouse,
         Supplier,
-        Customer
+        Customer,
+        WarehouseUsing,
+        Transaction
     }
 }

@@ -279,6 +279,7 @@
     <Content Include="Scripts\jquery.maskedinput-1.2.2.min.js" />
     <Content Include="Scripts\jquery.mousewheel-3.0.4.js" />
     <Content Include="Scripts\jquery.tooltip.js" />
+    <Content Include="Scripts\jquery.validate-1.8.1.min.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\MicrosoftMvcValidation.debug.js" />
     <Content Include="Scripts\MicrosoftMvcValidation.js" />

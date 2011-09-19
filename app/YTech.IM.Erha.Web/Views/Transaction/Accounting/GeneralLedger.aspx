@@ -152,7 +152,7 @@ function ajaxValidate() {
 		errorPlacement: function(error, element) { 
 			error.insertAfter(element);
 //			generateTooltips();
-		},
+		}
     }).form();
 }
 
@@ -182,7 +182,7 @@ function ajaxValidate() {
                 width: '80%',
                 modal: true,
                 close: function(event, ui) {                 
-                    $("#list").trigger("reloadGrid");
+                    //$("#list").trigger("reloadGrid");
                  }
             });
 

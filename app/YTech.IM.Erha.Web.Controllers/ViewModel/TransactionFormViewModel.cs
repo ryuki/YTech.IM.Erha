@@ -93,7 +93,7 @@ namespace YTech.IM.Erha.Web.Controllers.ViewModel
                     break;
                 case EnumTransactionStatus.Using:
                     viewModel.ViewWarehouse = true;
-                    viewModel.Title = "Pemakaian Material";
+                    viewModel.Title = "Pemakaian Barang";
                     viewModel.ViewWarehouseTo = false;
                     viewModel.ViewTransBy = false;
                     viewModel.ViewDate = true;

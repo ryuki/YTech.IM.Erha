@@ -5,7 +5,7 @@
   
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="title" runat="server">
-<%= ViewData.Model.Title %>
+
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="MainContent" runat="server">
     <% Html.RenderPartial("TransactionForm", ViewData); %>

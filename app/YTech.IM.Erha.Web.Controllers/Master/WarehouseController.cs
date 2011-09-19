@@ -16,9 +16,6 @@ namespace YTech.IM.Erha.Web.Controllers.Master
     [HandleError]
     public class WarehouseController : Controller
     {
-        //public WarehouseController() : this(new MWarehouseRepository(), new RefAddressRepository(), new MEmployeeRepository(), new MCostCenterRepository())
-        //{}
-
         private readonly IMWarehouseRepository _mWarehouseRepository;
         private readonly IRefAddressRepository _refAddressRepository;
         private readonly IMEmployeeRepository _mEmployeeRepository;
@@ -41,7 +38,6 @@ namespace YTech.IM.Erha.Web.Controllers.Master
             this._mAccountRefRepository = mAccountRefRepository;
             this._mAccountRepository = mAccountRepository;
         }
-
 
         public ActionResult Index()
         {
@@ -74,8 +70,10 @@ namespace YTech.IM.Erha.Web.Controllers.Master
                             warehouse.EmployeeId != null?  warehouse.EmployeeId.PersonId.PersonFirstName : null,
                             warehouse.CostCenterId != null?  warehouse.CostCenterId.CostCenterName : null,
                             warehouse.CostCenterId != null?  warehouse.CostCenterId.Id : null,
-                       GetAccountRef(warehouse.Id) != null ? GetAccountRef(warehouse.Id).AccountId.Id : null,
-                         GetAccountRef(warehouse.Id) != null ? GetAccountRef(warehouse.Id).AccountId.AccountName : null,
+                       GetAccountRef(EnumReferenceTable.Warehouse,warehouse.Id) != null ? GetAccountRef(EnumReferenceTable.Warehouse,warehouse.Id).AccountId.Id : null,
+                         GetAccountRef(EnumReferenceTable.Warehouse,warehouse.Id) != null ? GetAccountRef(EnumReferenceTable.Warehouse,warehouse.Id).AccountId.AccountName : null,
+                       GetAccountRef(EnumReferenceTable.WarehouseUsing,warehouse.Id) != null ? GetAccountRef(EnumReferenceTable.WarehouseUsing,warehouse.Id).AccountId.Id : null,
+                         GetAccountRef(EnumReferenceTable.WarehouseUsing,warehouse.Id) != null ? GetAccountRef(EnumReferenceTable.WarehouseUsing,warehouse.Id).AccountId.AccountName : null,
                           warehouse.AddressId != null?  warehouse.AddressId.AddressLine1 : null,
                           warehouse.AddressId != null?  warehouse.AddressId.AddressLine2 : null,
                           warehouse.AddressId != null?  warehouse.AddressId.AddressLine3 : null,
@@ -90,9 +88,9 @@ namespace YTech.IM.Erha.Web.Controllers.Master
             return Json(jsonData, JsonRequestBehavior.AllowGet);
         }
 
-        private MAccountRef GetAccountRef(string warehouseId)
+        private MAccountRef GetAccountRef(EnumReferenceTable referenceTable, string warehouseId)
         {
-            MAccountRef accountRef = _mAccountRefRepository.GetByRefTableId(EnumReferenceTable.Warehouse, warehouseId);
+            MAccountRef accountRef = _mAccountRefRepository.GetByRefTableId(referenceTable, warehouseId);
             if (accountRef != null)
             {
                 return accountRef;
@@ -123,12 +121,22 @@ namespace YTech.IM.Erha.Web.Controllers.Master
             mWarehouseToInsert.AddressId = address;
             _mWarehouseRepository.Save(mWarehouseToInsert);
 
+            //save account persediaan barang
             MAccountRef accountRef = new MAccountRef();
             accountRef.SetAssignedIdTo(Guid.NewGuid().ToString());
             accountRef.ReferenceId = mWarehouseToInsert.Id;
             accountRef.ReferenceTable = EnumReferenceTable.Warehouse.ToString();
             accountRef.ReferenceType = EnumReferenceTable.Warehouse.ToString();
             accountRef.AccountId = _mAccountRepository.Get(formCollection["AccountId"]);
+            _mAccountRefRepository.Save(accountRef);
+
+            //save account pemakaian barang
+            accountRef = new MAccountRef();
+            accountRef.SetAssignedIdTo(Guid.NewGuid().ToString());
+            accountRef.ReferenceId = mWarehouseToInsert.Id;
+            accountRef.ReferenceTable = EnumReferenceTable.WarehouseUsing.ToString();
+            accountRef.ReferenceType = EnumReferenceTable.WarehouseUsing.ToString();
+            accountRef.AccountId = _mAccountRepository.Get(formCollection["UsingAccountId"]);
             _mAccountRefRepository.Save(accountRef);
 
             try
@@ -176,53 +184,81 @@ namespace YTech.IM.Erha.Web.Controllers.Master
         [Transaction]
         public ActionResult Update(MWarehouse viewModel, FormCollection formCollection)
         {
-            MWarehouse mWarehouseToUpdate = _mWarehouseRepository.Get(viewModel.Id);
-            TransferFormValuesTo(mWarehouseToUpdate, viewModel);
-            mWarehouseToUpdate.EmployeeId = _mEmployeeRepository.Get(formCollection["EmployeeId"]);
-            mWarehouseToUpdate.CostCenterId = _mCostCenterRepository.Get(formCollection["CostCenterId"]);
-            mWarehouseToUpdate.ModifiedDate = DateTime.Now;
-            mWarehouseToUpdate.ModifiedBy = User.Identity.Name;
-            mWarehouseToUpdate.DataStatus = EnumDataStatus.Updated.ToString();
-
-            mWarehouseToUpdate.AddressId.AddressLine1 = formCollection["AddressLine1"];
-            mWarehouseToUpdate.AddressId.AddressLine1 = formCollection["AddressLine1"];
-            mWarehouseToUpdate.AddressId.AddressLine2 = formCollection["AddressLine2"];
-            mWarehouseToUpdate.AddressId.AddressLine3 = formCollection["AddressLine3"];
-            mWarehouseToUpdate.AddressId.AddressPhone = formCollection["AddressPhone"];
-            mWarehouseToUpdate.AddressId.AddressCity = formCollection["AddressCity"];
-
-            _mWarehouseRepository.Update(mWarehouseToUpdate);
-
-            bool isSave = false;
-            MAccountRef accountRef = GetAccountRef(mWarehouseToUpdate.Id);
-            if (accountRef == null)
-            {
-                accountRef = new MAccountRef();
-                accountRef.SetAssignedIdTo(Guid.NewGuid().ToString());
-                isSave = true;
-            }
-            accountRef.ReferenceId = mWarehouseToUpdate.Id;
-            accountRef.ReferenceTable = EnumReferenceTable.Warehouse.ToString();
-            accountRef.ReferenceType = EnumReferenceTable.Warehouse.ToString();
-            accountRef.AccountId = _mAccountRepository.Get(formCollection["AccountId"]);
-            if (isSave)
-            {
-                _mAccountRefRepository.Save(accountRef);
-            }
-            else
-            {
-                _mAccountRefRepository.Update(accountRef);
-
-            }
-
-
             try
             {
+                MWarehouse mWarehouseToUpdate = _mWarehouseRepository.Get(viewModel.Id);
+                TransferFormValuesTo(mWarehouseToUpdate, viewModel);
+                mWarehouseToUpdate.EmployeeId = _mEmployeeRepository.Get(formCollection["EmployeeId"]);
+                mWarehouseToUpdate.CostCenterId = _mCostCenterRepository.Get(formCollection["CostCenterId"]);
+                mWarehouseToUpdate.ModifiedDate = DateTime.Now;
+                mWarehouseToUpdate.ModifiedBy = User.Identity.Name;
+                mWarehouseToUpdate.DataStatus = EnumDataStatus.Updated.ToString();
+
+                bool isSave = false;
+                RefAddress address = mWarehouseToUpdate.AddressId;
+                if (address == null)
+                {
+                   address = new RefAddress();
+                    address.SetAssignedIdTo(Guid.NewGuid().ToString());
+                    isSave = true;
+                }
+                address.AddressLine1 = formCollection["AddressLine1"];
+                address.AddressLine1 = formCollection["AddressLine1"];
+                address.AddressLine2 = formCollection["AddressLine2"];
+                address.AddressLine3 = formCollection["AddressLine3"];
+                address.AddressPhone = formCollection["AddressPhone"];
+                address.AddressCity = formCollection["AddressCity"];
+
+                _refAddressRepository.Save(address);
+                if (isSave)
+                    _refAddressRepository.Save(address);
+                else
+                    _refAddressRepository.Update(address);
+
+                mWarehouseToUpdate.AddressId = address;
+                _mWarehouseRepository.Update(mWarehouseToUpdate);
+
+                //save account persediaan barang
+                isSave = false;
+                MAccountRef accountRef = GetAccountRef(EnumReferenceTable.Warehouse, mWarehouseToUpdate.Id);
+                if (accountRef == null)
+                {
+                    accountRef = new MAccountRef();
+                    accountRef.SetAssignedIdTo(Guid.NewGuid().ToString());
+                    isSave = true;
+                }
+                accountRef.ReferenceId = mWarehouseToUpdate.Id;
+                accountRef.ReferenceTable = EnumReferenceTable.Warehouse.ToString();
+                accountRef.ReferenceType = EnumReferenceTable.Warehouse.ToString();
+                accountRef.AccountId = _mAccountRepository.Get(formCollection["AccountId"]);
+                if (isSave)
+                    _mAccountRefRepository.Save(accountRef);
+                else
+                    _mAccountRefRepository.Update(accountRef);
+
+                //save account pemakaian barang
+                isSave = false;
+                accountRef = GetAccountRef(EnumReferenceTable.WarehouseUsing, mWarehouseToUpdate.Id);
+                if (accountRef == null)
+                {
+                    accountRef = new MAccountRef();
+                    accountRef.SetAssignedIdTo(Guid.NewGuid().ToString());
+                    isSave = true;
+                }
+                accountRef.ReferenceId = mWarehouseToUpdate.Id;
+                accountRef.ReferenceTable = EnumReferenceTable.WarehouseUsing.ToString();
+                accountRef.ReferenceType = EnumReferenceTable.WarehouseUsing.ToString();
+                accountRef.AccountId = _mAccountRepository.Get(formCollection["UsingAccountId"]);
+                if (isSave)
+                    _mAccountRefRepository.Save(accountRef);
+                else
+                    _mAccountRefRepository.Update(accountRef);
+
+
                 _mWarehouseRepository.DbContext.CommitChanges();
             }
             catch (Exception e)
             {
-
                 _mWarehouseRepository.DbContext.RollbackTransaction();
 
                 return Content(e.GetBaseException().Message);

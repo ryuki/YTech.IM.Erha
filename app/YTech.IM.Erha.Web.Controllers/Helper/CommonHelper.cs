@@ -34,7 +34,7 @@ namespace YTech.IM.Erha.Web.Controllers.Helper
         }
         public static string NumberFormat
         {
-            get { return "N2"; }
+            get { return "N3"; }
         }
 
         public static TReference GetReference(EnumReferenceType referenceType)

@@ -130,7 +130,7 @@
         <TablixBody>
           <TablixColumns>
             <TablixColumn>
-              <Width>0.42453in</Width>
+              <Width>0.35023in</Width>
             </TablixColumn>
             <TablixColumn>
               <Width>1in</Width>
@@ -151,24 +151,24 @@
               <Width>1.11321in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>0.60377in</Width>
+              <Width>0.53085in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.28302in</Width>
+              <Width>1.2726in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.16981in</Width>
+              <Width>1.11773in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.12264in</Width>
+              <Width>0.95597in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1in</Width>
+              <Width>0.86458in</Width>
             </TablixColumn>
           </TablixColumns>
           <TablixRows>
             <TablixRow>
-              <Height>0.25in</Height>
+              <Height>0.38542in</Height>
               <TablixCells>
                 <TablixCell>
                   <CellContents>
@@ -181,7 +181,7 @@
                             <TextRun>
                               <Value>No</Value>
                               <Style>
-                                <FontFamily>Verdana</FontFamily>
+                                <FontFamily>Calibri</FontFamily>
                                 <FontSize>9pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
@@ -216,7 +216,7 @@
                             <TextRun>
                               <Value>Tanggal</Value>
                               <Style>
-                                <FontFamily>Verdana</FontFamily>
+                                <FontFamily>Calibri</FontFamily>
                                 <FontSize>9pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
@@ -251,7 +251,7 @@
                             <TextRun>
                               <Value>Jam Masuk</Value>
                               <Style>
-                                <FontFamily>Verdana</FontFamily>
+                                <FontFamily>Calibri</FontFamily>
                                 <FontSize>9pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
@@ -287,7 +287,7 @@
                               <Value>Jam Keluar</Value>
                               <Style>
                                 <FontStyle>Normal</FontStyle>
-                                <FontFamily>Verdana</FontFamily>
+                                <FontFamily>Calibri</FontFamily>
                                 <FontSize>9pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                                 <TextDecoration>None</TextDecoration>
@@ -323,7 +323,7 @@
                             <TextRun>
                               <Value>No Faktur</Value>
                               <Style>
-                                <FontFamily>Verdana</FontFamily>
+                                <FontFamily>Calibri</FontFamily>
                                 <FontSize>9pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
@@ -358,7 +358,7 @@
                             <TextRun>
                               <Value>Nama Konsumen</Value>
                               <Style>
-                                <FontFamily>Verdana</FontFamily>
+                                <FontFamily>Calibri</FontFamily>
                                 <FontSize>9pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
@@ -393,7 +393,7 @@
                             <TextRun>
                               <Value>Sub Total (Rp)</Value>
                               <Style>
-                                <FontFamily>Verdana</FontFamily>
+                                <FontFamily>Calibri</FontFamily>
                                 <FontSize>9pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
@@ -428,7 +428,7 @@
                             <TextRun>
                               <Value>Diskon (%)</Value>
                               <Style>
-                                <FontFamily>Verdana</FontFamily>
+                                <FontFamily>Calibri</FontFamily>
                                 <FontSize>9pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
@@ -463,7 +463,7 @@
                             <TextRun>
                               <Value>Grand Total</Value>
                               <Style>
-                                <FontFamily>Verdana</FontFamily>
+                                <FontFamily>Calibri</FontFamily>
                                 <FontSize>9pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
@@ -498,7 +498,7 @@
                             <TextRun>
                               <Value>Voucher (Rp)</Value>
                               <Style>
-                                <FontFamily>Verdana</FontFamily>
+                                <FontFamily>Calibri</FontFamily>
                                 <FontSize>9pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
@@ -533,7 +533,7 @@
                             <TextRun>
                               <Value>Tunai (Rp)</Value>
                               <Style>
-                                <FontFamily>Verdana</FontFamily>
+                                <FontFamily>Calibri</FontFamily>
                                 <FontSize>9pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
@@ -568,7 +568,7 @@
                             <TextRun>
                               <Value>Kartu Kredit (Rp)</Value>
                               <Style>
-                                <FontFamily>Verdana</FontFamily>
+                                <FontFamily>Calibri</FontFamily>
                                 <FontSize>9pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
@@ -608,7 +608,7 @@
                             <TextRun>
                               <Value>=rownumber("Tablix1")</Value>
                               <Style>
-                                <FontFamily>Verdana</FontFamily>
+                                <FontFamily>Calibri</FontFamily>
                                 <FontSize>9pt</FontSize>
                               </Style>
                             </TextRun>
@@ -642,7 +642,7 @@
                             <TextRun>
                               <Value>=Fields!TransDate.Value</Value>
                               <Style>
-                                <FontFamily>Verdana</FontFamily>
+                                <FontFamily>Calibri</FontFamily>
                                 <FontSize>9pt</FontSize>
                                 <Format>dd-MMM-yyyy</Format>
                               </Style>
@@ -677,7 +677,7 @@
                             <TextRun>
                               <Value>=Fields!RoomInDate.Value</Value>
                               <Style>
-                                <FontFamily>Verdana</FontFamily>
+                                <FontFamily>Calibri</FontFamily>
                                 <FontSize>9pt</FontSize>
                                 <Format>HH:mm</Format>
                               </Style>
@@ -712,7 +712,7 @@
                             <TextRun>
                               <Value>=Fields!RoomOutDate.Value</Value>
                               <Style>
-                                <FontFamily>Verdana</FontFamily>
+                                <FontFamily>Calibri</FontFamily>
                                 <FontSize>9pt</FontSize>
                                 <Format>HH:mm</Format>
                               </Style>
@@ -747,7 +747,7 @@
                             <TextRun>
                               <Value>=Fields!TransFactur.Value</Value>
                               <Style>
-                                <FontFamily>Verdana</FontFamily>
+                                <FontFamily>Calibri</FontFamily>
                                 <FontSize>9pt</FontSize>
                               </Style>
                             </TextRun>
@@ -781,7 +781,7 @@
                             <TextRun>
                               <Value>=Fields!CustomerName.Value</Value>
                               <Style>
-                                <FontFamily>Verdana</FontFamily>
+                                <FontFamily>Calibri</FontFamily>
                                 <FontSize>9pt</FontSize>
                               </Style>
                             </TextRun>
@@ -815,7 +815,7 @@
                             <TextRun>
                               <Value>=Fields!TransSubTotal.Value</Value>
                               <Style>
-                                <FontFamily>Verdana</FontFamily>
+                                <FontFamily>Calibri</FontFamily>
                                 <FontSize>9pt</FontSize>
                                 <Format>N2</Format>
                               </Style>
@@ -850,7 +850,7 @@
                             <TextRun>
                               <Value>=Fields!TransDiscount.Value</Value>
                               <Style>
-                                <FontFamily>Verdana</FontFamily>
+                                <FontFamily>Calibri</FontFamily>
                                 <FontSize>9pt</FontSize>
                                 <Format>N2</Format>
                               </Style>
@@ -885,7 +885,7 @@
                             <TextRun>
                               <Value>=Fields!TransGrandTotal.Value</Value>
                               <Style>
-                                <FontFamily>Verdana</FontFamily>
+                                <FontFamily>Calibri</FontFamily>
                                 <FontSize>9pt</FontSize>
                                 <Format>N2</Format>
                               </Style>
@@ -920,7 +920,7 @@
                             <TextRun>
                               <Value>=Fields!RoomVoucherPaid.Value</Value>
                               <Style>
-                                <FontFamily>Verdana</FontFamily>
+                                <FontFamily>Calibri</FontFamily>
                                 <FontSize>9pt</FontSize>
                                 <Format>N2</Format>
                               </Style>
@@ -955,7 +955,7 @@
                             <TextRun>
                               <Value>=Fields!TransSubTotal.Value-(Fields!TransSubTotal.Value*Fields!TransDiscount.Value/100)-Fields!RoomCreditPaid.Value-Fields!RoomVoucherPaid.Value</Value>
                               <Style>
-                                <FontFamily>Verdana</FontFamily>
+                                <FontFamily>Calibri</FontFamily>
                                 <FontSize>9pt</FontSize>
                                 <Format>N2</Format>
                               </Style>
@@ -990,7 +990,7 @@
                             <TextRun>
                               <Value>=Fields!RoomCreditPaid.Value</Value>
                               <Style>
-                                <FontFamily>Verdana</FontFamily>
+                                <FontFamily>Calibri</FontFamily>
                                 <FontSize>9pt</FontSize>
                                 <Format>N2</Format>
                               </Style>
@@ -1030,7 +1030,7 @@
                             <TextRun>
                               <Value>Total</Value>
                               <Style>
-                                <FontFamily>Verdana</FontFamily>
+                                <FontFamily>Calibri</FontFamily>
                                 <FontSize>9pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
@@ -1070,7 +1070,7 @@
                             <TextRun>
                               <Value />
                               <Style>
-                                <FontFamily>Verdana</FontFamily>
+                                <FontFamily>Calibri</FontFamily>
                                 <FontSize>9pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
@@ -1105,7 +1105,7 @@
                             <TextRun>
                               <Value>=sum(Fields!TransSubTotal.Value)</Value>
                               <Style>
-                                <FontFamily>Verdana</FontFamily>
+                                <FontFamily>Calibri</FontFamily>
                                 <FontSize>9pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                                 <Format>N2</Format>
@@ -1141,7 +1141,7 @@
                             <TextRun>
                               <Value />
                               <Style>
-                                <FontFamily>Verdana</FontFamily>
+                                <FontFamily>Calibri</FontFamily>
                                 <FontSize>9pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
@@ -1176,7 +1176,7 @@
                             <TextRun>
                               <Value>=sum(Fields!TransSubTotal.Value-(Fields!TransSubTotal.Value*Fields!TransDiscount.Value/100))</Value>
                               <Style>
-                                <FontFamily>Verdana</FontFamily>
+                                <FontFamily>Calibri</FontFamily>
                                 <FontSize>9pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                                 <Format>N2</Format>
@@ -1212,7 +1212,7 @@
                             <TextRun>
                               <Value>=sum(Fields!RoomVoucherPaid.Value)</Value>
                               <Style>
-                                <FontFamily>Verdana</FontFamily>
+                                <FontFamily>Calibri</FontFamily>
                                 <FontSize>9pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                                 <Format>N2</Format>
@@ -1248,7 +1248,7 @@
                             <TextRun>
                               <Value>=sum(Fields!TransSubTotal.Value-(Fields!TransSubTotal.Value*Fields!TransDiscount.Value/100)-Fields!RoomCreditPaid.Value-Fields!RoomVoucherPaid.Value)</Value>
                               <Style>
-                                <FontFamily>Verdana</FontFamily>
+                                <FontFamily>Calibri</FontFamily>
                                 <FontSize>9pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                                 <Format>N2</Format>
@@ -1284,7 +1284,7 @@
                             <TextRun>
                               <Value>=sum(Fields!RoomCreditPaid.Value)</Value>
                               <Style>
-                                <FontFamily>Verdana</FontFamily>
+                                <FontFamily>Calibri</FontFamily>
                                 <FontSize>9pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                                 <Format>N2</Format>
@@ -1353,8 +1353,8 @@
         <DataSetName>TransRoomViewModel</DataSetName>
         <Top>0.625in</Top>
         <Left>0.125in</Left>
-        <Height>0.75in</Height>
-        <Width>11.46698in</Width>
+        <Height>0.88542in</Height>
+        <Width>10.95518in</Width>
         <Style>
           <Border>
             <Style>None</Style>
@@ -1370,6 +1370,7 @@
               <TextRun>
                 <Value>Laporan Serah Terima Omzet Penjualan</Value>
                 <Style>
+                  <FontFamily>Calibri</FontFamily>
                   <FontWeight>Bold</FontWeight>
                 </Style>
               </TextRun>
@@ -1404,6 +1405,7 @@
               <TextRun>
                 <Value>Tanggal :</Value>
                 <Style>
+                  <FontFamily>Calibri</FontFamily>
                   <FontWeight>Bold</FontWeight>
                 </Style>
               </TextRun>
@@ -1439,6 +1441,7 @@
                 <Value>=Format(Min(Fields!TransDate.Value, "TransRoomViewModel"),"dd-MMM-yyyy") &amp; " s/d " &amp; 
 Format(Max(Fields!TransDate.Value, "TransRoomViewModel"),"dd-MMM-yyyy")</Value>
                 <Style>
+                  <FontFamily>Calibri</FontFamily>
                   <FontWeight>Bold</FontWeight>
                   <Format>dd-MMMM-yyyy</Format>
                 </Style>
@@ -1474,6 +1477,7 @@ Format(Max(Fields!TransDate.Value, "TransRoomViewModel"),"dd-MMM-yyyy")</Value>
               <TextRun>
                 <Value>Pekanbaru,</Value>
                 <Style>
+                  <FontFamily>Calibri</FontFamily>
                   <FontWeight>Bold</FontWeight>
                 </Style>
               </TextRun>
@@ -1482,7 +1486,7 @@ Format(Max(Fields!TransDate.Value, "TransRoomViewModel"),"dd-MMM-yyyy")</Value>
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox20</rd:DefaultName>
-        <Top>1.41274in</Top>
+        <Top>1.53774in</Top>
         <Left>0.54953in</Left>
         <Height>0.25in</Height>
         <Width>1in</Width>
@@ -1506,6 +1510,7 @@ Format(Max(Fields!TransDate.Value, "TransRoomViewModel"),"dd-MMM-yyyy")</Value>
               <TextRun>
                 <Value>=Globals!ExecutionTime</Value>
                 <Style>
+                  <FontFamily>Calibri</FontFamily>
                   <FontWeight>Bold</FontWeight>
                   <Format>dd-MMMM-yyyy</Format>
                 </Style>
@@ -1517,7 +1522,7 @@ Format(Max(Fields!TransDate.Value, "TransRoomViewModel"),"dd-MMM-yyyy")</Value>
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>ShiftDate</rd:DefaultName>
-        <Top>1.41274in</Top>
+        <Top>1.53774in</Top>
         <Left>1.54953in</Left>
         <Height>0.25in</Height>
         <Width>2.75in</Width>
@@ -1541,6 +1546,7 @@ Format(Max(Fields!TransDate.Value, "TransRoomViewModel"),"dd-MMM-yyyy")</Value>
               <TextRun>
                 <Value>Mengetahui,</Value>
                 <Style>
+                  <FontFamily>Calibri</FontFamily>
                   <FontWeight>Bold</FontWeight>
                 </Style>
               </TextRun>
@@ -1551,7 +1557,7 @@ Format(Max(Fields!TransDate.Value, "TransRoomViewModel"),"dd-MMM-yyyy")</Value>
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox25</rd:DefaultName>
-        <Top>1.69321in</Top>
+        <Top>1.81821in</Top>
         <Left>0.54953in</Left>
         <Height>0.25in</Height>
         <Width>1.4884in</Width>
@@ -1575,6 +1581,7 @@ Format(Max(Fields!TransDate.Value, "TransRoomViewModel"),"dd-MMM-yyyy")</Value>
               <TextRun>
                 <Value>Menyerahkan,</Value>
                 <Style>
+                  <FontFamily>Calibri</FontFamily>
                   <FontWeight>Bold</FontWeight>
                 </Style>
               </TextRun>
@@ -1585,7 +1592,7 @@ Format(Max(Fields!TransDate.Value, "TransRoomViewModel"),"dd-MMM-yyyy")</Value>
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox25</rd:DefaultName>
-        <Top>1.69321in</Top>
+        <Top>1.81821in</Top>
         <Left>8.46934in</Left>
         <Height>0.25in</Height>
         <Width>1.4884in</Width>
@@ -1609,6 +1616,7 @@ Format(Max(Fields!TransDate.Value, "TransRoomViewModel"),"dd-MMM-yyyy")</Value>
               <TextRun>
                 <Value>Menerima, </Value>
                 <Style>
+                  <FontFamily>Calibri</FontFamily>
                   <FontWeight>Bold</FontWeight>
                 </Style>
               </TextRun>
@@ -1619,7 +1627,7 @@ Format(Max(Fields!TransDate.Value, "TransRoomViewModel"),"dd-MMM-yyyy")</Value>
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox25</rd:DefaultName>
-        <Top>1.69321in</Top>
+        <Top>1.81821in</Top>
         <Left>4.6084in</Left>
         <Height>0.25in</Height>
         <Width>1.4884in</Width>
@@ -1643,6 +1651,7 @@ Format(Max(Fields!TransDate.Value, "TransRoomViewModel"),"dd-MMM-yyyy")</Value>
               <TextRun>
                 <Value>( _____________ )</Value>
                 <Style>
+                  <FontFamily>Calibri</FontFamily>
                   <FontWeight>Bold</FontWeight>
                 </Style>
               </TextRun>
@@ -1653,7 +1662,7 @@ Format(Max(Fields!TransDate.Value, "TransRoomViewModel"),"dd-MMM-yyyy")</Value>
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox25</rd:DefaultName>
-        <Top>2.19575in</Top>
+        <Top>2.32075in</Top>
         <Left>0.54953in</Left>
         <Height>0.25in</Height>
         <Width>1.4884in</Width>
@@ -1677,6 +1686,7 @@ Format(Max(Fields!TransDate.Value, "TransRoomViewModel"),"dd-MMM-yyyy")</Value>
               <TextRun>
                 <Value>Manager</Value>
                 <Style>
+                  <FontFamily>Calibri</FontFamily>
                   <FontWeight>Bold</FontWeight>
                 </Style>
               </TextRun>
@@ -1687,7 +1697,7 @@ Format(Max(Fields!TransDate.Value, "TransRoomViewModel"),"dd-MMM-yyyy")</Value>
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox25</rd:DefaultName>
-        <Top>2.44575in</Top>
+        <Top>2.57075in</Top>
         <Left>0.67453in</Left>
         <Height>0.25in</Height>
         <Width>1.2384in</Width>
@@ -1712,6 +1722,7 @@ Format(Max(Fields!TransDate.Value, "TransRoomViewModel"),"dd-MMM-yyyy")</Value>
                 <Value>( _____________ )</Value>
                 <Style>
                   <FontStyle>Normal</FontStyle>
+                  <FontFamily>Calibri</FontFamily>
                   <FontWeight>Bold</FontWeight>
                   <TextDecoration>None</TextDecoration>
                   <Color>#000000</Color>
@@ -1724,7 +1735,7 @@ Format(Max(Fields!TransDate.Value, "TransRoomViewModel"),"dd-MMM-yyyy")</Value>
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox25</rd:DefaultName>
-        <Top>2.19575in</Top>
+        <Top>2.32075in</Top>
         <Left>4.6084in</Left>
         <Height>0.25in</Height>
         <Width>1.4884in</Width>
@@ -1748,6 +1759,7 @@ Format(Max(Fields!TransDate.Value, "TransRoomViewModel"),"dd-MMM-yyyy")</Value>
               <TextRun>
                 <Value>Adm</Value>
                 <Style>
+                  <FontFamily>Calibri</FontFamily>
                   <FontWeight>Bold</FontWeight>
                 </Style>
               </TextRun>
@@ -1758,7 +1770,7 @@ Format(Max(Fields!TransDate.Value, "TransRoomViewModel"),"dd-MMM-yyyy")</Value>
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox25</rd:DefaultName>
-        <Top>2.44575in</Top>
+        <Top>2.57075in</Top>
         <Left>4.7334in</Left>
         <Height>0.25in</Height>
         <Width>1.2384in</Width>
@@ -1783,6 +1795,7 @@ Format(Max(Fields!TransDate.Value, "TransRoomViewModel"),"dd-MMM-yyyy")</Value>
                 <Value>( _____________ )</Value>
                 <Style>
                   <FontStyle>Normal</FontStyle>
+                  <FontFamily>Calibri</FontFamily>
                   <FontWeight>Bold</FontWeight>
                   <TextDecoration>None</TextDecoration>
                   <Color>#000000</Color>
@@ -1795,7 +1808,7 @@ Format(Max(Fields!TransDate.Value, "TransRoomViewModel"),"dd-MMM-yyyy")</Value>
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox25</rd:DefaultName>
-        <Top>2.19575in</Top>
+        <Top>2.32075in</Top>
         <Left>8.46934in</Left>
         <Height>0.25in</Height>
         <Width>1.4884in</Width>
@@ -1819,6 +1832,7 @@ Format(Max(Fields!TransDate.Value, "TransRoomViewModel"),"dd-MMM-yyyy")</Value>
               <TextRun>
                 <Value>Kasir</Value>
                 <Style>
+                  <FontFamily>Calibri</FontFamily>
                   <FontWeight>Bold</FontWeight>
                 </Style>
               </TextRun>
@@ -1829,7 +1843,7 @@ Format(Max(Fields!TransDate.Value, "TransRoomViewModel"),"dd-MMM-yyyy")</Value>
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox25</rd:DefaultName>
-        <Top>2.44575in</Top>
+        <Top>2.57075in</Top>
         <Left>8.59434in</Left>
         <Height>0.25in</Height>
         <Width>1.2384in</Width>
@@ -1848,7 +1862,7 @@ Format(Max(Fields!TransDate.Value, "TransRoomViewModel"),"dd-MMM-yyyy")</Value>
     <Height>2.82075in</Height>
     <Style />
   </Body>
-  <Width>11.59198in</Width>
+  <Width>11.23781in</Width>
   <Page>
     <PageHeight>8.5in</PageHeight>
     <PageWidth>11in</PageWidth>

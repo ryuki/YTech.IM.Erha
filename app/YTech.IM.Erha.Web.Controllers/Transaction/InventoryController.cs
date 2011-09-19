@@ -21,11 +21,6 @@ namespace YTech.IM.Erha.Web.Controllers.Transaction
     [HandleError]
     public partial class InventoryController : Controller
     {
-        //public InventoryController()
-        //    : this(new TTransRepository(), new MWarehouseRepository(), new MSupplierRepository(), new MItemRepository(), new TStockCardRepository(), new TStockItemRepository(), new TTransRefRepository(), new TStockRepository(), new TStockRefRepository(), new MCustomerRepository(), new MRoomRepository(), new MEmployeeRepository(), new TTransDetRepository(), new TTransRoomRepository(), new MPacketRepository())
-        //{
-        //}
-
         private readonly ITTransRepository _tTransRepository;
         private readonly IMWarehouseRepository _mWarehouseRepository;
         private readonly IMSupplierRepository _mSupplierRepository;
@@ -51,8 +46,9 @@ namespace YTech.IM.Erha.Web.Controllers.Transaction
         private readonly IMActionRepository _mActionRepository;
         private readonly ITCommissionRepository _tCommissionRepository;
         private readonly IMActionCommRepository _mActionCommRepository;
+        private readonly ITJournalRefRepository _tJournalRefRepository;
 
-        public InventoryController(ITTransRepository tTransRepository, IMWarehouseRepository mWarehouseRepository, IMSupplierRepository mSupplierRepository, IMItemRepository mItemRepository, ITStockCardRepository tStockCardRepository, ITStockItemRepository tStockItemRepository, ITTransRefRepository tTransRefRepository, ITStockRepository tStockRepository, ITStockRefRepository tStockRefRepository, IMCustomerRepository mCustomerRepository, IMRoomRepository mRoomRepository, IMEmployeeRepository mEmployeeRepository, ITTransDetRepository tTransDetRepository, ITTransRoomRepository tTransRoomRepository, IMPacketRepository mPacketRepository, IMPacketItemCatRepository mPacketItemCatRepository, ITTransDetItemRepository tTransDetItemRepository, IMAccountRefRepository mAccountRefRepository, ITJournalRepository tJournalRepository, ITJournalDetRepository tJournalDetRepository, IMAccountRepository mAccountRepository, IMActionRepository mActionRepository, ITCommissionRepository tCommissionRepository, IMActionCommRepository mActionCommRepository)
+        public InventoryController(ITTransRepository tTransRepository, IMWarehouseRepository mWarehouseRepository, IMSupplierRepository mSupplierRepository, IMItemRepository mItemRepository, ITStockCardRepository tStockCardRepository, ITStockItemRepository tStockItemRepository, ITTransRefRepository tTransRefRepository, ITStockRepository tStockRepository, ITStockRefRepository tStockRefRepository, IMCustomerRepository mCustomerRepository, IMRoomRepository mRoomRepository, IMEmployeeRepository mEmployeeRepository, ITTransDetRepository tTransDetRepository, ITTransRoomRepository tTransRoomRepository, IMPacketRepository mPacketRepository, IMPacketItemCatRepository mPacketItemCatRepository, ITTransDetItemRepository tTransDetItemRepository, IMAccountRefRepository mAccountRefRepository, ITJournalRepository tJournalRepository, ITJournalDetRepository tJournalDetRepository, IMAccountRepository mAccountRepository, IMActionRepository mActionRepository, ITCommissionRepository tCommissionRepository, IMActionCommRepository mActionCommRepository, ITJournalRefRepository tJournalRefRepository)
         {
             Check.Require(tTransRepository != null, "tTransRepository may not be null");
             Check.Require(mWarehouseRepository != null, "mWarehouseRepository may not be null");
@@ -79,6 +75,7 @@ namespace YTech.IM.Erha.Web.Controllers.Transaction
             Check.Require(mActionRepository != null, "mActionRepository may not be null");
             Check.Require(tCommissionRepository != null, "tCommissionRepository may not be null");
             Check.Require(mActionCommRepository != null, "mActionCommRepository may not be null");
+            Check.Require(tJournalRefRepository != null, "tJournalRefRepository may not be null");
             
             this._tTransRepository = tTransRepository;
             this._mWarehouseRepository = mWarehouseRepository;
@@ -105,6 +102,7 @@ namespace YTech.IM.Erha.Web.Controllers.Transaction
             this._mActionRepository = mActionRepository;
             this._tCommissionRepository = tCommissionRepository;
             this._mActionCommRepository = mActionCommRepository;
+            this._tJournalRefRepository = tJournalRefRepository;
         }
 
         public ActionResult Index()

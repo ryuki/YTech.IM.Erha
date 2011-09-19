@@ -13,6 +13,7 @@ using YTech.IM.Erha.Core.RepositoryInterfaces;
 using YTech.IM.Erha.Core.Transaction;
 using YTech.IM.Erha.Core.Transaction.Accounting;
 using YTech.IM.Erha.Core.Transaction.Inventory;
+//using YTech.IM.Erha.Core.Transaction.Payment;
 using YTech.IM.Erha.Data.Repository;
 using YTech.IM.Erha.Enums;
 using YTech.IM.Erha.Web.Controllers.ViewModel;
@@ -23,23 +24,27 @@ namespace YTech.IM.Erha.Web.Controllers.Transaction
     {
         public abstract void SaveJournal(TTrans trans, decimal totalHPP);
 
+        //public abstract void SaveJournal(TPayment payment);
+
         public string UserName;
         public IMAccountRefRepository AccountRefRepository;
         public ITJournalRepository JournalRepository;
+        public ITJournalRefRepository JournalRefRepository;
 
         protected string Desc = string.Empty;
         protected string NewVoucher = string.Empty;
 
-        protected TJournal SaveJournalHeader(string newVoucher, TTrans trans, string desc)
+        protected TJournal SaveJournalHeader(MCostCenter costCenterId, string newVoucher, string journalPic, DateTime? journalDate, string journalEvidenceNo, string desc)
         {
+
             TJournal j = new TJournal();
             j.SetAssignedIdTo(Guid.NewGuid().ToString());
-            j.CostCenterId = trans.WarehouseId.CostCenterId;
+            j.CostCenterId = costCenterId;
             j.JournalType = EnumJournalType.GeneralLedger.ToString();
             j.JournalVoucherNo = newVoucher;
-            j.JournalPic = trans.TransBy;
-            j.JournalDate = trans.TransDate;
-            j.JournalEvidenceNo = trans.TransFactur;
+            j.JournalPic = journalPic;
+            j.JournalDate = journalDate;
+            j.JournalEvidenceNo = journalEvidenceNo;
             //j.JournalAmmount = ammount;
             j.JournalDesc = desc;
 
@@ -47,16 +52,44 @@ namespace YTech.IM.Erha.Web.Controllers.Transaction
             j.CreatedBy = UserName;
             j.CreatedDate = DateTime.Now;
             j.JournalDets.Clear();
+
             return j;
         }
 
-        protected void SaveJournalDet(TJournal journal, string newVoucher, MAccount accountId, EnumJournalStatus journalStatus, decimal ammount, TTrans trans, string desc)
+        protected void DeleteJournal(EnumReferenceTable referenceTable, string referenceType, string referenceId)
+        {
+            TJournalRef journalRef = JournalRefRepository.GetByReference(referenceTable,
+                                                                         referenceType, referenceId);
+            if (journalRef != null)
+            {
+                TJournal journalToDelete = journalRef.JournalId;
+                JournalRefRepository.Delete(journalRef);
+                JournalRepository.Delete(journalToDelete);
+            }
+        }
+
+        protected void SaveJournalRef(TJournal j, string referenceId, string referenceType, string desc)
+        {
+            TJournalRef journalRef = new TJournalRef();
+            journalRef.SetAssignedIdTo(Guid.NewGuid().ToString());
+            journalRef.JournalId = j; ;
+            journalRef.ReferenceTable = EnumReferenceTable.Transaction.ToString();
+            journalRef.ReferenceType = referenceType;
+            journalRef.ReferenceId = referenceId;
+            journalRef.JournalRefDesc = desc;
+            journalRef.CreatedBy = UserName;
+            journalRef.CreatedDate = DateTime.Now;
+            journalRef.DataStatus = EnumDataStatus.New.ToString();
+            JournalRefRepository.Save(journalRef);
+        }
+
+        protected void SaveJournalDet(TJournal journal, string newVoucher, MAccount accountId, EnumJournalStatus journalStatus, decimal ammount, string evidenceNo, string desc)
         {
             TJournalDet detToInsert = new TJournalDet(journal);
             detToInsert.SetAssignedIdTo(Guid.NewGuid().ToString());
             detToInsert.AccountId = accountId;
             detToInsert.JournalDetStatus = journalStatus.ToString();
-            detToInsert.JournalDetEvidenceNo = trans.TransFactur;
+            detToInsert.JournalDetEvidenceNo = evidenceNo;
             detToInsert.JournalDetAmmount = ammount;
             detToInsert.JournalDetNo = 0;
             detToInsert.JournalDetDesc = desc;

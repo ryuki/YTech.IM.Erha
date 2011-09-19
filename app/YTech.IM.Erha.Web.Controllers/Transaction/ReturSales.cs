@@ -25,34 +25,34 @@ namespace YTech.IM.Erha.Web.Controllers.Transaction
 
         public override void SaveJournal(TTrans trans, decimal totalHPP)
         {
-            string desc = string.Format("Retur Penjualan barang dari {0}", trans.TransBy);
-            string newVoucher = Helper.CommonHelper.GetVoucherNo(false);
-            //save header of journal
-            TJournal journal = SaveJournalHeader(newVoucher, trans, desc);
-            MAccountRef accountRef = null;
+            //string desc = string.Format("Retur Penjualan barang dari {0}", trans.TransBy);
+            //string newVoucher = Helper.CommonHelper.GetVoucherNo(false);
+            ////save header of journal
+            //TJournal journal = SaveJournalHeader(newVoucher, trans, desc);
+            //MAccountRef accountRef = null;
 
-            //save retur penjualan
-            SaveJournalDet(journal, newVoucher, Helper.AccountHelper.GetReturSalesAccount(), EnumJournalStatus.D, trans.TransGrandTotal.Value, trans, desc);
-            if (trans.TransPaymentMethod == EnumPaymentMethod.Tunai.ToString())
-            {
-                //save cash
-                SaveJournalDet(journal, newVoucher, Helper.AccountHelper.GetCashAccount(), EnumJournalStatus.K, trans.TransGrandTotal.Value, trans, desc);
-            }
-            else
-            {
-                accountRef = AccountRefRepository.GetByRefTableId(EnumReferenceTable.Customer, trans.TransBy);
-                //save piutang
-                SaveJournalDet(journal, newVoucher, accountRef.AccountId, EnumJournalStatus.K, trans.TransGrandTotal.Value, trans, desc);
-            }
+            ////save retur penjualan
+            //SaveJournalDet(journal, newVoucher, Helper.AccountHelper.GetReturSalesAccount(), EnumJournalStatus.D, trans.TransGrandTotal.Value, trans, desc);
+            //if (trans.TransPaymentMethod == EnumPaymentMethod.Tunai.ToString())
+            //{
+            //    //save cash
+            //    SaveJournalDet(journal, newVoucher, Helper.AccountHelper.GetCashAccount(), EnumJournalStatus.K, trans.TransGrandTotal.Value, trans, desc);
+            //}
+            //else
+            //{
+            //    accountRef = AccountRefRepository.GetByRefTableId(EnumReferenceTable.Customer, trans.TransBy);
+            //    //save piutang
+            //    SaveJournalDet(journal, newVoucher, accountRef.AccountId, EnumJournalStatus.K, trans.TransGrandTotal.Value, trans, desc);
+            //}
 
-            //save persediaan
-            accountRef = AccountRefRepository.GetByRefTableId(EnumReferenceTable.Warehouse, trans.WarehouseId.Id);
-            SaveJournalDet(journal, newVoucher, accountRef.AccountId, EnumJournalStatus.D, totalHPP, trans, desc);
+            ////save persediaan
+            //accountRef = AccountRefRepository.GetByRefTableId(EnumReferenceTable.Warehouse, trans.WarehouseId.Id);
+            //SaveJournalDet(journal, newVoucher, accountRef.AccountId, EnumJournalStatus.D, totalHPP, trans, desc);
 
-            //save ikhtiar LR
-            SaveJournalDet(journal, newVoucher, Helper.AccountHelper.GetIkhtiarLRAccount(), EnumJournalStatus.K, totalHPP, trans, desc);
+            ////save ikhtiar LR
+            //SaveJournalDet(journal, newVoucher, Helper.AccountHelper.GetIkhtiarLRAccount(), EnumJournalStatus.K, totalHPP, trans, desc);
 
-            JournalRepository.Save(journal);
+            //JournalRepository.Save(journal);
         }
 
         #endregion

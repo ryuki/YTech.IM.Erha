@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Views/Shared/MyMaster.master" AutoEventWireup="true"
-    Inherits="System.Web.Mvc.ViewPage<IEnumerable<MWarehouse>>" %>
+    Inherits="System.Web.Mvc.ViewPage" %>
 
 <asp:Content ID="indexContent" ContentPlaceHolderID="MainContent" runat="server">
     <table id="list" class="scroll" cellpadding="0" cellspacing="0">
@@ -7,6 +7,13 @@
     <div id="listPager" class="scroll" style="text-align: center;">
     </div>
     <div id="listPsetcols" class="scroll" style="text-align: center;">
+    </div>
+    <div id="dialog" title="Status">
+        <p>
+        </p>
+    </div>
+    <div id='popup'>
+        <iframe width='100%' height='380px' id="popup_frame"></iframe>
     </div>
     <script type="text/javascript">
         $(document).ready(function () {
@@ -21,7 +28,7 @@
                 width: '80%',
                 modal: true,
                 close: function(event, ui) {                 
-                    $("#list").trigger("reloadGrid");
+                    //$("#list").trigger("reloadGrid");
                  }
             });
 
@@ -43,7 +50,10 @@
                 , afterShowForm: function (eparams) {
                     $('#Id').attr('disabled', 'disabled');
                      $('#imgAccountId').click(function () {
-                                   OpenPopupAccountSearch();
+                         OpenPopupAccountSearch('AccountId');
+                               });
+                     $('#imgUsingAccountId').click(function () {
+                         OpenPopupAccountSearch('UsingAccountId');
                                });
                 }
                 , width: "400"
@@ -59,9 +69,12 @@
                 , modal: true
                 , afterShowForm: function (eparams) {
                     $('#Id').attr('disabled', '');
-                     $('#imgAccountId').click(function () {
-                                   OpenPopupAccountSearch();
-                               });
+                    $('#imgAccountId').click(function () {
+                        OpenPopupAccountSearch('AccountId');
+                    });
+                    $('#imgUsingAccountId').click(function () {
+                        OpenPopupAccountSearch('UsingAccountId');
+                    });
                 }
                 , afterComplete: function (response, postdata, formid) {
                     $('#dialog p:first').text(response.responseText);
@@ -91,7 +104,7 @@
                 url: '<%= Url.Action("List", "Warehouse") %>',
                 datatype: 'json',
                 mtype: 'GET',
-                colNames: ['Kode Gudang', 'Nama', 'Status Aktif', 'Penanggung Jawab', 'Penanggung Jawab', 'Cost Center', 'Cost Center', 'Akun Persediaan Barang', 'Nama Akun', 'Alamat', '', '', 'Telp', 'Kota', 'Keterangan'],
+                colNames: ['Kode Gudang', 'Nama', 'Status Aktif', 'Penanggung Jawab', 'Penanggung Jawab', 'Cost Center', 'Cost Center', 'Akun Persediaan Barang', 'Nama Akun Persediaan Barang', 'Akun Pemakaian Barang', 'Nama Akun Pemakaian Barang', 'Alamat', '', '', 'Telp', 'Kota', 'Keterangan'],
                 colModel: [
                     { name: 'Id', index: 'Id', width: 100, align: 'left', key: true, editrules: { required: true, edithidden: false }, hidedlg: true, hidden: false, editable: true },
                     { name: 'WarehouseName', index: 'WarehouseName', width: 200, align: 'left', editable: true, edittype: 'text', editrules: { required: true }, formoptions: { elmsuffix: ' *'} },
@@ -105,6 +118,11 @@
                         "elmsuffix": "&nbsp;<img src='" + imgLov + "' style='cursor:hand;' id='imgAccountId' />"
                     } },
                    { name: 'AccountName', index: 'AccountName', width: 200, align: 'left', editable: true, edittype: 'text', editrules: { required: false} },
+                    { name: 'UsingAccountId', index: 'UsingAccountId', width: 200, align: 'left', editable: true, edittype: 'text', editrules: { required: false },
+                       formoptions: {
+                        "elmsuffix": "&nbsp;<img src='" + imgLov + "' style='cursor:hand;' id='imgUsingAccountId' />"
+                    } },
+                   { name: 'UsingAccountName', index: 'UsingAccountName', width: 200, align: 'left', editable: true, edittype: 'text', editrules: { required: false} },
                    { name: 'AddressLine1', index: 'AddressLine1', width: 200, align: 'left', editable: true, edittype: 'text', editrules: { required: false} },
                    { name: 'AddressLine2', index: 'AddressLine2', width: 200, hidden: true, align: 'left', editable: true, edittype: 'text', editrules: { required: false, edithidden: true} },
                    { name: 'AddressLine3', index: 'AddressLine3', width: 200, hidden: true, align: 'left', editable: true, edittype: 'text', editrules: { required: false, edithidden: true} },
@@ -138,34 +156,37 @@
                 insertDialog,
                 deleteDialog
             );
+        });    
             var employees = $.ajax({ url: '<%= Url.Action("GetList","Employee") %>', async: false, cache: false, success: function (data, result) { if (!result) alert('Failure to retrieve the employees.'); } }).responseText;
             var costCenters = $.ajax({ url: '<%= Url.Action("GetList","CostCenter") %>', async: false, cache: false, success: function (data, result) { if (!result) alert('Failure to retrieve the costCenters.'); } }).responseText;
-        });    
         
-         function OpenPopupAccountSearch()
+         function OpenPopupAccountSearch(src)
         {
-          $("#popup_frame").attr("src", "<%= ResolveUrl("~/Master/Account/Search") %>");
+        var popup_frame = $("#popup_frame");
+        var new_url = '<%= ResolveUrl("~/Master/Account/Search") %>?src=' + src;
+        if (popup_frame.attr("src") != new_url) {
+            popup_frame.attr("src", new_url);
+        }
             $("#popup").dialog("open");
             return false;   
         }
 
-         function SetAccountDetail(accountId, accountName)
+        function SetAccountDetail(src, accountId, accountName)
         {
 //        alert(itemId);
 //        alert(itemName);
 //        alert(price);
-  $("#popup").dialog("close");
+            $("#popup").dialog("close");
+   if (src == 'AccountId') {
           $('#AccountId').attr('value', accountId);
-          $('#AccountName').attr('value', accountName); 
-       
+          $('#AccountName').attr('value', accountName);
+      }
+
+      else if (src == 'UsingAccountId') {
+          $('#UsingAccountId').attr('value', accountId);
+          $('#UsingAccountName').attr('value', accountName);
+
+      }
         }   
     </script>
-
-    <div id="dialog" title="Status">
-	<p></p>
-</div>
-<div id='popup'>
-    <iframe width='100%' height='380px' id="popup_frame"></iframe>
-</div>
-
 </asp:Content>

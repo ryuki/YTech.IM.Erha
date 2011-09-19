@@ -216,18 +216,18 @@ namespace YTech.IM.Erha.Web.Controllers.Transaction
             trans.TransSubTotal = trans.TransDets.Sum(x => x.TransDetTotal);
             _tTransRepository.Update(trans);
 
-            decimal totalHpp = 0;
-            //update stock
-            foreach (TTransDet det in trans.TransDets)
-            {
-                foreach (TTransDetItem detItem in det.TTransDetItems)
-                {
-                    SaveStockItem(trans.TransDate, trans.TransDesc, detItem.ItemId, detItem.ItemQty, false, trans.WarehouseId);
-                    //sum hpp for each stock
-                    totalHpp += UpdateStock(trans.TransDate, trans.TransDesc, trans.TransStatus, detItem.ItemId, 0, detItem.ItemQty, det, false, trans.WarehouseId);
+            //decimal totalHpp = 0;
+            ////update stock
+            //foreach (TTransDet det in trans.TransDets)
+            //{
+            //    foreach (TTransDetItem detItem in det.TTransDetItems)
+            //    {
+            //        SaveStockItem(trans.TransDate, trans.TransDesc, detItem.ItemId, detItem.ItemQty, false, trans.WarehouseId);
+            //        //sum hpp for each stock
+            //        totalHpp += UpdateStock(trans.TransDate, trans.TransDesc, trans.TransStatus, detItem.ItemId, 0, detItem.ItemQty, det, false, trans.WarehouseId);
 
-                }
-            }
+            //    }
+            //}
 
             TTransRoom troom = _tTransRoomRepository.Get(formCollection["TransId"]);
             troom.RoomStatus = EnumTransRoomStatus.Paid.ToString();
@@ -252,8 +252,8 @@ namespace YTech.IM.Erha.Web.Controllers.Transaction
             troom.DataStatus = EnumDataStatus.Updated.ToString();
             _tTransRoomRepository.Update(troom);
 
-            //save journal
-            SaveJournal(trans, totalHpp);
+            ////save journal
+            //SaveJournal(trans, totalHpp);
 
             string Message = string.Empty;
             bool Success = true;

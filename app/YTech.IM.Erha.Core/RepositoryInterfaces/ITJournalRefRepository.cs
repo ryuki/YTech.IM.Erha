@@ -8,5 +8,6 @@ namespace YTech.IM.Erha.Core.RepositoryInterfaces
 {
     public interface ITJournalRefRepository : INHibernateRepositoryWithTypedId<TJournalRef, string>
     {
+        TJournalRef GetByReference(Enums.EnumReferenceTable enumReferenceTable, string transStatus, string transId);
     }
 }
