@@ -10,7 +10,8 @@
                                            //UpdateTargetId = "status",
                                            InsertionMode = InsertionMode.Replace,
                                            // OnBegin = "ajaxValidate",
-                                           OnSuccess = "onSavedSuccess"
+                                           OnSuccess = "onSavedSuccess",
+                                           LoadingElementId = "progress"
                                        }
 
           ))
@@ -38,7 +39,7 @@
             <button id="btnPrintKwitansi" name="btnPrintKwitansi" type="submit">
                 Cetak Kwitansi</button>
             <button id="btnList" name="btnList" type="button">
-                Daftar
+                Edit
                 <%= ViewData.Model.Title %></button>
         </span>
     </div>
@@ -84,6 +85,8 @@
             </td>
             <td>
                 <table>
+                  <% if (!ViewData.Model.Journal.JournalType.Equals(EnumJournalType.GeneralLedger.ToString()))
+                       { %>
                     <tr>
                         <td>
                             <label for="AccountId">
@@ -103,6 +106,7 @@
                             <%= Html.ValidationMessage("CashAccountName")%>
                         </td>
                     </tr>
+                     <% } %>
                     <tr>
                         <td>
                             <label for="Journal_JournalPic">
@@ -364,6 +368,18 @@ var imgerror = '<%= Url.Content("~/Content/Images/cross.gif") %>';
                 }
         };
 
+          var showJournalDetStatus = false;
+        var showJournalDetAmmount = false;
+        var showJournalDetAmmountDebet = true;
+        var showJournalDetAmmountKredit = true;
+
+          <% if (ViewData.Model.Journal.JournalType.Equals(EnumJournalType.GeneralLedger.ToString())) { %>
+          showJournalDetStatus = true;
+          showJournalDetAmmount = true;
+         showJournalDetAmmountDebet = false;
+         showJournalDetAmmountKredit = false;
+                       <% } %>
+
         $.jgrid.nav.addtext = "Tambah";
         $.jgrid.nav.edittext = "Edit";
         $.jgrid.nav.deltext = "Hapus";
@@ -385,8 +401,8 @@ var imgerror = '<%= Url.Content("~/Content/Images/cross.gif") %>';
                     } },
                    { name: 'AccountName', index: 'AccountName', width: 200, align: 'left', editable: true, edittype: 'text', editrules: { required: false} },
                     { name: 'JournalDetEvidenceNo', index: 'JournalDetEvidenceNo', width: 200, sortable: false, align: 'left', editable: true, editrules: { edithidden: true} },
-                    { name: 'JournalDetStatus', index: 'JournalDetStatus', width: 200, align: 'left', editable: true, edittype: 'select', editoptions: { value: "D:Debet;K:Kredit" }, editrules: { edithidden: true }, hidden: true, editable: false },
-                    { name: 'JournalDetAmmount', index: 'JournalDetAmmount', width: 200, align: 'left', editable: true, editrules: { edithidden: true }, hidden: false,
+                    { name: 'JournalDetStatus', index: 'JournalDetStatus', width: 200, align: 'left', editable: true, edittype: 'select', editoptions: { value: "D:Debet;K:Kredit" }, editrules: { edithidden: true }, hidden: true, editable: showJournalDetStatus },
+                    { name: 'JournalDetAmmount', index: 'JournalDetAmmount', width: 200, align: 'left', editable: true, editrules: { edithidden: true }, hidden: showJournalDetAmmount,
                         editoptions: {
                             dataInit: function (elem) {
                                 $(elem).autoNumeric();
@@ -394,8 +410,8 @@ var imgerror = '<%= Url.Content("~/Content/Images/cross.gif") %>';
                             }
                         }
                     },
-                   { name: 'JournalDetAmmountDebet', index: 'JournalDetAmmountDebet', width: 200, sortable: false, editable: false, align: 'right', editable: false, editrules: { required: false, number: true, edithidden: true }, hidden: true },
-                   { name: 'JournalDetAmmountKredit', index: 'JournalDetAmmountKredit', width: 200, sortable: false, editable: false, align: 'right', editable: false, editrules: { required: false, number: true, edithidden: true }, hidden: true },
+                   { name: 'JournalDetAmmountDebet', index: 'JournalDetAmmountDebet', width: 200, sortable: false, editable: false, align: 'right', editable: false, editrules: { required: false, number: true, edithidden: true }, hidden: showJournalDetAmmountDebet },
+                   { name: 'JournalDetAmmountKredit', index: 'JournalDetAmmountKredit', width: 200, sortable: false, editable: false, align: 'right', editable: false, editrules: { required: false, number: true, edithidden: true }, hidden: showJournalDetAmmountKredit },
                    { name: 'JournalDetDesc', index: 'BrandDesc', width: 200, sortable: false, align: 'left', editable: true, edittype: 'textarea', editoptions: { rows: "3", cols: "20" }, editrules: { required: false}}],
 
             pager: $('#listPager'),

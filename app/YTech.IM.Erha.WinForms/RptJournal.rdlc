@@ -907,6 +907,20 @@
                             </TablixMembers>
                           </TablixRowHierarchy>
                           <DataSetName>JournalDetViewModel</DataSetName>
+                          <SortExpressions>
+                            <SortExpression>
+                              <Value>=Fields!JournalDate.Value</Value>
+                            </SortExpression>
+                            <SortExpression>
+                              <Value>=Fields!JournalVoucherNo.Value</Value>
+                            </SortExpression>
+                            <SortExpression>
+                              <Value>=Fields!JournalDetNo.Value</Value>
+                            </SortExpression>
+                            <SortExpression>
+                              <Value>=Fields!JournalDetStatus.Value</Value>
+                            </SortExpression>
+                          </SortExpressions>
                           <Top>0.31944in</Top>
                           <Height>0.5in</Height>
                           <Width>9.2845in</Width>

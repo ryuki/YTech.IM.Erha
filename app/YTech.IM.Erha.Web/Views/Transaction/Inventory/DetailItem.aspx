@@ -13,7 +13,8 @@
                                            //UpdateTargetId = "status",
                                            InsertionMode = InsertionMode.Replace,
                                            OnSuccess = "onSavedSuccess",
-                                           OnBegin = "validateForm"
+                                           OnBegin = "validateForm",
+                                           LoadingElementId = "progress"
 
                                        }
 

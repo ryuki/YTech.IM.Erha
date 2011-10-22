@@ -325,5 +325,6 @@
         </div>
            <%-- <div class="footer"></div>--%>
     </div>
+    <% Html.RenderPartial("Progress"); %>
 </body>
 </html>

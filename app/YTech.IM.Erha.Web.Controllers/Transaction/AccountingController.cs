@@ -55,9 +55,9 @@ namespace YTech.IM.Erha.Web.Controllers.Transaction
         [Transaction]
         public ActionResult GeneralLedger()
         {
-            GeneralLedgerViewModel viewModel = GeneralLedgerViewModel.CreateGeneralLedgerViewModel(_tJournalRepository, _mCostCenterRepository);
+            CashFormViewModel viewModel = CashFormViewModel.CreateCashFormViewModel(_tJournalRepository, _mCostCenterRepository, _mAccountRepository);
             viewModel.Journal = SetNewJournal(EnumJournalType.GeneralLedger);
-            viewModel.Title = "General Ledger";
+            viewModel.Title = "Jurnal Umum";
 
             ListJournalDet = new List<TJournalDet>();
             ViewData["CurrentItem"] = viewModel.Title;
@@ -69,7 +69,7 @@ namespace YTech.IM.Erha.Web.Controllers.Transaction
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult GeneralLedger(TJournal journal, FormCollection formCollection)
         {
-            return SaveJournal(journal, formCollection);
+            return SaveJournalInterface(journal, formCollection);
         }
 
         [Transaction]
@@ -89,35 +89,57 @@ namespace YTech.IM.Erha.Web.Controllers.Transaction
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult CashIn(TJournal journal, FormCollection formCollection)
         {
-            return SaveJournalInterface(journal, formCollection); 
+            return SaveJournalInterface(journal, formCollection);
+        }
+
+
+        private bool ValidateDebetKredit()
+        {
+            var journalDets = ListJournalDet;
+            decimal? debetSum = journalDets.Where(d => d.JournalDetStatus == "D").Sum(det => det.JournalDetAmmount);
+            decimal? kreditSum = journalDets.Where(d => d.JournalDetStatus == "K").Sum(det => det.JournalDetAmmount);
+            return debetSum == kreditSum;
         }
 
         private ActionResult SaveJournalInterface(TJournal journal, FormCollection formCollection)
         {
             if (formCollection["btnSave"] != null)
-                return SaveJournal(journal, formCollection);
-            else if (formCollection["btnPrint"] != null || formCollection["btnPrintKwitansi"] != null)
             {
-                //save data to session
-                SetDataForPrint(journal.Id);
-                string reportUrl = string.Empty;
-                if (formCollection["btnPrint"] != null)
+                if (journal.JournalType == EnumJournalType.GeneralLedger.ToString() && !ValidateDebetKredit())
                 {
-                    reportUrl = Url.Content("~/ReportViewer.aspx?rpt=RptPrintCash");
-                }
-                else if (formCollection["btnPrintKwitansi"] != null)
-                {
-                    reportUrl = Url.Content("~/ReportViewer.aspx?rpt=RptPrintKwitansi");
+                    var e = new
+                                {
+                                    Success = false,
+                                    Message = "Total Debet dan Kredit tidak sama."
+                                };
+                    return Json(e, JsonRequestBehavior.AllowGet);
                 }
 
-                var e = new
-                {
-                    Success = false,
-                    Message = "redirect",
-                    Data = reportUrl
-                };
-                return Json(e, JsonRequestBehavior.AllowGet);
+                return SaveJournal(journal, formCollection);
             }
+            else
+                if (formCollection["btnPrint"] != null || formCollection["btnPrintKwitansi"] != null)
+                {
+                    //save data to session
+                    SetDataForPrint(journal.Id);
+                    string reportUrl = string.Empty;
+                    if (formCollection["btnPrint"] != null)
+                    {
+                        reportUrl = Url.Content("~/ReportViewer.aspx?rpt=RptPrintCash");
+                    }
+                    else if (formCollection["btnPrintKwitansi"] != null)
+                    {
+                        reportUrl = Url.Content("~/ReportViewer.aspx?rpt=RptPrintKwitansi");
+                    }
+
+                    var e = new
+                    {
+                        Success = false,
+                        Message = "redirect",
+                        Data = reportUrl
+                    };
+                    return Json(e, JsonRequestBehavior.AllowGet);
+                }
             return View();
         }
 
@@ -138,7 +160,7 @@ namespace YTech.IM.Erha.Web.Controllers.Transaction
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult CashOut(TJournal journal, FormCollection formCollection)
         {
-            return SaveJournalInterface(journal, formCollection); 
+            return SaveJournalInterface(journal, formCollection);
         }
 
         private void SetDataForPrint(string journalId)
@@ -184,94 +206,96 @@ namespace YTech.IM.Erha.Web.Controllers.Transaction
 
         private ActionResult SaveJournal(TJournal journal, FormCollection formCollection)
         {
-            _tJournalRepository.DbContext.BeginTransaction();
-
-            //check first
-            TJournal journal1 = _tJournalRepository.Get(formCollection["Journal.Id"]);
-            string voucherNo = journal.JournalVoucherNo;
-            if (journal1 != null)
-            {
-                _tJournalRepository.Delete(journal1);
-            }
-            else
-            {
-                voucherNo = Helper.CommonHelper.GetVoucherNo(false);
-            }
-
-            if (journal == null)
-            {
-                journal = new TJournal();
-            }
-            journal.SetAssignedIdTo(formCollection["Journal.Id"]);
-            journal.CostCenterId = _mCostCenterRepository.Get(formCollection["Journal.CostCenterId"]);
-            journal.JournalVoucherNo = voucherNo;
-            journal.CreatedDate = DateTime.Now;
-            journal.CreatedBy = User.Identity.Name;
-            journal.DataStatus = Enums.EnumDataStatus.New.ToString();
-            journal.JournalDets.Clear();
-
-            TJournalDet detToInsert;
-            decimal total = 0;
-            foreach (TJournalDet det in ListJournalDet)
-            {
-                detToInsert = new TJournalDet(journal);
-                detToInsert.SetAssignedIdTo(Guid.NewGuid().ToString());
-                detToInsert.AccountId = det.AccountId;
-
-                if (journal.JournalType == EnumJournalType.CashIn.ToString())
-                {
-                    detToInsert.JournalDetStatus = EnumJournalStatus.K.ToString();
-                }
-                else if (journal.JournalType == EnumJournalType.CashOut.ToString())
-                {
-                    detToInsert.JournalDetStatus = EnumJournalStatus.D.ToString();
-                }
-                else if (journal.JournalType == EnumJournalType.GeneralLedger.ToString())
-                {
-                    detToInsert.JournalDetStatus = det.JournalDetStatus;
-                }
-
-                detToInsert.JournalDetAmmount = det.JournalDetAmmount;
-                detToInsert.JournalDetNo = det.JournalDetNo;
-                detToInsert.JournalDetDesc = det.JournalDetDesc;
-                detToInsert.CreatedBy = User.Identity.Name;
-                detToInsert.CreatedDate = DateTime.Now;
-                detToInsert.DataStatus = Enums.EnumDataStatus.New.ToString();
-                journal.JournalDets.Add(detToInsert);
-
-                total += det.JournalDetAmmount.Value;
-            }
-
-            //add new detail for cash in / out 
-            if (journal.JournalType == EnumJournalType.CashIn.ToString() || journal.JournalType == EnumJournalType.CashOut.ToString())
-            {
-                detToInsert = new TJournalDet(journal);
-                detToInsert.SetAssignedIdTo(Guid.NewGuid().ToString());
-                detToInsert.AccountId = _mAccountRepository.Get(formCollection["CashAccountId"]);
-
-                if (journal.JournalType == EnumJournalType.CashIn.ToString())
-                {
-                    detToInsert.JournalDetStatus = EnumJournalStatus.D.ToString();
-                }
-                else if (journal.JournalType == EnumJournalType.CashOut.ToString())
-                {
-                    detToInsert.JournalDetStatus = EnumJournalStatus.K.ToString();
-                }
-
-                detToInsert.JournalDetAmmount = total;
-                detToInsert.JournalDetNo = 0;
-                detToInsert.JournalDetDesc = journal.JournalDesc;
-                detToInsert.CreatedBy = User.Identity.Name;
-                detToInsert.CreatedDate = DateTime.Now;
-                detToInsert.DataStatus = Enums.EnumDataStatus.New.ToString();
-                journal.JournalDets.Add(detToInsert);
-            }
-            _tJournalRepository.Save(journal);
-
             string Message = string.Empty;
             bool Success = true;
+            string voucherNo = string.Empty;
             try
             {
+                _tJournalRepository.DbContext.BeginTransaction();
+
+                //check first
+                TJournal journal1 = _tJournalRepository.Get(formCollection["Journal.Id"]);
+                voucherNo = journal.JournalVoucherNo;
+                if (journal1 != null)
+                {
+                    _tJournalRepository.Delete(journal1);
+                }
+                else
+                {
+                    voucherNo = Helper.CommonHelper.GetVoucherNo(false);
+                }
+
+                if (journal == null)
+                {
+                    journal = new TJournal();
+                }
+                journal.SetAssignedIdTo(formCollection["Journal.Id"]);
+                journal.CostCenterId = _mCostCenterRepository.Get(formCollection["Journal.CostCenterId"]);
+                journal.JournalVoucherNo = voucherNo;
+                journal.CreatedDate = DateTime.Now;
+                journal.CreatedBy = User.Identity.Name;
+                journal.DataStatus = Enums.EnumDataStatus.New.ToString();
+                journal.JournalDets.Clear();
+
+                TJournalDet detToInsert;
+                decimal total = 0;
+                foreach (TJournalDet det in ListJournalDet)
+                {
+                    detToInsert = new TJournalDet(journal);
+                    detToInsert.SetAssignedIdTo(Guid.NewGuid().ToString());
+                    detToInsert.AccountId = det.AccountId;
+
+                    if (journal.JournalType == EnumJournalType.CashIn.ToString())
+                    {
+                        detToInsert.JournalDetStatus = EnumJournalStatus.K.ToString();
+                    }
+                    else if (journal.JournalType == EnumJournalType.CashOut.ToString())
+                    {
+                        detToInsert.JournalDetStatus = EnumJournalStatus.D.ToString();
+                    }
+                    else if (journal.JournalType == EnumJournalType.GeneralLedger.ToString())
+                    {
+                        detToInsert.JournalDetStatus = det.JournalDetStatus;
+                    }
+
+                    detToInsert.JournalDetAmmount = det.JournalDetAmmount;
+                    detToInsert.JournalDetNo = det.JournalDetNo;
+                    detToInsert.JournalDetDesc = det.JournalDetDesc;
+                    detToInsert.CreatedBy = User.Identity.Name;
+                    detToInsert.CreatedDate = DateTime.Now;
+                    detToInsert.DataStatus = Enums.EnumDataStatus.New.ToString();
+                    journal.JournalDets.Add(detToInsert);
+
+                    total += det.JournalDetAmmount.Value;
+                }
+
+                //add new detail for cash in / out 
+                if (journal.JournalType == EnumJournalType.CashIn.ToString() || journal.JournalType == EnumJournalType.CashOut.ToString())
+                {
+                    detToInsert = new TJournalDet(journal);
+                    detToInsert.SetAssignedIdTo(Guid.NewGuid().ToString());
+                    detToInsert.AccountId = _mAccountRepository.Get(formCollection["CashAccountId"]);
+
+                    if (journal.JournalType == EnumJournalType.CashIn.ToString())
+                    {
+                        detToInsert.JournalDetStatus = EnumJournalStatus.D.ToString();
+                    }
+                    else if (journal.JournalType == EnumJournalType.CashOut.ToString())
+                    {
+                        detToInsert.JournalDetStatus = EnumJournalStatus.K.ToString();
+                    }
+
+                    detToInsert.JournalDetAmmount = total;
+                    detToInsert.JournalDetNo = 0;
+                    detToInsert.JournalDetDesc = journal.JournalDesc;
+                    detToInsert.CreatedBy = User.Identity.Name;
+                    detToInsert.CreatedDate = DateTime.Now;
+                    detToInsert.DataStatus = Enums.EnumDataStatus.New.ToString();
+                    journal.JournalDets.Add(detToInsert);
+                }
+                _tJournalRepository.Save(journal);
+
+
                 _tJournalRepository.DbContext.CommitTransaction();
                 TempData[EnumCommonViewData.SaveState.ToString()] = EnumSaveState.Success;
                 Message = "Data berhasil disimpan.";
@@ -516,25 +540,34 @@ namespace YTech.IM.Erha.Web.Controllers.Transaction
             TJournal journal = _tJournalRepository.Get(journalId);
 
             MAccount cashAccount = null;
-            string detailStatus = journal.JournalType == EnumJournalType.CashIn.ToString()
+            //set account cash for cash in / out
+            if (journal.JournalType.Equals(EnumJournalType.CashIn.ToString()) || journal.JournalType.Equals(EnumJournalType.CashOut.ToString()))
+            {
+                string detailStatus = journal.JournalType == EnumJournalType.CashIn.ToString()
                                       ? EnumJournalStatus.D.ToString()
                                       : EnumJournalStatus.K.ToString();
-            cashAccount = (from s in journal.JournalDets
-                           where s.JournalDetStatus == detailStatus
-                           select s.AccountId).First();
+                cashAccount = (from s in journal.JournalDets
+                               where s.JournalDetStatus == detailStatus
+                               select s.AccountId).First();
 
-            IList<TJournalDet> others = (from s in journal.JournalDets
-                                         where s.JournalDetStatus != detailStatus
-                                         select s).ToList();
-            ListJournalDet = others.ToList();
+                IList<TJournalDet> others = (from s in journal.JournalDets
+                                             where s.JournalDetStatus != detailStatus
+                                             select s).ToList();
+                ListJournalDet = others.ToList();
+            }
+            else
+            {
+                ListJournalDet = journal.JournalDets.ToList();
+            }
+
             var t = new
             {
                 JournalId = journal.Id,
                 journal.JournalDate,
                 journal.JournalVoucherNo,
-                CostCenterId = journal.CostCenterId.Id,
-                CashAccountId = cashAccount.Id,
-                CashAccountName = cashAccount.AccountName,
+                CostCenterId = journal.CostCenterId != null ? journal.CostCenterId.Id : null,
+                CashAccountId = cashAccount != null ? cashAccount.Id : null,
+                CashAccountName = cashAccount != null ? cashAccount.AccountName : null,
                 journal.JournalPic,
                 journal.JournalDesc
             };
