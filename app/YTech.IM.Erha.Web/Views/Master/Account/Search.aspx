@@ -45,7 +45,7 @@
                    ],
 
                 pager: $('#listPager'),
-
+                 rowNum: -1,
                 //                rowNum: 20,
                 //                rowList: [20, 30, 50, 100],
                 //rownumbers: true, 

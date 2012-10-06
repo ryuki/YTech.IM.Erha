@@ -26,6 +26,7 @@ namespace YTech.IM.Erha.Data.Repository
             {
                 sql.AppendLine(@"   and j.CostCenterId = :costCenter");
             }
+            sql.AppendLine(@"  order by j.JournalDate, j.JournalVoucherNo, det.JournalDetNo, det.JournalDetStatus ");
 
             IQuery q = Session.CreateQuery(sql.ToString());
             if (dateFrom.HasValue && dateTo.HasValue)

@@ -135,9 +135,9 @@
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>CostCenterName</rd:DefaultName>
-                          <Left>1in</Left>
+                          <Left>1.61144in</Left>
                           <Height>0.25in</Height>
-                          <Width>2.59434in</Width>
+                          <Width>3.2615in</Width>
                           <Style>
                             <Border>
                               <Style>None</Style>
@@ -168,7 +168,7 @@
                           </Paragraphs>
                           <rd:DefaultName>Textbox4</rd:DefaultName>
                           <Height>0.25in</Height>
-                          <Width>1in</Width>
+                          <Width>1.61144in</Width>
                           <ZIndex>1</ZIndex>
                           <Style>
                             <Border>
@@ -958,6 +958,17 @@
                   <GroupExpression>=Fields!CostCenterId.Value</GroupExpression>
                 </GroupExpressions>
               </Group>
+              <SortExpressions>
+                <SortExpression>
+                  <Value>=Fields!JournalDate.Value</Value>
+                </SortExpression>
+                <SortExpression>
+                  <Value>=Fields!JournalVoucherNo.Value</Value>
+                </SortExpression>
+                <SortExpression>
+                  <Value>=Fields!JournalDetStatus.Value</Value>
+                </SortExpression>
+              </SortExpressions>
             </TablixMember>
           </TablixMembers>
         </TablixRowHierarchy>
