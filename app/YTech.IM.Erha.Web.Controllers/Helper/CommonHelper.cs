@@ -63,9 +63,9 @@ namespace YTech.IM.Erha.Web.Controllers.Helper
                 //    System.Web.HttpContext.Current.Cache[referenceType.ToString()] = reference;
             }
 
-                ////return cache
-                //return System.Web.HttpContext.Current.Cache[referenceType.ToString()] as TReference;
-            }
+            ////return cache
+            //return System.Web.HttpContext.Current.Cache[referenceType.ToString()] as TReference;
+        }
 
         public static string GetFacturNo(EnumTransactionStatus transactionStatus)
         {
@@ -76,10 +76,17 @@ namespace YTech.IM.Erha.Web.Controllers.Helper
         {
             TReference refer = GetReference((EnumReferenceType)Enum.Parse(typeof(EnumReferenceType), transactionStatus.ToString()));
             decimal no = Convert.ToDecimal(refer.ReferenceValue) + 1;
+
+            //reset factur no to 1 every month
+            //if (DateTime.Today.Day == 1 && refer.ModifiedDate < DateTime.Today)
+            if (refer.ModifiedDate < DateTime.Today)
+                no = 1;
+
             refer.ReferenceValue = no.ToString();
             if (automatedIncrease)
             {
                 ITReferenceRepository referenceRepository = new TReferenceRepository();
+                refer.ModifiedDate = DateTime.Now;
                 referenceRepository.Update(refer);
                 referenceRepository.DbContext.CommitChanges();
             }
@@ -227,7 +234,7 @@ namespace YTech.IM.Erha.Web.Controllers.Helper
             return attribs.Length > 0 ? attribs[0].StringValue : value.ToString();
         }
 
-        public static string GetCustomerName(IMCustomerRepository _mCustomerRepository,string customerId)
+        public static string GetCustomerName(IMCustomerRepository _mCustomerRepository, string customerId)
         {
             if (!string.IsNullOrEmpty(customerId))
             {

@@ -1204,7 +1204,7 @@ iif	(Fields!MedicianName.Value &lt;&gt; "",Fields!MedicianName.Value &amp; syste
                     <Value>=First(Fields!RoomOutDate.Value, "TransRoomViewModel")</Value>
                     <Style>
                       <FontFamily>Times New Roman</FontFamily>
-                      <Format>dd-MMM-yyyy HH:mm</Format>
+                      <Format>dd-MMM-yyyy</Format>
                     </Style>
                   </TextRun>
                 </TextRuns>
