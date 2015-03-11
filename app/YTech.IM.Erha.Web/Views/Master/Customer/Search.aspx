@@ -14,6 +14,8 @@
             <option value="cust.Id">Kode Pasien</option>
             <option value="per.PersonFirstName">Nama</option> 
             <option value="per.PersonMobile">HP</option>
+            <option value="adr.AddressLine1">Alamat</option>
+            <option value="adr.AddressCity">Kota</option>
         </select>    
     <input id="txtSearch" type="text" />
     <input id="btnSearch" type="button" value="Cari" />

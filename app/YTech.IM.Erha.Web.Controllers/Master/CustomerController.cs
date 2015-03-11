@@ -36,8 +36,13 @@ namespace YTech.IM.Erha.Web.Controllers.Master
 
 
 
-        public ActionResult Search()
+        public ActionResult Search(bool? popUp = true)
         {
+            if (popUp.HasValue)
+            {
+                if (!popUp.Value)
+                    return View("Search", "MyMaster", null);
+            }
             return View();
         }
 

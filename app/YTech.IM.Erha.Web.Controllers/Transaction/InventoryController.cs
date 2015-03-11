@@ -19,6 +19,7 @@ using YTech.IM.Erha.Web.Controllers.ViewModel;
 namespace YTech.IM.Erha.Web.Controllers.Transaction
 {
     [HandleError]
+    [Authorize]
     public partial class InventoryController : Controller
     {
         private readonly ITTransRepository _tTransRepository;
@@ -105,6 +106,8 @@ namespace YTech.IM.Erha.Web.Controllers.Transaction
             this._tJournalRefRepository = tJournalRefRepository;
         }
 
+
+        [Authorize(Users = "test")]
         public ActionResult Index()
         {
             TransactionFormViewModel viewModel = SetViewModelByStatus(EnumTransactionStatus.PurchaseOrder);

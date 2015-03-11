@@ -37,7 +37,8 @@ namespace YTech.IM.Erha.Data.Repository
         {
             StringBuilder sql = new StringBuilder();
             sql.AppendLine(@"  from MCustomer as cust
-                                    left outer join cust.PersonId per ");
+                                    left outer join cust.PersonId per 
+                                    left outer join cust.AddressId adr ");
             if (!string.IsNullOrEmpty(searchText))
             {
                 sql.AppendFormat(@" where {0} like :searchText", searchBy);

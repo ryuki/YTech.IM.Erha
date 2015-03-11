@@ -86,6 +86,7 @@ namespace YTech.IM.Erha.Web.Controllers.Utility
                             });
         }
 
+        [Authorize(Roles = "ADMINISTRATOR")] 
         public ViewResult ListUsers()
         {
             return View();

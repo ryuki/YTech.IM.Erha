@@ -10,6 +10,8 @@
     <% if (Request.IsAuthenticated)
        {
     %>
+
+<% if (Roles.IsUserInRole(Membership.GetUser().UserName, "Administrator")) { %>
     <h3>
         <a href="#">Data Pokok</a></h3>
     <div class="child-menu-container">
@@ -30,13 +32,18 @@
         <%=Html.ActionLinkForAreas<ActionCatController>(c => c.Index(), "Master Kategori Tindakan")%>
         <%=Html.ActionLinkForAreas<ActionController>(c => c.Index(), "Master Tindakan")%>
     </div>
+<% } %>
+
     <h3>
         <a href="#">Pasien</a></h3>
     <div class="child-menu-container">
         <%= Html.ActionLinkForAreas<CustomerController>(c => c.Registration(), "Registrasi Pasien Baru")%>
         <%= Html.ActionLinkForAreas<CustomerController>(c => c.Index(), "Daftar Pasien")%>
         <%=Html.ActionLinkForAreas<InventoryController>(c => c.Billing(), "Tindakan Pasien") %>
+        <%=Html.ActionLinkForAreas<CustomerController>(c => c.Search(false), "Cari Pasien") %>
     </div>
+
+<% if (Roles.IsUserInRole(Membership.GetUser().UserName, "Administrator")) { %>
     <h3>
         <a href="#">Inventori</a></h3>
     <div class="child-menu-container">
@@ -53,6 +60,9 @@
         <%= Html.ActionLinkForAreas<InventoryController>(c => c.Mutation(), "Mutasi Stok")%>
         <%= Html.ActionLinkForAreas<InventoryController>(c => c.Adjusment(), "Penyesuaian Stok")%>
     </div>
+<% } %>
+
+<% if (Roles.IsUserInRole(Membership.GetUser().UserName, "Administrator")) { %>
 <h3>
     <a href="#">Pembukuan</a></h3>
 <div class="child-menu-container">
@@ -65,11 +75,17 @@
                             Pembayaran Hutang</div>
                             Pembayaran Gaji</div>--%>
 </div>
+<% } %>
+
+<% if (Roles.IsUserInRole(Membership.GetUser().UserName, "Administrator")) { %>
 <h3>
     <a href="#">Absensi</a></h3>
 <div class="child-menu-container">
     <%= Html.ActionLinkForAreas<HRController>(c => c.Absent(), "Absen Karyawan")%>
 </div>
+<% } %>
+
+<% if (Roles.IsUserInRole(Membership.GetUser().UserName, "Administrator")) { %>
 <h3>
     <a href="#">Laporan</a></h3>
 <div class="child-menu-container">
@@ -77,6 +93,11 @@
     <%= Html.ActionLinkForAreas<ReportController>(c => c.Report(EnumReports.RptCostCenter), "Daftar Cost Center")%>
     <%= Html.ActionLinkForAreas<ReportController>(c => c.Report(EnumReports.RptStockCard), "Kartu Stok")%>
     <%= Html.ActionLinkForAreas<ReportController>(c => c.Report(EnumReports.RptStockItem), "Laporan Stok Per Gudang")%>
+
+<%-- <%= Membership.GetUser().UserName %>
+<%= Roles.IsUserInRole(Membership.GetUser().UserName, "Administrator") %> --%>
+
+
     <%= Html.ActionLinkForAreas<ReportController>(c => c.Report(EnumReports.RptServiceOmzet), "Laporan Omzet Penjualan")%>
     <%= Html.ActionLinkForAreas<ReportController>(c => c.Report(EnumReports.RptSalesByAction), "Lap. Penjualan Berdasar Jlh Tindakan")%>
     <%= Html.ActionLinkForAreas<ReportController>(c => c.Report(EnumReports.RptCommission), "Lap. Detail Komisi Karyawan")%>
@@ -86,6 +107,8 @@
     <%= Html.ActionLinkForAreas<ReportController>(c => c.Report(EnumReports.RptNeraca), "Lap. Neraca")%>
     <%= Html.ActionLinkForAreas<ReportController>(c => c.Report(EnumReports.RptLR), "Lap. Laba / Rugi")%>
 </div>
+<% } %>
+
 <h3>
     <a href="#">Utiliti</a></h3>
 <div class="child-menu-container">
@@ -100,11 +123,12 @@
         
             Backup Database</div>--%>
     <%= Html.ActionLinkForAreas<InventoryController>(c => c.ListBilling("Print"), "Cetak Faktur Tindakan")%>
-    <% if (Membership.GetUser().UserName.ToLower().Equals("admin"))
-       { %>
-    <%= Html.ActionLinkForAreas<InventoryController>(c => c.ListBilling("Delete"), "Hapus Faktur Tindakan")%>
-    <% } %>
+    
+<% if (Roles.IsUserInRole(Membership.GetUser().UserName, "Administrator")) { %>
+    <%= Html.ActionLinkForAreas<InventoryController>(c => c.ListBilling("Delete"), "Hapus Faktur Tindakan")%>    
     <%= Html.ActionLinkForAreas<AccountingController>(c => c.Closing(), "Tutup Buku")%>
+<% } %>
+
     <%
        }
     %>
