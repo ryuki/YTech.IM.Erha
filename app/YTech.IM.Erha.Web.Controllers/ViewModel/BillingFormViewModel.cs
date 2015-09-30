@@ -44,6 +44,7 @@ namespace YTech.IM.Erha.Web.Controllers.ViewModel
             trans.SetAssignedIdTo(Guid.NewGuid().ToString());
             trans.TransDiscount = 0;
             trans.TransDate = DateTime.Today;
+            trans.TransFactur = Helper.CommonHelper.GetFacturNo(EnumTransactionStatus.Service);
             viewModel.Trans = trans;
 
             TTransRoom transRoom = new TTransRoom();

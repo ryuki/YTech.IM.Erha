@@ -117,6 +117,16 @@
                         </tr>
                         <tr>
                             <td>
+                                <label for="TransDate">
+                                    Nomor Faktur :</label>
+                            </td>
+                            <td>
+                                <%=Html.TextBox("TransFactur",
+                                          Model.Trans.TransFactur)%>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
                                 <label for="RoomInDate">
                                     Jam Masuk :</label>
                             </td>
@@ -299,6 +309,7 @@
               $("#TransBy").val(trans.TransBy);
               $("#TransDiscount").val(trans.TransDiscount);
               $("#txtCustomerName").val(trans.CustomerName);
+              $("#TransFactur").val(trans.TransFactur);
         }
 
         function onSavedSuccess(e)
@@ -425,7 +436,7 @@
                 modal:true,
                 title:'Detail Transaksi',
                 width:'900px',
-                height: 380
+                height: 420
             });
             $("#popup").dialog({
                 autoOpen: false,
