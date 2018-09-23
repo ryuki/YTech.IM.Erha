@@ -1,0 +1,13 @@
+
+
+
+@section head { 
+ 
+}
+@section title { 
+@(ViewData.Model.Title) 
+}
+@section MainContent { 
+@{ Html.RenderPartial("TransactionForm", ViewData);}
+ 
+}

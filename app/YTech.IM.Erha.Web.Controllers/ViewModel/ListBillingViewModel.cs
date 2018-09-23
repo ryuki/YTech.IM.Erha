@@ -20,6 +20,8 @@ namespace YTech.IM.Erha.Web.Controllers.ViewModel
        public static ListBillingViewModel Create(string disp)
        {
            ListBillingViewModel viewModel = new ListBillingViewModel();
+           viewModel.TextSearch = string.Format("{0:yyyy}/{0:MMM}", DateTime.Today).ToUpper();
+
            if (disp.Equals("Print")) viewModel.ViewPrint = true;
            if (disp.Equals("Delete")) viewModel.ViewDelete = true;
 
@@ -27,5 +29,6 @@ namespace YTech.IM.Erha.Web.Controllers.ViewModel
        }
        public bool ViewPrint { get; internal set; }
        public bool ViewDelete { get; internal set; }
+       public string TextSearch { get; internal set; }
     }
 }

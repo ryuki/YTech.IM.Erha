@@ -69,6 +69,7 @@ namespace YTech.IM.Erha.Web.Controllers.Master
                     {
                         i = cust.Id.ToString(),
                         cell = new string[] {
+                            string.Empty,
                             cust.Id,  
                           cust.PersonId != null?  cust.PersonId.PersonName : null,  
                           cust.PersonId != null?  cust.PersonId.PersonGender : null, 

@@ -90,19 +90,19 @@
                 colNames: ['', 'Kode Pasien', 'Nama', '', 'Nama', 'Alamat', '', '', 'Telp', 'Kota', 'Keterangan'],
                 colModel: [
                     {
-                        name: 'act', index: 'act', width: 75, sortable: false
+                        name: 'act', index: 'act', width: 25, sortable: false
                     },
                    { name: 'Id', index: 'Id', width: 100, align: 'left', key: true, editrules: { required: true, edithidden: false }, hidedlg: true, hidden: false, editable: true },
-                    { name: 'PersonFirstName', index: 'PersonFirstName', width: 200, align: 'left', editable: true, edittype: 'text', editrules: { required: true, edithidden: true }, hidden: true, formoptions: { elmsuffix: ' *'} },
+                    { name: 'PersonFirstName', index: 'PersonFirstName', width: 200, align: 'left', editable: true, edittype: 'text', editrules: { required: true, edithidden: true }, hidden: true, formoptions: { elmsuffix: ' *' } },
                     { name: 'PersonLastName', index: 'PersonLastName', width: 200, align: 'left', editable: true, edittype: 'text', editrules: { required: false, edithidden: true }, hidden: true },
-                    { name: 'PersonName', index: 'PersonName', width: 200, align: 'left', editable: false, edittype: 'text', editrules: { required: false} },
-                   { name: 'AddressLine1', index: 'AddressLine1', width: 200, align: 'left', editable: true, edittype: 'text', editrules: { required: false} },
-                   { name: 'AddressLine2', index: 'AddressLine2', width: 200, hidden: true, align: 'left', editable: true, edittype: 'text', editrules: { required: false, edithidden: true} },
-                   { name: 'AddressLine3', index: 'AddressLine3', width: 200, hidden: true, align: 'left', editable: true, edittype: 'text', editrules: { required: false, edithidden: true} },
-                   { name: 'AddressPhone', index: 'AddressPhone', width: 200, hidden: true, align: 'left', editable: true, edittype: 'text', editrules: { required: false, edithidden: true} },
-                   { name: 'AddressCity', index: 'AddressCity', width: 200, hidden: true, align: 'left', editable: true, edittype: 'text', editrules: { required: false, edithidden: true} },
-                     { name: 'CustomerDesc', index: 'CustomerDesc', width: 200, hidden: true, sortable: false, align: 'left', editable: true, edittype: 'textarea', editoptions: { rows: "3", cols: "20" }, editrules: { required: false, edithidden: true} }
-                   ],
+                    { name: 'PersonName', index: 'PersonName', width: 200, align: 'left', editable: false, edittype: 'text', editrules: { required: false } },
+                   { name: 'AddressLine1', index: 'AddressLine1', width: 200, align: 'left', editable: true, edittype: 'text', editrules: { required: false } },
+                   { name: 'AddressLine2', index: 'AddressLine2', width: 200, hidden: true, align: 'left', editable: true, edittype: 'text', editrules: { required: false, edithidden: true } },
+                   { name: 'AddressLine3', index: 'AddressLine3', width: 200, hidden: true, align: 'left', editable: true, edittype: 'text', editrules: { required: false, edithidden: true } },
+                   { name: 'AddressPhone', index: 'AddressPhone', width: 200, hidden: true, align: 'left', editable: true, edittype: 'text', editrules: { required: false, edithidden: true } },
+                   { name: 'AddressCity', index: 'AddressCity', width: 200, hidden: true, align: 'left', editable: true, edittype: 'text', editrules: { required: false, edithidden: true } },
+                     { name: 'CustomerDesc', index: 'CustomerDesc', width: 200, hidden: true, sortable: false, align: 'left', editable: true, edittype: 'textarea', editoptions: { rows: "3", cols: "20" }, editrules: { required: false, edithidden: true } }
+                ],
 
                 pager: $('#listPager'),
                 rowNum: 20,
@@ -119,7 +119,7 @@
                     for (var i = 0; i < ids.length; i++) {
                         var cl = ids[i];
                         var be = "<input type='button' value='Edit' tooltips='Edit Pasien'  onClick=\"OpenPopup('" + cl + "');\" />";
-
+                        //be += "<input type='button' value='Histori Tindakan' tooltips='Histori Tindakan' onClick=\"OpenHistory('" + cl + "');\" />";
                         //                                                alert(be); 
                         $(this).setRowData(ids[i], { act: be });
                     }
@@ -145,15 +145,24 @@
                 position: "first"
             })
         });
-        function OpenPopup(id) {
-            var url = '<%= Url.Action("Edit", "Customer" ) %>?';
+                function OpenPopup(id) {
+                    var url = '<%= Url.Action("Edit", "Customer" ) %>?';
             if (id) {
                 url += 'customerId=' + id;
             }
             $("#popup_frame").attr("src", url);
             $("#popup").dialog("open");
             return false;
-        }      
+        }
+        function OpenHistory(id) {
+            var url = '<%= Url.Action("Report", "Report", new { Area = "Transaction" })%>?';
+            if (id) {
+                url += 'reports=RptServiceByCustomer&dateFrom=1-jan-2010&dateTo=31-dec-2019&customerId=' + id;
+            }
+            $("#popup_frame").attr("src", url);
+            $("#popup").dialog("open");
+            return false;
+        }
     </script>
     <div id="dialog" title="Status">
         <p>

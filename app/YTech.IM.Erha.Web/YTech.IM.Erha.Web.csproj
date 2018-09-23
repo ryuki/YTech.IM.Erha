@@ -435,6 +435,9 @@
   <ItemGroup>
     <None Include="Properties\PublishProfiles\localhost-erha.pubxml" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Transaction\Report\RptServiceByCustomer.rdlc" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
@@ -453,7 +456,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>1062</DevelopmentServerPort>
+          <DevelopmentServerPort>51479</DevelopmentServerPort>
           <DevelopmentServerVPath>/erha</DevelopmentServerVPath>
           <IISUrl>http://localhost:81/erha</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>

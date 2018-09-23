@@ -57,6 +57,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="RptBukuBesar.rdlc" />
     <Content Include="RptCommissionRecap.rdlc" />
+    <Content Include="RptServiceByCustomer.rdlc" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>

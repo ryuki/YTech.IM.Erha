@@ -89,23 +89,24 @@
 <h3>
     <a href="#">Laporan</a></h3>
 <div class="child-menu-container">
-    <%= Html.ActionLinkForAreas<ReportController>(c => c.Report(EnumReports.RptBrand), "Daftar Merek")%>
-    <%= Html.ActionLinkForAreas<ReportController>(c => c.Report(EnumReports.RptCostCenter), "Daftar Cost Center")%>
-    <%= Html.ActionLinkForAreas<ReportController>(c => c.Report(EnumReports.RptStockCard), "Kartu Stok")%>
-    <%= Html.ActionLinkForAreas<ReportController>(c => c.Report(EnumReports.RptStockItem), "Laporan Stok Per Gudang")%>
+    <%= Html.ActionLinkForAreas<ReportController>(c => c.Report(EnumReports.RptBrand,null,null,null), "Daftar Merek")%>
+    <%= Html.ActionLinkForAreas<ReportController>(c => c.Report(EnumReports.RptCostCenter,null,null,null), "Daftar Cost Center")%>
+    <%= Html.ActionLinkForAreas<ReportController>(c => c.Report(EnumReports.RptStockCard,null,null,null), "Kartu Stok")%>
+    <%= Html.ActionLinkForAreas<ReportController>(c => c.Report(EnumReports.RptStockItem,null,null,null), "Laporan Stok Per Gudang")%>
 
 <%-- <%= Membership.GetUser().UserName %>
 <%= Roles.IsUserInRole(Membership.GetUser().UserName, "Administrator") %> --%>
 
 
-    <%= Html.ActionLinkForAreas<ReportController>(c => c.Report(EnumReports.RptServiceOmzet), "Laporan Omzet Penjualan")%>
-    <%= Html.ActionLinkForAreas<ReportController>(c => c.Report(EnumReports.RptSalesByAction), "Lap. Penjualan Berdasar Jlh Tindakan")%>
-    <%= Html.ActionLinkForAreas<ReportController>(c => c.Report(EnumReports.RptCommission), "Lap. Detail Komisi Karyawan")%>
-    <%= Html.ActionLinkForAreas<ReportController>(c => c.Report(EnumReports.RptCommissionRecap), "Lap. Rekap Komisi Karyawan")%>
-    <%= Html.ActionLinkForAreas<ReportController>(c => c.Report(EnumReports.RptJournal), "Lap. Jurnal")%>
-    <%= Html.ActionLinkForAreas<ReportController>(c => c.Report(EnumReports.RptBukuBesar), "Lap. Buku Besar")%>
-    <%= Html.ActionLinkForAreas<ReportController>(c => c.Report(EnumReports.RptNeraca), "Lap. Neraca")%>
-    <%= Html.ActionLinkForAreas<ReportController>(c => c.Report(EnumReports.RptLR), "Lap. Laba / Rugi")%>
+    <%= Html.ActionLinkForAreas<ReportController>(c => c.Report(EnumReports.RptServiceOmzet,null,null,null), "Laporan Omzet Penjualan")%>
+    <%= Html.ActionLinkForAreas<ReportController>(c => c.Report(EnumReports.RptSalesByAction,null,null,null), "Lap. Penjualan Berdasar Jlh Tindakan")%>
+    <%= Html.ActionLinkForAreas<ReportController>(c => c.Report(EnumReports.RptCommission,null,null,null), "Lap. Detail Komisi Karyawan")%>
+    <%= Html.ActionLinkForAreas<ReportController>(c => c.Report(EnumReports.RptCommissionRecap,null,null,null), "Lap. Rekap Komisi Karyawan")%>
+    <%= Html.ActionLinkForAreas<ReportController>(c => c.Report(EnumReports.RptServiceByCustomer,null,null,null), "Lap. Tindakan Per Pasien")%>
+    <%= Html.ActionLinkForAreas<ReportController>(c => c.Report(EnumReports.RptJournal,null,null,null), "Lap. Jurnal")%>
+    <%= Html.ActionLinkForAreas<ReportController>(c => c.Report(EnumReports.RptBukuBesar,null,null,null), "Lap. Buku Besar")%>
+    <%= Html.ActionLinkForAreas<ReportController>(c => c.Report(EnumReports.RptNeraca,null,null,null), "Lap. Neraca")%>
+    <%= Html.ActionLinkForAreas<ReportController>(c => c.Report(EnumReports.RptLR,null,null,null), "Lap. Laba / Rugi")%>
 </div>
 <% } %>
 

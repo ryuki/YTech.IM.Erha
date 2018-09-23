@@ -1,9 +1,9 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="System.Web.Mvc.ViewUserControl<TransactionFormViewModel>" %>
-<% if (false)
-   { %>
+@model TransactionFormViewModel
+@if (false)
+   {
 <script src="../../../Scripts/jquery-1.4.1-vsdoc.js" type="text/javascript"></script>
-<% } %>
-<% using (Ajax.BeginForm(new AjaxOptions
+}
+@using (Ajax.BeginForm(new AjaxOptions
                                        {
                                            UpdateTargetId = "status",
                                            InsertionMode = InsertionMode.Replace,
@@ -13,7 +13,7 @@
                                        }
 
           ))
-   {%>
+   {
 <div id="status">
 </div>
 <div class="ui-state-highlight ui-corner-all" style="padding: 5pt; margin-bottom: 5pt;
@@ -23,14 +23,14 @@
         <span id="error_msg"></span>.<br clear="all" />
     </p>
 </div>
-<%--<% using (Html.BeginForm())
-   { %>--%>
-<%= Html.AntiForgeryToken() %>
-<%= Html.Hidden("Trans.Id", (ViewData.Model.Trans != null) ? ViewData.Model.Trans.Id : "")%>
-<%= Html.Hidden("Trans.TransStatus", (ViewData.Model.Trans != null) ? ViewData.Model.Trans.TransStatus : "")%>
-<%= Html.Hidden("IsAddStock", ViewData.Model.IsAddStock.ToString())%>
+@*@using (Html.BeginForm())
+   {*@
+@(Html.AntiForgeryToken())
+@(Html.Hidden("Trans.Id", (ViewData.Model.Trans != null) ? ViewData.Model.Trans.Id : ""))
+@(Html.Hidden("Trans.TransStatus", (ViewData.Model.Trans != null) ? ViewData.Model.Trans.TransStatus : ""))
+@(Html.Hidden("IsAddStock", ViewData.Model.IsAddStock.ToString()))
 <div>
-    <span id="toolbar" class="ui-widget-header ui-corner-all"><a id="newTrans" href="<%= Url.Action(ViewData.Model.Trans.TransStatus.Equals(EnumTransactionStatus.PurchaseOrder.ToString()) ? "Index" : Model.Trans.TransStatus.ToString(), "Inventory") %>">
+    <span id="toolbar" class="ui-widget-header ui-corner-all"><a id="newTrans" href="@(Url.Action(ViewData.Model.Trans.TransStatus.Equals(EnumTransactionStatus.PurchaseOrder.ToString()) ? "Index" : Model.Trans.TransStatus.ToString(), "Inventory"))">
         Baru</a>
         <button id="Save" type="submit">
             Simpan</button>
@@ -44,88 +44,88 @@
     <tr>
         <td>
             <table>
-                <% if (ViewData.Model.ViewDate)
-                   {	%>
+                @if (ViewData.Model.ViewDate)
+                   {
                 <tr>
                     <td>
                         <label for="Trans_TransDate">
                             Tanggal :</label>
                     </td>
                     <td>
-                        <%= Html.TextBox("Trans.TransDate", (Model.Trans.TransDate.HasValue) ? Model.Trans.TransDate.Value.ToString("dd-MMM-yyyy") : "")%>
-                        <%= Html.ValidationMessage("Trans.TransDate")%>
+                        @(Html.TextBox("Trans.TransDate", (Model.Trans.TransDate.HasValue) ? Model.Trans.TransDate.Value.ToString("dd-MMM-yyyy") : ""))
+                        @(Html.ValidationMessage("Trans.TransDate"))
                     </td>
                 </tr>
-                <% } %>
-                <% if (ViewData.Model.ViewFactur)
-                   {	%>
+                }
+                @if (ViewData.Model.ViewFactur)
+                   {
                 <tr>
                     <td>
                         <label for="Trans_TransFactur">
                             No Faktur :</label>
                     </td>
                     <td>
-                        <%= Html.TextBox("Trans.TransFactur", Model.Trans.TransFactur)%>
-                        <%= Html.ValidationMessage("Trans.TransFactur")%>
+                        @(Html.TextBox("Trans.TransFactur", Model.Trans.TransFactur))
+                        @(Html.ValidationMessage("Trans.TransFactur"))
                     </td>
                 </tr>
-                <% } %>
-                <% if (ViewData.Model.ViewPaymentMethod)
-                   {	%>
+                }
+                @if (ViewData.Model.ViewPaymentMethod)
+                   {
                 <tr>
                     <td>
                         <label for="Trans_TransPaymentMethod">
                             Cara Pembayaran :</label>
                     </td>
                     <td>
-                        <%= Html.DropDownList("Trans.TransPaymentMethod", Model.PaymentMethodList)%>
-                        <%= Html.ValidationMessage("Trans.TransPaymentMethod")%>
+                        @(Html.DropDownList("Trans.TransPaymentMethod", Model.PaymentMethodList))
+                        @(Html.ValidationMessage("Trans.TransPaymentMethod"))
                     </td>
                 </tr>
-                <% } %>
+                }
             </table>
         </td>
         <td>
             <table>
-                <% if (ViewData.Model.ViewTransBy)
-                   {	%>
+                @if (ViewData.Model.ViewTransBy)
+                   {
                 <tr>
                     <td>
                         <label for="Trans_TransBy">
-                           <%= ViewData.Model.TransByText %></label>
+                           @(ViewData.Model.TransByText)</label>
                     </td>
                     <td>
-                        <%= Html.DropDownList("Trans.TransBy", Model.TransByList)%>
-                        <%= Html.ValidationMessage("Trans.TransBy")%>
+                        @(Html.DropDownList("Trans.TransBy", Model.TransByList))
+                        @(Html.ValidationMessage("Trans.TransBy"))
                     </td>
                 </tr>
-                <% } %>
-                <% if (ViewData.Model.ViewWarehouse)
-                   {	%>
+                }
+                @if (ViewData.Model.ViewWarehouse)
+                   {
                 <tr>
                     <td>
                         <label for="Trans_WarehouseId">
                             Gudang :</label>
                     </td>
                     <td>
-                        <%= Html.DropDownList("Trans.WarehouseId", Model.WarehouseList)%>
-                        <%= Html.ValidationMessage("Trans.WarehouseId")%>
+                        @(Html.DropDownList("Trans.WarehouseId", Model.WarehouseList))
+                        @(Html.ValidationMessage("Trans.WarehouseId"))
                     </td>
                 </tr>
-                <% } %>
-                <% if (ViewData.Model.ViewWarehouseTo)
-                   {	%>
+                }
+                @if (ViewData.Model.ViewWarehouseTo)
+                   {
                 <tr>
                     <td>
                         <label for="Trans_WarehouseIdTo">
                             Ke Gudang :</label>
                     </td>
                     <td>
-                        <%= Html.DropDownList("Trans.WarehouseIdTo", Model.WarehouseToList)%>
-                        <%= Html.ValidationMessage("Trans.WarehouseIdTo")%>
+                        @(Html.DropDownList("Trans.WarehouseIdTo", Model.WarehouseToList))
+                        @(Html.ValidationMessage("Trans.WarehouseIdTo"))
                     </td>
                 </tr>
-                <% } %>
+                }
             </table>
         </td>
     </tr>
@@ -143,7 +143,7 @@
 <div id='popup'>
     <iframe width='100%' height='380px' id="popup_frame" frameborder="0"></iframe>
 </div>
-<% } %>
+}
 <script language="javascript" type="text/javascript">
 
 function onSavedSuccess() {
@@ -152,27 +152,27 @@ function onSavedSuccess() {
 
 
 function ajaxValidate() {
-var imgerror = '<%= Url.Content("~/Content/Images/cross.gif") %>';
+var imgerror = '@(Url.Content("~/Content/Images/cross.gif"))';
     return $('form').validate({
     rules: {
-     <% if (ViewData.Model.ViewDate)
-                   {	%>
-        "Trans.TransDate": { required: true } <% } %>
-       <% if (ViewData.Model.ViewFactur)
-                   {	%>, "Trans.TransFactur": { required: true  }<% } %>
-         <% if (ViewData.Model.ViewTransBy)
-                   {	%>, "Trans.TransBy": { required: true  } <% } %>
-         <% if (ViewData.Model.ViewWarehouse)
-                   {	%>,"Trans.WarehouseId": { required: true  }<% } %>
-        <% if (ViewData.Model.ViewWarehouseTo)
-                   {	%>, "Trans.WarehouseIdTo": { required: true  }<% } %>
+     @if (ViewData.Model.ViewDate)
+                   {
+        "Trans.TransDate": { required: true } }
+       @if (ViewData.Model.ViewFactur)
+                   {, "Trans.TransFactur": { required: true  }}
+         @if (ViewData.Model.ViewTransBy)
+                   {, "Trans.TransBy": { required: true  } }
+         @if (ViewData.Model.ViewWarehouse)
+                   {,"Trans.WarehouseId": { required: true  }}
+        @if (ViewData.Model.ViewWarehouseTo)
+                   {, "Trans.WarehouseIdTo": { required: true  }}
     },
     messages: {
-       <% if (ViewData.Model.ViewDate) {	%> "Trans.TransDate": "<img id='TransDateerror' src='"+imgerror+"' hovertext='Tanggal tidak boleh kosong' />"  <% } %>
-        <% if (ViewData.Model.ViewFactur) {	%> , "Trans.TransFactur": "<img id='TransFacturerror' src='"+imgerror+"' hovertext='No Faktur harus diisi' />"<% } %>
-        <% if (ViewData.Model.ViewTransBy) {	%> , "Trans.TransBy": "<img id='TransByerror' src='"+imgerror+"' hovertext='Pilih <%= ViewData.Model.TransByText %>' />"<% } %>
-        <% if (ViewData.Model.ViewWarehouse) {	%> , "Trans.WarehouseId": "<img id='WarehouseIderror' src='"+imgerror+"' hovertext='Pilih Gudang' />"<% } %>
-        <% if (ViewData.Model.ViewWarehouseTo) {	%> , "Trans.WarehouseIdTo": "<img id='WarehouseIdToerror' src='"+imgerror+"' hovertext='Pilih Gudang Tujuan' />"<% } %>
+       @if (ViewData.Model.ViewDate) { "Trans.TransDate": "<img id='TransDateerror' src='"+imgerror+"' hovertext='Tanggal tidak boleh kosong' />"  }
+        @if (ViewData.Model.ViewFactur) { , "Trans.TransFactur": "<img id='TransFacturerror' src='"+imgerror+"' hovertext='No Faktur harus diisi' />"}
+        @if (ViewData.Model.ViewTransBy) { , "Trans.TransBy": "<img id='TransByerror' src='"+imgerror+"' hovertext='Pilih @(ViewData.Model.TransByText)' />"}
+        @if (ViewData.Model.ViewWarehouse) { , "Trans.WarehouseId": "<img id='WarehouseIderror' src='"+imgerror+"' hovertext='Pilih Gudang' />"}
+        @if (ViewData.Model.ViewWarehouseTo) { , "Trans.WarehouseIdTo": "<img id='WarehouseIdToerror' src='"+imgerror+"' hovertext='Pilih Gudang Tujuan' />"}
         },
         invalidHandler: function(form, validator) {
           var errors = validator.numberOfInvalids();
@@ -228,7 +228,7 @@ var imgerror = '<%= Url.Content("~/Content/Images/cross.gif") %>';
             });
 
         var editDialog = {
-            url: '<%= Url.Action("Update", "Inventory") %>'
+            url: '@(Url.Action("Update", "Inventory"))'
                 , closeAfterAdd: true
                 , closeAfterEdit: true
                 , modal: true
@@ -253,7 +253,7 @@ var imgerror = '<%= Url.Content("~/Content/Images/cross.gif") %>';
                 }
         };
         var insertDialog = {
-            url: '<%= Url.Action("Insert", "Inventory") %>'
+            url: '@(Url.Action("Insert", "Inventory"))'
                 , closeAfterAdd: true
                 , closeAfterEdit: true
                 , modal: true
@@ -265,14 +265,14 @@ var imgerror = '<%= Url.Content("~/Content/Images/cross.gif") %>';
                 , afterShowForm: function (eparams) {
                     $('#Id').attr('disabled', '');
                     $('#TransDetQty').attr('value', '1');
-                     <% if (ViewData.Model.ViewPrice)
-               {%> 
+                     @if (ViewData.Model.ViewPrice)
+               { 
                     $('#TransDetPrice').attr('value', '0');
                     $('#TransDetDisc').attr('value', '0');
                     $('#TransDetTotal').attr('value', '0');
 
 //                    $('#ItemId').change(function () {
-//                        var price = $.ajax({ url: '<%= ResolveUrl("~/Master/Item/Get") %>/' + $('#ItemId :selected').val(), async: false, cache: false, success: function (data, result) { if (!result) alert('Failure to retrieve the items.'); } }).responseText;
+//                        var price = $.ajax({ url: '@(ResolveUrl("~/Master/Item/Get"))/' + $('#ItemId :selected').val(), async: false, cache: false, success: function (data, result) { if (!result) alert('Failure to retrieve the items.'); } }).responseText;
 //                        $('#TransDetPrice').attr('value', price);
 //                        CalculateTotal();
 //                    });
@@ -285,8 +285,7 @@ var imgerror = '<%= Url.Content("~/Content/Images/cross.gif") %>';
                     $('#TransDetDisc').change(function () {
                         CalculateTotal();
                     });
-                   <%
-               }%>  
+                   }  
                      $('#imgItemId').click(function(){
                         OpenPopupItemSearch();
                         });
@@ -299,7 +298,7 @@ var imgerror = '<%= Url.Content("~/Content/Images/cross.gif") %>';
                 , width: "400"
         };
         var deleteDialog = {
-            url: '<%= Url.Action("Delete", "Inventory") %>'
+            url: '@(Url.Action("Delete", "Inventory"))'
                 , modal: true
                 , width: "400"
                 , afterComplete: function (response, postdata, formid) {
@@ -315,20 +314,19 @@ var imgerror = '<%= Url.Content("~/Content/Images/cross.gif") %>';
         $.jgrid.edit.editCaption = "Edit Detail";
         $.jgrid.del.caption = "Hapus Detail";
         $.jgrid.del.msg = "Anda yakin menghapus Detail yang dipilih?";
-        var imgLov = '<%= Url.Content("~/Content/Images/window16.gif") %>';
+        var imgLov = '@(Url.Content("~/Content/Images/window16.gif"))';
         $("#list").jqGrid({
-            url: '<%= Url.Action("List", "Inventory", new { usePrice = ViewData.Model.ViewPrice} ) %>',
+            url: '@(Url.Action("List", "Inventory", new { usePrice = ViewData.Model.ViewPrice} ))',
 //                postData: {
-//                    UsePrice: function () { return <% if (ViewData.Model.ViewPrice) {%>' true' <%} else { %>                                                      'false'
-//                                                      <% } %>; }
+//                    UsePrice: function () { return @if (ViewData.Model.ViewPrice) {' true' } else {                                                      'false'
+//                                                      }; }
 //                },
             datatype: 'json',
             mtype: 'GET',
             colNames: ['Id', 'Produk', 'Produk', 'Kuantitas',
-            <% if (ViewData.Model.ViewPrice)
-               {%> 'Harga', 'Diskon', 'Total',
-                   <%
-               }%>                   
+            @if (ViewData.Model.ViewPrice)
+               { 'Harga', 'Diskon', 'Total',
+                   }                   
                     'Keterangan'],
             colModel: [
                     { name: 'Id', index: 'Id', width: 100, align: 'left', key: true, editrules: { required: true, edithidden: false }, hidedlg: true, hidden: true, editable: false },
@@ -345,7 +343,7 @@ var imgerror = '<%= Url.Content("~/Content/Images/cross.gif") %>';
                            }
                        }
                         },
-                   <% if (ViewData.Model.ViewPrice) {%> 
+                   @if (ViewData.Model.ViewPrice) { 
                    { name: 'TransDetPrice', index: 'TransDetPrice', width: 200, sortable: false, align: 'right', editable: true, editrules: { required: false },
                        editoptions: {
                            dataInit: function (elem) {
@@ -370,7 +368,7 @@ var imgerror = '<%= Url.Content("~/Content/Images/cross.gif") %>';
                            }
                        }
                         },
-                   <%}%> 
+                   } 
                 { name: 'TransDetDesc', index: 'TransDetDesc', width: 200, sortable: false, align: 'left', editable: true, edittype: 'textarea', editoptions: { rows: "3", cols: "20" }, editrules: { required: false}}],
 
             pager: $('#listPager'),
@@ -400,7 +398,7 @@ var imgerror = '<%= Url.Content("~/Content/Images/cross.gif") %>';
             );
     });
 
-//        var items = $.ajax({ url:  '<%= ResolveUrl("~/Master/Item/GetList") %>', async: false, cache: false, success: function (data, result) { if (!result) alert('Failure to retrieve the items.'); } }).responseText;
+//        var items = $.ajax({ url:  '@(ResolveUrl("~/Master/Item/GetList"))', async: false, cache: false, success: function (data, result) { if (!result) alert('Failure to retrieve the items.'); } }).responseText;
                
 
     
@@ -429,7 +427,7 @@ var imgerror = '<%= Url.Content("~/Content/Images/cross.gif") %>';
 
         function OpenPopupItemSearch()
         {
-          $("#popup_frame").attr("src", "<%= ResolveUrl("~/Master/Item/Search?Price=") %><%= Model.UsePrice.ToString() %>");
+          $("#popup_frame").attr("src", "@(ResolveUrl("~/Master/Item/Search?Price="))@(Model.UsePrice.ToString())");
             $("#popup").dialog("open");
             return false;   
         }
@@ -442,12 +440,11 @@ var imgerror = '<%= Url.Content("~/Content/Images/cross.gif") %>';
   $("#popup").dialog("close");
           $('#ItemId').attr('value', itemId);
           $('#ItemName').attr('value', itemName);
-           <% if (ViewData.Model.ViewPrice)
-               {%>   
+           @if (ViewData.Model.ViewPrice)
+               {   
                $('#TransDetPrice').attr('value', price.toString());
             CalculateTotal();
-                   <%
-               }%> 
+                   } 
        
         }
 </script>

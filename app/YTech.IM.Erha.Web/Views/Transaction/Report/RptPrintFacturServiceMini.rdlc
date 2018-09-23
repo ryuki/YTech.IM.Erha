@@ -1,338 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2008/01/reportdefinition">
-  <DataSources>
-    <DataSource Name="YTechIMSenseWebControllersViewModelReports">
-      <ConnectionProperties>
-        <DataProvider>System.Data.DataSet</DataProvider>
-        <ConnectString>/* Local Connection */</ConnectString>
-      </ConnectionProperties>
-      <rd:DataSourceID>19e5d500-349d-4770-84af-231e3c467a5e</rd:DataSourceID>
-    </DataSource>
-    <DataSource Name="YTechIMSenseWebControllersViewModelReports1">
-      <ConnectionProperties>
-        <DataProvider>System.Data.DataSet</DataProvider>
-        <ConnectString>/* Local Connection */</ConnectString>
-      </ConnectionProperties>
-      <rd:DataSourceID>886c7b5e-49c3-4722-b3d4-976f212a1bd3</rd:DataSourceID>
-    </DataSource>
-  </DataSources>
-  <DataSets>
-    <DataSet Name="TransDetViewModel">
-      <Fields>
-        <Field Name="ActionId">
-          <DataField>ActionId</DataField>
-          <rd:TypeName>YTech.IM.Erha.Core.Master.MAction</rd:TypeName>
-        </Field>
-        <Field Name="ActionName">
-          <DataField>ActionName</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="CreatedBy">
-          <DataField>CreatedBy</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="CreatedDate">
-          <DataField>CreatedDate</DataField>
-          <rd:TypeName>System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]</rd:TypeName>
-        </Field>
-        <Field Name="DataStatus">
-          <DataField>DataStatus</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="DoctorName">
-          <DataField>DoctorName</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="EmployeeId">
-          <DataField>EmployeeId</DataField>
-          <rd:TypeName>YTech.IM.Erha.Core.Master.MEmployee</rd:TypeName>
-        </Field>
-        <Field Name="EmployeeName">
-          <DataField>EmployeeName</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Id">
-          <DataField>Id</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="ItemId">
-          <DataField>ItemId</DataField>
-          <rd:TypeName>YTech.IM.Erha.Core.Master.MItem</rd:TypeName>
-        </Field>
-        <Field Name="ItemName">
-          <DataField>ItemName</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="ItemUomId">
-          <DataField>ItemUomId</DataField>
-          <rd:TypeName>YTech.IM.Erha.Core.Master.MItemUom</rd:TypeName>
-        </Field>
-        <Field Name="MedicianName">
-          <DataField>MedicianName</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="ModifiedBy">
-          <DataField>ModifiedBy</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="ModifiedDate">
-          <DataField>ModifiedDate</DataField>
-          <rd:TypeName>System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]</rd:TypeName>
-        </Field>
-        <Field Name="RowVersion">
-          <DataField>RowVersion</DataField>
-          <rd:TypeName>System.Byte[]</rd:TypeName>
-        </Field>
-        <Field Name="TherapistName">
-          <DataField>TherapistName</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="TotalUsed">
-          <DataField>TotalUsed</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
-        </Field>
-        <Field Name="TransDetDesc">
-          <DataField>TransDetDesc</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="TransDetDisc">
-          <DataField>TransDetDisc</DataField>
-          <rd:TypeName>System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]</rd:TypeName>
-        </Field>
-        <Field Name="TransDetNo">
-          <DataField>TransDetNo</DataField>
-          <rd:TypeName>System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]</rd:TypeName>
-        </Field>
-        <Field Name="TransDetPrice">
-          <DataField>TransDetPrice</DataField>
-          <rd:TypeName>System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]</rd:TypeName>
-        </Field>
-        <Field Name="TransDetQty">
-          <DataField>TransDetQty</DataField>
-          <rd:TypeName>System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]</rd:TypeName>
-        </Field>
-        <Field Name="TransDetTotal">
-          <DataField>TransDetTotal</DataField>
-          <rd:TypeName>System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]</rd:TypeName>
-        </Field>
-        <Field Name="TransId">
-          <DataField>TransId</DataField>
-          <rd:TypeName>YTech.IM.Erha.Core.Transaction.TTrans</rd:TypeName>
-        </Field>
-        <Field Name="WarehouseId">
-          <DataField>WarehouseId</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="WarehouseName">
-          <DataField>WarehouseName</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-      </Fields>
-      <Query>
-        <DataSourceName>YTechIMSenseWebControllersViewModelReports</DataSourceName>
-        <CommandText>/* Local Query */</CommandText>
-      </Query>
-      <rd:DataSetInfo>
-        <rd:DataSetName>YTech.IM.Erha.Web.Controllers.ViewModel.Reports</rd:DataSetName>
-        <rd:TableName>TransDetViewModel</rd:TableName>
-        <rd:ObjectDataSourceType>YTech.IM.Erha.Web.Controllers.ViewModel.Reports.TransDetViewModel, YTech.IM.Erha.Web.Controllers, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
-      </rd:DataSetInfo>
-    </DataSet>
-    <DataSet Name="TransRoomViewModel">
-      <Fields>
-        <Field Name="CreatedBy">
-          <DataField>CreatedBy</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="CreatedDate">
-          <DataField>CreatedDate</DataField>
-          <rd:TypeName>System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]</rd:TypeName>
-        </Field>
-        <Field Name="DataStatus">
-          <DataField>DataStatus</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Id">
-          <DataField>Id</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="ModifiedBy">
-          <DataField>ModifiedBy</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="ModifiedDate">
-          <DataField>ModifiedDate</DataField>
-          <rd:TypeName>System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]</rd:TypeName>
-        </Field>
-        <Field Name="RoomBookDate">
-          <DataField>RoomBookDate</DataField>
-          <rd:TypeName>System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]</rd:TypeName>
-        </Field>
-        <Field Name="RoomCashPaid">
-          <DataField>RoomCashPaid</DataField>
-          <rd:TypeName>System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]</rd:TypeName>
-        </Field>
-        <Field Name="RoomCommissionProduct">
-          <DataField>RoomCommissionProduct</DataField>
-          <rd:TypeName>System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]</rd:TypeName>
-        </Field>
-        <Field Name="RoomCommissionService">
-          <DataField>RoomCommissionService</DataField>
-          <rd:TypeName>System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]</rd:TypeName>
-        </Field>
-        <Field Name="RoomCreditPaid">
-          <DataField>RoomCreditPaid</DataField>
-          <rd:TypeName>System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]</rd:TypeName>
-        </Field>
-        <Field Name="RoomDesc">
-          <DataField>RoomDesc</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="RoomId">
-          <DataField>RoomId</DataField>
-          <rd:TypeName>YTech.IM.Erha.Core.Master.MRoom</rd:TypeName>
-        </Field>
-        <Field Name="RoomInDate">
-          <DataField>RoomInDate</DataField>
-          <rd:TypeName>System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]</rd:TypeName>
-        </Field>
-        <Field Name="RoomOutDate">
-          <DataField>RoomOutDate</DataField>
-          <rd:TypeName>System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]</rd:TypeName>
-        </Field>
-        <Field Name="RoomStatus">
-          <DataField>RoomStatus</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="RoomVoucherPaid">
-          <DataField>RoomVoucherPaid</DataField>
-          <rd:TypeName>System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]</rd:TypeName>
-        </Field>
-        <Field Name="RowVersion">
-          <DataField>RowVersion</DataField>
-          <rd:TypeName>System.Byte[]</rd:TypeName>
-        </Field>
-        <Field Name="TransId">
-          <DataField>TransId</DataField>
-          <rd:TypeName>YTech.IM.Erha.Core.Transaction.TTrans</rd:TypeName>
-        </Field>
-      </Fields>
-      <Query>
-        <DataSourceName>YTechIMSenseWebControllersViewModelReports</DataSourceName>
-        <CommandText>/* Local Query */</CommandText>
-      </Query>
-      <rd:DataSetInfo>
-        <rd:DataSetName>YTech.IM.Erha.Web.Controllers.ViewModel.Reports</rd:DataSetName>
-        <rd:TableName>TransRoomViewModel</rd:TableName>
-        <rd:ObjectDataSourceType>YTech.IM.Erha.Web.Controllers.ViewModel.Reports.TransRoomViewModel, YTech.IM.Erha.Web.Controllers, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
-      </rd:DataSetInfo>
-    </DataSet>
-    <DataSet Name="TransViewModel">
-      <Fields>
-        <Field Name="CreatedBy">
-          <DataField>CreatedBy</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="CreatedDate">
-          <DataField>CreatedDate</DataField>
-          <rd:TypeName>System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]</rd:TypeName>
-        </Field>
-        <Field Name="CustomerName">
-          <DataField>CustomerName</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="DataStatus">
-          <DataField>DataStatus</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="EmployeeId">
-          <DataField>EmployeeId</DataField>
-          <rd:TypeName>YTech.IM.Erha.Core.Master.MEmployee</rd:TypeName>
-        </Field>
-        <Field Name="Id">
-          <DataField>Id</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="ModifiedBy">
-          <DataField>ModifiedBy</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="ModifiedDate">
-          <DataField>ModifiedDate</DataField>
-          <rd:TypeName>System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]</rd:TypeName>
-        </Field>
-        <Field Name="RowVersion">
-          <DataField>RowVersion</DataField>
-          <rd:TypeName>System.Byte[]</rd:TypeName>
-        </Field>
-        <Field Name="TransBy">
-          <DataField>TransBy</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="TransDate">
-          <DataField>TransDate</DataField>
-          <rd:TypeName>System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]</rd:TypeName>
-        </Field>
-        <Field Name="TransDesc">
-          <DataField>TransDesc</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="TransDiscount">
-          <DataField>TransDiscount</DataField>
-          <rd:TypeName>System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]</rd:TypeName>
-        </Field>
-        <Field Name="TransDueDate">
-          <DataField>TransDueDate</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="TransFactur">
-          <DataField>TransFactur</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="TransGrandTotal">
-          <DataField>TransGrandTotal</DataField>
-          <rd:TypeName>System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]</rd:TypeName>
-        </Field>
-        <Field Name="TransPaymentMethod">
-          <DataField>TransPaymentMethod</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="TransRefId">
-          <DataField>TransRefId</DataField>
-          <rd:TypeName>YTech.IM.Erha.Core.Transaction.TTrans</rd:TypeName>
-        </Field>
-        <Field Name="TransStatus">
-          <DataField>TransStatus</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="TransSubTotal">
-          <DataField>TransSubTotal</DataField>
-          <rd:TypeName>System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]</rd:TypeName>
-        </Field>
-        <Field Name="TransTax">
-          <DataField>TransTax</DataField>
-          <rd:TypeName>System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]</rd:TypeName>
-        </Field>
-        <Field Name="WarehouseId">
-          <DataField>WarehouseId</DataField>
-          <rd:TypeName>YTech.IM.Erha.Core.Master.MWarehouse</rd:TypeName>
-        </Field>
-        <Field Name="WarehouseIdTo">
-          <DataField>WarehouseIdTo</DataField>
-          <rd:TypeName>YTech.IM.Erha.Core.Master.MWarehouse</rd:TypeName>
-        </Field>
-      </Fields>
-      <Query>
-        <DataSourceName>YTechIMSenseWebControllersViewModelReports1</DataSourceName>
-        <CommandText>/* Local Query */</CommandText>
-      </Query>
-      <rd:DataSetInfo>
-        <rd:DataSetName>YTech.IM.Erha.Web.Controllers.ViewModel.Reports</rd:DataSetName>
-        <rd:TableName>TransViewModel</rd:TableName>
-        <rd:ObjectDataSourceType>YTech.IM.Erha.Web.Controllers.ViewModel.Reports.TransViewModel, YTech.IM.Erha.Web.Controllers, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
-      </rd:DataSetInfo>
-    </DataSet>
-  </DataSets>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2008/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
   <Body>
     <ReportItems>
       <Tablix Name="Tablix1">
@@ -1361,7 +1028,7 @@ iif	(Fields!MedicianName.Value &lt;&gt; "",Fields!MedicianName.Value &amp; syste
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox10</rd:DefaultName>
-        <Top>3.70138in</Top>
+        <Top>3.95138in</Top>
         <Left>0.29124in</Left>
         <Height>0.25886in</Height>
         <Width>2.28996in</Width>
@@ -1395,7 +1062,7 @@ iif	(Fields!MedicianName.Value &lt;&gt; "",Fields!MedicianName.Value &amp; syste
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox10</rd:DefaultName>
-        <Top>3.44252in</Top>
+        <Top>3.69252in</Top>
         <Left>0.28918in</Left>
         <Height>0.25886in</Height>
         <Width>2.28996in</Width>
@@ -1410,8 +1077,47 @@ iif	(Fields!MedicianName.Value &lt;&gt; "",Fields!MedicianName.Value &amp; syste
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
       </Textbox>
+      <Textbox Name="TransSubTotal7">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>="Rujukan : " &amp; First(Fields!TransDesc.Value, "TransViewModel")</Value>
+                <Style>
+                  <FontFamily>Times New Roman</FontFamily>
+                  <FontSize>9pt</FontSize>
+                  <Format>N2</Format>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style>
+              <TextAlign>Left</TextAlign>
+            </Style>
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>TransSubTotal</rd:DefaultName>
+        <Top>3.38621in</Top>
+        <Left>0.03918in</Left>
+        <Height>0.6cm</Height>
+        <Width>2.53996in</Width>
+        <ZIndex>5</ZIndex>
+        <Visibility>
+          <Hidden>=Microsoft.VisualBasic.Interaction.iif(First(Fields!TransDesc.Value, "TransViewModel") = "", True, False)</Hidden>
+        </Visibility>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
     </ReportItems>
-    <Height>10.05901cm</Height>
+    <Height>10.69401cm</Height>
     <Style />
   </Body>
   <Width>7.60001cm</Width>
@@ -1479,21 +1185,57 @@ iif	(Fields!MedicianName.Value &lt;&gt; "",Fields!MedicianName.Value &amp; syste
             <PaddingBottom>2pt</PaddingBottom>
           </Style>
         </Textbox>
-        <Image Name="Image1">
-          <Source>Embedded</Source>
-          <Value>logo_bw</Value>
-          <Sizing>FitProportional</Sizing>
+        <Textbox Name="Textbox1">
+          <CanGrow>true</CanGrow>
+          <KeepTogether>true</KeepTogether>
+          <Paragraphs>
+            <Paragraph>
+              <TextRuns>
+                <TextRun>
+                  <Value>erhaclinic</Value>
+                  <Style>
+                    <FontStyle>Normal</FontStyle>
+                    <FontFamily>Century Gothic</FontFamily>
+                    <FontSize>20pt</FontSize>
+                    <FontWeight>Normal</FontWeight>
+                  </Style>
+                </TextRun>
+              </TextRuns>
+              <Style>
+                <TextAlign>Center</TextAlign>
+              </Style>
+            </Paragraph>
+            <Paragraph>
+              <TextRuns>
+                <TextRun>
+                  <Value>klinik spesialis kulit</Value>
+                  <Style>
+                    <FontFamily>Century Gothic</FontFamily>
+                    <FontSize>11pt</FontSize>
+                  </Style>
+                </TextRun>
+              </TextRuns>
+              <Style>
+                <TextAlign>Center</TextAlign>
+              </Style>
+            </Paragraph>
+          </Paragraphs>
+          <rd:DefaultName>Textbox1</rd:DefaultName>
           <Top>0cm</Top>
-          <Left>0.34697cm</Left>
-          <Height>0.60377in</Height>
-          <Width>2.08491in</Width>
+          <Left>0.04389cm</Left>
+          <Height>1.53358cm</Height>
+          <Width>6.58622cm</Width>
           <ZIndex>1</ZIndex>
           <Style>
             <Border>
               <Style>None</Style>
             </Border>
+            <PaddingLeft>2pt</PaddingLeft>
+            <PaddingRight>2pt</PaddingRight>
+            <PaddingTop>2pt</PaddingTop>
+            <PaddingBottom>2pt</PaddingBottom>
           </Style>
-        </Image>
+        </Textbox>
       </ReportItems>
       <Style>
         <Border>
@@ -1510,6 +1252,340 @@ iif	(Fields!MedicianName.Value &lt;&gt; "",Fields!MedicianName.Value &amp; syste
     <ColumnSpacing>1.27cm</ColumnSpacing>
     <Style />
   </Page>
+  <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="YTechIMSenseWebControllersViewModelReports">
+      <ConnectionProperties>
+        <DataProvider>System.Data.DataSet</DataProvider>
+        <ConnectString>/* Local Connection */</ConnectString>
+      </ConnectionProperties>
+      <rd:DataSourceID>19e5d500-349d-4770-84af-231e3c467a5e</rd:DataSourceID>
+    </DataSource>
+    <DataSource Name="YTechIMSenseWebControllersViewModelReports1">
+      <ConnectionProperties>
+        <DataProvider>System.Data.DataSet</DataProvider>
+        <ConnectString>/* Local Connection */</ConnectString>
+      </ConnectionProperties>
+      <rd:DataSourceID>886c7b5e-49c3-4722-b3d4-976f212a1bd3</rd:DataSourceID>
+    </DataSource>
+  </DataSources>
+  <DataSets>
+    <DataSet Name="TransDetViewModel">
+      <Query>
+        <DataSourceName>YTechIMSenseWebControllersViewModelReports</DataSourceName>
+        <CommandText>/* Local Query */</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="ActionId">
+          <DataField>ActionId</DataField>
+          <rd:TypeName>YTech.IM.Erha.Core.Master.MAction</rd:TypeName>
+        </Field>
+        <Field Name="ActionName">
+          <DataField>ActionName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="CreatedBy">
+          <DataField>CreatedBy</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="CreatedDate">
+          <DataField>CreatedDate</DataField>
+          <rd:TypeName>System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]</rd:TypeName>
+        </Field>
+        <Field Name="DataStatus">
+          <DataField>DataStatus</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="DoctorName">
+          <DataField>DoctorName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="EmployeeId">
+          <DataField>EmployeeId</DataField>
+          <rd:TypeName>YTech.IM.Erha.Core.Master.MEmployee</rd:TypeName>
+        </Field>
+        <Field Name="EmployeeName">
+          <DataField>EmployeeName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Id">
+          <DataField>Id</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ItemId">
+          <DataField>ItemId</DataField>
+          <rd:TypeName>YTech.IM.Erha.Core.Master.MItem</rd:TypeName>
+        </Field>
+        <Field Name="ItemName">
+          <DataField>ItemName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ItemUomId">
+          <DataField>ItemUomId</DataField>
+          <rd:TypeName>YTech.IM.Erha.Core.Master.MItemUom</rd:TypeName>
+        </Field>
+        <Field Name="MedicianName">
+          <DataField>MedicianName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ModifiedBy">
+          <DataField>ModifiedBy</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ModifiedDate">
+          <DataField>ModifiedDate</DataField>
+          <rd:TypeName>System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]</rd:TypeName>
+        </Field>
+        <Field Name="RowVersion">
+          <DataField>RowVersion</DataField>
+          <rd:TypeName>System.Byte[]</rd:TypeName>
+        </Field>
+        <Field Name="TherapistName">
+          <DataField>TherapistName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TotalUsed">
+          <DataField>TotalUsed</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="TransDetDesc">
+          <DataField>TransDetDesc</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TransDetDisc">
+          <DataField>TransDetDisc</DataField>
+          <rd:TypeName>System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]</rd:TypeName>
+        </Field>
+        <Field Name="TransDetNo">
+          <DataField>TransDetNo</DataField>
+          <rd:TypeName>System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]</rd:TypeName>
+        </Field>
+        <Field Name="TransDetPrice">
+          <DataField>TransDetPrice</DataField>
+          <rd:TypeName>System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]</rd:TypeName>
+        </Field>
+        <Field Name="TransDetQty">
+          <DataField>TransDetQty</DataField>
+          <rd:TypeName>System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]</rd:TypeName>
+        </Field>
+        <Field Name="TransDetTotal">
+          <DataField>TransDetTotal</DataField>
+          <rd:TypeName>System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]</rd:TypeName>
+        </Field>
+        <Field Name="TransId">
+          <DataField>TransId</DataField>
+          <rd:TypeName>YTech.IM.Erha.Core.Transaction.TTrans</rd:TypeName>
+        </Field>
+        <Field Name="WarehouseId">
+          <DataField>WarehouseId</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="WarehouseName">
+          <DataField>WarehouseName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+      <rd:DataSetInfo>
+        <rd:DataSetName>YTech.IM.Erha.Web.Controllers.ViewModel.Reports</rd:DataSetName>
+        <rd:TableName>TransDetViewModel</rd:TableName>
+        <rd:ObjectDataSourceType>YTech.IM.Erha.Web.Controllers.ViewModel.Reports.TransDetViewModel, YTech.IM.Erha.Web.Controllers, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
+      </rd:DataSetInfo>
+    </DataSet>
+    <DataSet Name="TransRoomViewModel">
+      <Query>
+        <DataSourceName>YTechIMSenseWebControllersViewModelReports</DataSourceName>
+        <CommandText>/* Local Query */</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="CreatedBy">
+          <DataField>CreatedBy</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="CreatedDate">
+          <DataField>CreatedDate</DataField>
+          <rd:TypeName>System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]</rd:TypeName>
+        </Field>
+        <Field Name="DataStatus">
+          <DataField>DataStatus</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Id">
+          <DataField>Id</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ModifiedBy">
+          <DataField>ModifiedBy</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ModifiedDate">
+          <DataField>ModifiedDate</DataField>
+          <rd:TypeName>System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]</rd:TypeName>
+        </Field>
+        <Field Name="RoomBookDate">
+          <DataField>RoomBookDate</DataField>
+          <rd:TypeName>System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]</rd:TypeName>
+        </Field>
+        <Field Name="RoomCashPaid">
+          <DataField>RoomCashPaid</DataField>
+          <rd:TypeName>System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]</rd:TypeName>
+        </Field>
+        <Field Name="RoomCommissionProduct">
+          <DataField>RoomCommissionProduct</DataField>
+          <rd:TypeName>System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]</rd:TypeName>
+        </Field>
+        <Field Name="RoomCommissionService">
+          <DataField>RoomCommissionService</DataField>
+          <rd:TypeName>System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]</rd:TypeName>
+        </Field>
+        <Field Name="RoomCreditPaid">
+          <DataField>RoomCreditPaid</DataField>
+          <rd:TypeName>System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]</rd:TypeName>
+        </Field>
+        <Field Name="RoomDesc">
+          <DataField>RoomDesc</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="RoomId">
+          <DataField>RoomId</DataField>
+          <rd:TypeName>YTech.IM.Erha.Core.Master.MRoom</rd:TypeName>
+        </Field>
+        <Field Name="RoomInDate">
+          <DataField>RoomInDate</DataField>
+          <rd:TypeName>System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]</rd:TypeName>
+        </Field>
+        <Field Name="RoomOutDate">
+          <DataField>RoomOutDate</DataField>
+          <rd:TypeName>System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]</rd:TypeName>
+        </Field>
+        <Field Name="RoomStatus">
+          <DataField>RoomStatus</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="RoomVoucherPaid">
+          <DataField>RoomVoucherPaid</DataField>
+          <rd:TypeName>System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]</rd:TypeName>
+        </Field>
+        <Field Name="RowVersion">
+          <DataField>RowVersion</DataField>
+          <rd:TypeName>System.Byte[]</rd:TypeName>
+        </Field>
+        <Field Name="TransId">
+          <DataField>TransId</DataField>
+          <rd:TypeName>YTech.IM.Erha.Core.Transaction.TTrans</rd:TypeName>
+        </Field>
+      </Fields>
+      <rd:DataSetInfo>
+        <rd:DataSetName>YTech.IM.Erha.Web.Controllers.ViewModel.Reports</rd:DataSetName>
+        <rd:TableName>TransRoomViewModel</rd:TableName>
+        <rd:ObjectDataSourceType>YTech.IM.Erha.Web.Controllers.ViewModel.Reports.TransRoomViewModel, YTech.IM.Erha.Web.Controllers, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
+      </rd:DataSetInfo>
+    </DataSet>
+    <DataSet Name="TransViewModel">
+      <Query>
+        <DataSourceName>YTechIMSenseWebControllersViewModelReports1</DataSourceName>
+        <CommandText>/* Local Query */</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="CreatedBy">
+          <DataField>CreatedBy</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="CreatedDate">
+          <DataField>CreatedDate</DataField>
+          <rd:TypeName>System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]</rd:TypeName>
+        </Field>
+        <Field Name="CustomerName">
+          <DataField>CustomerName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="DataStatus">
+          <DataField>DataStatus</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="EmployeeId">
+          <DataField>EmployeeId</DataField>
+          <rd:TypeName>YTech.IM.Erha.Core.Master.MEmployee</rd:TypeName>
+        </Field>
+        <Field Name="Id">
+          <DataField>Id</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ModifiedBy">
+          <DataField>ModifiedBy</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ModifiedDate">
+          <DataField>ModifiedDate</DataField>
+          <rd:TypeName>System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]</rd:TypeName>
+        </Field>
+        <Field Name="RowVersion">
+          <DataField>RowVersion</DataField>
+          <rd:TypeName>System.Byte[]</rd:TypeName>
+        </Field>
+        <Field Name="TransBy">
+          <DataField>TransBy</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TransDate">
+          <DataField>TransDate</DataField>
+          <rd:TypeName>System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]</rd:TypeName>
+        </Field>
+        <Field Name="TransDesc">
+          <DataField>TransDesc</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TransDiscount">
+          <DataField>TransDiscount</DataField>
+          <rd:TypeName>System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]</rd:TypeName>
+        </Field>
+        <Field Name="TransDueDate">
+          <DataField>TransDueDate</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TransFactur">
+          <DataField>TransFactur</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TransGrandTotal">
+          <DataField>TransGrandTotal</DataField>
+          <rd:TypeName>System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]</rd:TypeName>
+        </Field>
+        <Field Name="TransPaymentMethod">
+          <DataField>TransPaymentMethod</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TransRefId">
+          <DataField>TransRefId</DataField>
+          <rd:TypeName>YTech.IM.Erha.Core.Transaction.TTrans</rd:TypeName>
+        </Field>
+        <Field Name="TransStatus">
+          <DataField>TransStatus</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TransSubTotal">
+          <DataField>TransSubTotal</DataField>
+          <rd:TypeName>System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]</rd:TypeName>
+        </Field>
+        <Field Name="TransTax">
+          <DataField>TransTax</DataField>
+          <rd:TypeName>System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]</rd:TypeName>
+        </Field>
+        <Field Name="WarehouseId">
+          <DataField>WarehouseId</DataField>
+          <rd:TypeName>YTech.IM.Erha.Core.Master.MWarehouse</rd:TypeName>
+        </Field>
+        <Field Name="WarehouseIdTo">
+          <DataField>WarehouseIdTo</DataField>
+          <rd:TypeName>YTech.IM.Erha.Core.Master.MWarehouse</rd:TypeName>
+        </Field>
+      </Fields>
+      <rd:DataSetInfo>
+        <rd:DataSetName>YTech.IM.Erha.Web.Controllers.ViewModel.Reports</rd:DataSetName>
+        <rd:TableName>TransViewModel</rd:TableName>
+        <rd:ObjectDataSourceType>YTech.IM.Erha.Web.Controllers.ViewModel.Reports.TransViewModel, YTech.IM.Erha.Web.Controllers, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
+      </rd:DataSetInfo>
+    </DataSet>
+  </DataSets>
   <EmbeddedImages>
     <EmbeddedImage Name="logo_bw">
       <MIMEType>image/jpeg</MIMEType>
@@ -1532,6 +1608,6 @@ wf7HD+6s7W7j9K5hSaMMHCSKGXkpqpoe4OL5s2bNn//T9U5s2bNkf1/Qbu5uodU0yUQapbDipb7DpueD
 pLBFHNITsoSVnVd/nE+L8lqRUVAqR7YHl1C2ju7a1Yn1bsO0NBUERgFt/wDZYk+sWsdmt3MHhjaZbdRIOLc3mECmlfslzX/U+LB+bNmzZ//V9U5s2bNkT81aPqV9rNlcW8Pr2cFtMt5b8/TE6tJE3ocqj7XHnv8Au39P05PgfDI2k76iZ44DFA2n+iinivFy9QlAdqD/AGOA00AXH+H0vrVZYrG0dZ0kCsqy+nEqhlNQ3R82n6XfxafpMDQlPqmoTOYwRRLcNcLF3+zwaLEdO0jUbfzJcXt1bm5tJriU2bchW1LDeThWjCYf7s/vE+zx4Ye63brcaReW7RySrNEyNHBw9QhhQ8eZCV/1sjV7azDylbQXNgCDfQg2aIkBlQ3QpVA3po8q/Ey8uPxfs4YaPYSi+v7ixszpNnPAkccLKqcrheVZfSQlU4qVX/iz/Y4U+W9Bvba/055Le4hntVcXszJbRoxZCGBkjUy3PqP8fxH/AIsdvU+FjHS9Onh1fVmismjguFlczzJGJTLI5PFJUYmSJ/trz/uvhT/ITXWmXA03QRc2bXltZRoL6wHFjzEIVH4MeMnpP+z/AJXP9nEbTSbgaD5ggt9PayF7O8llZkoDxa3iStFJVOTo/wAH7H2cMtQ0+Sa81hpIZJLW606G3AhKiRyrXPNE5EAPxlSnL4fix3lW3uYNKEU1sttxkfgBGkDOldpHijJRHb9r/jX7OF2taRfzeZvr5tje6WlvbJNZcgPVdJZ2DgMQrm35q3pv8Lepy+3GuCdUW+tdauL2KzmvI7uxS2jEPCqyxySMA/Jl4q/rfa+yvH4sdBpl7Dd+XgU5JYW0sNy4IorGKNR95U4FXQppPLkVpc2iyTJqfr+k4RqRHUvVZt6je3Lf7H4clQAAAAoBsAMvNmzZ/9b1TmzZs2bNmzZs2NZEcAMoYAgioruNwcdmzZs2bNmzZs2bNmzZs//Z</ImageData>
     </EmbeddedImage>
   </EmbeddedImages>
-  <rd:ReportID>eebd57ba-8cf5-4ebc-bb01-f326fd31f8b5</rd:ReportID>
   <rd:ReportUnitType>Cm</rd:ReportUnitType>
+  <rd:ReportID>eebd57ba-8cf5-4ebc-bb01-f326fd31f8b5</rd:ReportID>
 </Report>

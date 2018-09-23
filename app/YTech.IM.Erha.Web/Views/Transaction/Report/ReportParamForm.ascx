@@ -1,7 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="System.Web.Mvc.ViewUserControl<YTech.IM.Erha.Web.Controllers.ViewModel.ReportParamViewModel>" %>
 <%--<% using (Html.BeginForm())
    { %>--%>
-     <% using (Ajax.BeginForm(new AjaxOptions
+<% using (Ajax.BeginForm(new AjaxOptions
                                        {
                                            //UpdateTargetId = "status",
                                            InsertionMode = InsertionMode.Replace,
@@ -10,10 +10,10 @@
                                        }
 
           ))
-                       {%>
+   {%>
 <%= Html.AntiForgeryToken() %>
 <table>
-  <%--  <tr>
+    <%--  <tr>
         <td>
             <label for="ExportFormat">
                 Format Laporan :</label>
@@ -58,7 +58,7 @@
         </td>
     </tr>
     <% } %>
-     <% if (ViewData.Model.ShowItem)
+    <% if (ViewData.Model.ShowItem)
        {	%>
     <tr>
         <td>
@@ -94,6 +94,20 @@
         </td>
     </tr>
     <% } %>
+
+    <% if (ViewData.Model.ShowCustomer)
+       {	%>
+    <tr>
+        <td>
+            <label for="DateFrom">
+                Kode Pasien :</label>
+        </td>
+        <td>
+            <%= Html.TextBox("CustomerId", Model.CustomerId)%>
+        </td>
+    </tr>
+    <% } %>
+
     <tr>
         <td colspan="2" align="center">
             <button id="Save" type="submit" name="Save">
@@ -104,31 +118,41 @@
 <% } %>
 
 <form action='<%= ResolveUrl("~/ReportViewer.aspx") %>' method="post" target="_blank" id="formid">
-   <input type="hidden" name="rpt" id="rpt" />
-   <input type="hidden" name="dataSource" id="dataSource" />
-   <input type="hidden" name="dataSourceName" id="dataSourceName" />
+    <input type="hidden" name="rpt" id="rpt" />
+    <input type="hidden" name="dataSource" id="dataSource" />
+    <input type="hidden" name="dataSourceName" id="dataSourceName" />
 </form>
 
 <script language="javascript" type="text/javascript">
     function onSavedSuccess(e) {
         var json = e.get_response().get_object();
         //set value reports
-//        alert(json.UrlReport);
-//        $("#rpt").val(json.UrlReport);
-//        alert(json.DataSourceName);
-//        $("#dataSourceName").val(json.DataSourceName);
-//        alert(json.RptDataSource);
-//        $("#dataSource").val(json.RptDataSource);
+        //        alert(json.UrlReport);
+        //        $("#rpt").val(json.UrlReport);
+        //        alert(json.DataSourceName);
+        //        $("#dataSourceName").val(json.DataSourceName);
+        //        alert(json.RptDataSource);
+        //        $("#dataSource").val(json.RptDataSource);
 
-        var urlreport ='<%= ResolveUrl("~/ReportViewer.aspx?rpt=") %>' + json.UrlReport;
+        var urlreport = '<%= ResolveUrl("~/ReportViewer.aspx?rpt=") %>' + json.UrlReport;
         //alert(urlreport);
+        <% if (!string.IsNullOrEmpty(ViewData.Model.CustomerId))
+           {	%>
+        window.open(urlreport,"_self");
+        <% } else { %>
         window.open(urlreport);
+        <% } %>
         //$("#formid").submit();
     }
-    
+
     $(document).ready(function () {
         //$("#Save").button();
         $("#DateFrom").datepicker({ dateFormat: "dd-M-yy" });
         $("#DateTo").datepicker({ dateFormat: "dd-M-yy" });
+
+        <% if (!string.IsNullOrEmpty(ViewData.Model.CustomerId))
+           {	%>
+        $("#Save").click();
+        <% } %>
     });
 </script>

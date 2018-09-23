@@ -68,7 +68,8 @@ namespace YTech.IM.Erha.Web.Controllers.ViewModel
         public bool ShowSupplier { get; internal set; }
         public bool ShowRecPeriod { get; internal set; }
         public bool ShowItem { get; internal set; }
-
+        public bool ShowCustomer { get; internal set; }
+        
         public DateTime? DateFrom { get; set; }
         public DateTime? DateTo { get; set; }
         public string CostCenterId { get; set; }
@@ -77,6 +78,7 @@ namespace YTech.IM.Erha.Web.Controllers.ViewModel
         public string RecPeriodId { get; set; }
         public string ItemId { get; set; }
         public string TransId { get; set; }
+        public string CustomerId { get; set; }
 
         public SelectList CostCenterList { get; internal set; }
         public SelectList WarehouseList { get; internal set; }

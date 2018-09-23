@@ -27,11 +27,23 @@
     </div>
     <div id="listPsetcols" class="scroll" style="text-align: center;">
     </div>
+    <div id='popup'>
+        <iframe width='100%' height='340px' id="popup_frame" frameborder="0"></iframe>
+    </div>
     <script type="text/javascript">
         $(document).ready(function () {
             $("#txtSearch").focus();
             $("#dialog").dialog({
                 autoOpen: false
+            });
+            $("#popup").dialog({
+                autoOpen: false,
+                height: 420,
+                width: '80%',
+                modal: true,
+                close: function (event, ui) {
+                    
+                }
             });
 
             $.jgrid.nav.addtext = "Tambah";
@@ -49,7 +61,7 @@
                 },
                 datatype: 'json',
                 mtype: 'GET',
-                colNames: ['Kode Pasien',
+                colNames: ['', 'Kode Pasien',
                             'Nama',
                             'Jenis Kelamin',
                             'Alamat',
@@ -58,6 +70,9 @@
                             'Kota',
                             'Keterangan'],
                 colModel: [
+                    {
+                        name: 'act', index: 'act', width: 100, sortable: false
+                    },
                     { name: 'Id', index: 'Id', width: 100, align: 'left', key: true, editrules: { required: true, edithidden: false }, hidedlg: true, hidden: false, editable: true },
                    { name: 'PersonName', index: 'PersonName', width: 200, align: 'left', editable: false, edittype: 'text', editrules: { required: false, edithidden: true} },
                     { name: 'PersonGender', index: 'PersonGender', width: 200, sortable: false, align: 'left', editable: true, edittype: 'select', editrules: { required: false} },
@@ -93,7 +108,13 @@
                 caption: 'Daftar Pasien',
                 autowidth: true,
                 loadComplete: function () {
-
+                    var ids = jQuery("#list").getDataIDs();
+                    for (var i = 0; i < ids.length; i++) {
+                        var cl = ids[i];
+                        var be = "<input type='button' value='Histori' tooltips='Histori Tindakan' onClick=\"OpenHistory('" + cl + "');\" />";
+                        //                                                alert(be); 
+                        $(this).setRowData(ids[i], { act: be });
+                    }
                 },
                 ondblClickRow: function (rowid, iRow, iCol, e) {
                     var list = $("#list");
@@ -116,7 +137,17 @@
                     $("#list").jqGrid().setGridParam().trigger("reloadGrid");
                 }                
             });
-        });       
+        });
+
+        function OpenHistory(id) {
+            var url = '<%= Url.Action("Report", "Report", new { Area = "Transaction" })%>?';
+             if (id) {
+                 url += 'reports=RptServiceByCustomer&dateFrom=1-jan-2010&dateTo=31-dec-2019&customerId=' + id;
+             }
+             $("#popup_frame").attr("src", url);
+             $("#popup").dialog("open");
+             return false;
+         }
     </script>
     <div id="dialog" title="Status">
         <p>

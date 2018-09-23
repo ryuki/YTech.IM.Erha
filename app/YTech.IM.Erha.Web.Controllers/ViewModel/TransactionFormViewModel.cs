@@ -194,7 +194,7 @@ namespace YTech.IM.Erha.Web.Controllers.ViewModel
         {
             TTrans trans = new TTrans();
             trans.TransDate = DateTime.Today;
-            trans.TransFactur = Helper.CommonHelper.GetFacturNo(enumTransactionStatus);
+            //trans.TransFactur = Helper.CommonHelper.GetFacturNo(enumTransactionStatus);
             trans.SetAssignedIdTo(Guid.NewGuid().ToString());
             trans.TransStatus = enumTransactionStatus.ToString();
             return trans;

@@ -210,8 +210,10 @@ namespace YTech.IM.Erha.Web.Controllers.Transaction
             trans.TransPaymentMethod = EnumPaymentMethod.Tunai.ToString();
             trans.TransBy = Trans.TransBy;
             trans.TransDate = Trans.TransDate;
-            //trans.TransFactur = Helper.CommonHelper.GetFacturNo(EnumTransactionStatus.Service);
-            trans.TransFactur = Trans.TransFactur;
+            trans.TransFactur = Helper.CommonHelper.GetFacturNo(EnumTransactionStatus.Service);
+            trans.TransDesc = formCollection["TransDesc"];
+
+            //trans.TransFactur = Trans.TransFactur;
             trans.WarehouseId = Helper.CommonHelper.GetDefaultWarehouse();
             //update subtotal 
             trans.TransSubTotal = trans.TransDets.Sum(x => x.TransDetTotal);
@@ -294,6 +296,7 @@ namespace YTech.IM.Erha.Web.Controllers.Transaction
                 string TransDiscount = formCollection["TransDiscount"].Replace(",", "");
                 Trans.TransDiscount = Convert.ToDecimal(TransDiscount);
             }
+            Trans.TransDesc = formCollection["TransDesc"];
 
             //Trans.TransDate = DateTime.Today;
             Trans.CreatedDate = DateTime.Now;
@@ -397,7 +400,8 @@ namespace YTech.IM.Erha.Web.Controllers.Transaction
                 TransDiscount = trans.TransDiscount.HasValue ? trans.TransDiscount.Value.ToString(Helper.CommonHelper.NumberFormat) : null,
                 trans.TransBy,
                 CustomerName,
-                trans.TransFactur
+                trans.TransFactur,
+                trans.TransDesc
             };
             return Json(j, JsonRequestBehavior.AllowGet);
         }

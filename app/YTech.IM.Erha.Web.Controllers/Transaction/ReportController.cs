@@ -87,8 +87,14 @@ namespace YTech.IM.Erha.Web.Controllers.Transaction
             this._mCustomerRepository = mCustomerRepository;
         }
 
+        //[Transaction]
+        //public ActionResult Report(EnumReports reports)
+        //{
+        //    return Report(reports, null, null, null);
+        //}
+
         [Transaction]
-        public ActionResult Report(EnumReports reports)
+        public ActionResult Report(EnumReports reports, DateTime? dateFrom = null, DateTime? dateTo = null, string customerId = null)
         {
             ReportParamViewModel viewModel = ReportParamViewModel.CreateReportParamViewModel(_mCostCenterRepository, _mWarehouseRepository, _mSupplierRepository, _tRecPeriodRepository, _mItemRepository);
             string title = string.Empty;
@@ -161,6 +167,16 @@ namespace YTech.IM.Erha.Web.Controllers.Transaction
                     viewModel.ShowDateFrom = true;
                     viewModel.ShowDateTo = true;
                     break;
+                case EnumReports.RptServiceByCustomer:
+                    title = "Lap. Tindakan Per Pasien";
+                    viewModel.ShowCustomer = true;
+                    viewModel.ShowDateFrom = true;
+                    viewModel.ShowDateTo = true;
+
+                    viewModel.DateFrom = dateFrom;
+                    viewModel.DateTo = dateTo;
+                    viewModel.CustomerId = customerId;
+                    break;
             }
             ViewData["CurrentItem"] = title;
 
@@ -225,6 +241,9 @@ namespace YTech.IM.Erha.Web.Controllers.Transaction
                 case EnumReports.RptCommissionRecap:
                     repCol[0] = GetCommission(viewModel.DateFrom.Value, viewModel.DateTo.Value);
                     break;
+                case EnumReports.RptServiceByCustomer:
+                    repCol[0] = GetTransDetForCustomer(viewModel.DateFrom.Value, viewModel.DateTo.Value, viewModel.CustomerId);
+                    break;
             }
             Session["ReportData"] = repCol;
 
@@ -235,6 +254,52 @@ namespace YTech.IM.Erha.Web.Controllers.Transaction
                             UrlReport = string.Format("{0}", reports.ToString())
                         };
             return Json(e, JsonRequestBehavior.AllowGet);
+        }
+
+        private ReportDataSource GetTransDetForCustomer(DateTime dateFrom, DateTime dateTo, string customerId)
+        {
+            IList<TTransDet> dets = _tTransDetRepository.GetListByDateAndCustomer(dateFrom, dateTo, EnumTransactionStatus.Service, customerId);
+
+            var listDet = from det in dets
+                          select new
+                          {
+                              det.Id,
+                              det.TransDetDesc,
+                              det.TransId.TransDate,
+                              CustomerName = Helper.CommonHelper.GetCustomerName(_mCustomerRepository, det.TransId.TransBy),
+                              det.TransId.TransFactur,
+                              det.TransId.TransDesc,
+
+                              EmployeeId = det.EmployeeId != null ? det.EmployeeId.Id : null,
+                              EmployeeName = det.EmployeeId != null ? det.EmployeeId.PersonId.PersonName : null,
+                              ActionId = det.ActionId.Id,
+                              det.ActionId.ActionName,
+                              det.TransDetPrice,
+                              det.TransDetQty,
+                              det.TransDetDisc,
+                              TransDetCommissionProduct = 0,
+                              TransDetCommissionService = 0,
+                              det.TransDetNo,
+                              det.TransDetTotal,
+                              DoctorName = GetCommissionEmployeeName(det, EnumCommissionPeople.Doctor),
+                              TherapistName = GetCommissionEmployeeName(det, EnumCommissionPeople.Therapist),
+                              MedicianName = GetCommissionEmployeeName(det, EnumCommissionPeople.Medician)
+                          }
+      ;
+            ReportDataSource reportDataSource = new ReportDataSource("TransDetViewModel", listDet.ToList());
+            return reportDataSource;
+        }
+        private string GetCommissionEmployeeName(TTransDet det, EnumCommissionPeople enumCommissionPeople)
+        {
+            TCommission commission = _tCommissionRepository.GetByTransDetAndCommissionType(det, enumCommissionPeople);
+            if (commission != null)
+            {
+                if (commission.EmployeeId != null)
+                {
+                    return commission.EmployeeId.PersonId.PersonName;
+                }
+            }
+            return null;
         }
 
         private ReportDataSource GetTransDetForTotalAction(DateTime dateFrom, DateTime dateTo)
@@ -299,7 +364,8 @@ namespace YTech.IM.Erha.Web.Controllers.Transaction
                                t.TransId.TransDiscount,
                                t.TransId.TransDate,
                                t.TransId.TransGrandTotal,
-                               CustomerName = Helper.CommonHelper.GetCustomerName(_mCustomerRepository, t.TransId.TransBy)
+                               CustomerName = Helper.CommonHelper.GetCustomerName(_mCustomerRepository, t.TransId.TransBy),
+                               t.TransId.TransBy
                            }
       ;
             ReportDataSource reportDataSource = new ReportDataSource("TransRoomViewModel", listRoom.ToList());
