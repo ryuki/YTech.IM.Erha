@@ -5,29 +5,27 @@
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="MainContent" runat="server">
     <% if (false)
-       { %>
+        { %>
     <script src="../../../Scripts/jquery-1.4.1-vsdoc.js" type="text/javascript"></script>
     <% } %>
     <% using (Ajax.BeginForm(new AjaxOptions
-                                       {
-                                           //UpdateTargetId = "status",
-                                           InsertionMode = InsertionMode.Replace,
-                                           OnSuccess = "onSavedSuccess",
-                                           OnBegin = "validateForm",
-                                           LoadingElementId = "progress"
+        {
+            //UpdateTargetId = "status",
+            InsertionMode = InsertionMode.Replace,
+            OnSuccess = "onSavedSuccess",
+            OnBegin = "validateForm",
+            LoadingElementId = "progress"
 
-                                       }
+        }
 
-          ))
-       {%>
+            ))
+        {%>
     <%= Html.AntiForgeryToken() %>
     <table id='listPacketItemCat' class="scroll" cellpadding="0" cellspacing="0">
         <tr>
-            <th align="center">
-                Kategori Perawatan
+            <th align="center">Kategori Perawatan
             </th>
-            <th align="center">
-                Produk
+            <th align="center">Produk
             </th>
         </tr>
         <tbody>
@@ -86,51 +84,54 @@
 
                 }
             });
-            
-        $("div#error").dialog({
-            autoOpen: false
-        });
+
+            $("div#error").dialog({
+                autoOpen: false
+            });
 
             $(".imgTrigger").click(function () {
                 var catid = $(this).attr('data');
                 OpenPopupItemSearch(catid);
             });
-             });
-           function validateForm()
-           {
-var imgerror = '<%= Url.Content("~/Content/Images/cross.gif") %>';
-                return $('form').validate({
-                rules: {
+        });
+        function validateForm() {
+            var imgerror = '<%= Url.Content("~/Content/Images/cross.gif") %>';
+               return $('form').validate({
+                   rules: {
                 <%
-                MPacketItemCat packetItemCat1;
-                for (int i = 0; i < Model.PacketItemCatList.Count; i++)
-                {
-                    packetItemCat1 = Model.PacketItemCatList[i];%>
-                    "txtItemId_<%= packetItemCat1.ItemCatId.Id %>" : { required: true  } 
-                    <% if (i != Model.PacketItemCatList.Count-1){	%>,<% } %>
+        MPacketItemCat packetItemCat1;
+        for (int i = 0; i < Model.PacketItemCatList.Count; i++)
+        {
+            packetItemCat1 = Model.PacketItemCatList[i];%>
+                    "txtItemId_<%= packetItemCat1.ItemCatId.Id %>": { required: true }
+                    <% if (i != Model.PacketItemCatList.Count - 1)
+        {	%>,<% } %>
                       <%} %>
-                      },  messages: {
+                    }, messages: {
                       <%
-                MPacketItemCat packetItemCat2;
-                for (int i = 0; i < Model.PacketItemCatList.Count; i++)
-                {
-                    packetItemCat2 = Model.PacketItemCatList[i];%>
-                    "txtItemId_<%= packetItemCat2.ItemCatId.Id %>" : "<img id='TransByerror' src='"+imgerror+"' hovertext='Pilih Produk' />" 
-                    <% if (i != Model.PacketItemCatList.Count-1){	%>,<% } %>
+        MPacketItemCat packetItemCat2;
+        for (int i = 0; i < Model.PacketItemCatList.Count; i++)
+        {
+            packetItemCat2 = Model.PacketItemCatList[i];%>
+                    "txtItemId_<%= packetItemCat2.ItemCatId.Id %>": "<img id='TransByerror' src='" + imgerror + "' hovertext='Pilih Produk' />"
+                    <% if (i != Model.PacketItemCatList.Count - 1)
+        {	%>,<% } %>
                       <%} %>
- },        invalidHandler: function(form, validator) {          var errors = validator.numberOfInvalids();
-						  if (errors) {
-                          var message = "Validasi data kurang";
-				$("div#error span#error_msg").html(message);
-                  $("div#error").dialog("open");
-			} else {
-                  $("div#error").dialog("close");
-			}
-            		},
-		errorPlacement: function(error, element) { 
-			error.insertAfter(element);
-		}
-    }).form();
+                },
+                invalidHandler: function (form, validator) {
+                    var errors = validator.numberOfInvalids();
+                    if (errors) {
+                        var message = "Validasi data kurang";
+                        $("div#error span#error_msg").html(message);
+                        $("div#error").dialog("open");
+                    } else {
+                        $("div#error").dialog("close");
+                    }
+                },
+                errorPlacement: function (error, element) {
+                    error.insertAfter(element);
+                }
+            }).form();
         }
 
         function OpenPopupItemSearch(catid) {
@@ -154,17 +155,17 @@ var imgerror = '<%= Url.Content("~/Content/Images/cross.gif") %>';
         function onSavedSuccess(e) {
             var returndata = e.get_response().get_object();
             var success = returndata.Success;
-//            alert(success);
+            //            alert(success);
             if (success == true) {
                 $('#Submit1').attr('disabled', 'disabled');
-                    window.parent.ClosePopUp();
+                window.parent.ClosePopUp();
             }
             else {
                 var msg = returndata.Message;
                 $('#dialog p:first').text(msg);
                 $("#dialog").dialog("open");
             }
-    
+
         }
     </script>
 </asp:Content>

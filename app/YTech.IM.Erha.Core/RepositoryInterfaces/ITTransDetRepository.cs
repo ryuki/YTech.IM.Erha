@@ -21,6 +21,6 @@ namespace YTech.IM.Erha.Core.RepositoryInterfaces
 
         IList<TTransDet> GetListByDate(System.DateTime dateFrom, System.DateTime dateTo,EnumTransactionStatus transactionStatus);
 
-        IList<TTransDet> GetListByDateAndCustomer(System.DateTime dateFrom, System.DateTime dateTo, EnumTransactionStatus transactionStatus, string customerId);
+        IList<TTransDet> GetListByDateAndCustomer(System.DateTime? dateFrom, System.DateTime? dateTo, EnumTransactionStatus transactionStatus, string customerId);
     }
 }

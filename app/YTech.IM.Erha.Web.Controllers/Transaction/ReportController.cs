@@ -242,7 +242,7 @@ namespace YTech.IM.Erha.Web.Controllers.Transaction
                     repCol[0] = GetCommission(viewModel.DateFrom.Value, viewModel.DateTo.Value);
                     break;
                 case EnumReports.RptServiceByCustomer:
-                    repCol[0] = GetTransDetForCustomer(viewModel.DateFrom.Value, viewModel.DateTo.Value, viewModel.CustomerId);
+                    repCol[0] = GetTransDetForCustomer(viewModel.DateFrom, viewModel.DateTo, viewModel.CustomerId);
                     break;
             }
             Session["ReportData"] = repCol;
@@ -256,7 +256,7 @@ namespace YTech.IM.Erha.Web.Controllers.Transaction
             return Json(e, JsonRequestBehavior.AllowGet);
         }
 
-        private ReportDataSource GetTransDetForCustomer(DateTime dateFrom, DateTime dateTo, string customerId)
+        private ReportDataSource GetTransDetForCustomer(DateTime? dateFrom, DateTime? dateTo, string customerId)
         {
             IList<TTransDet> dets = _tTransDetRepository.GetListByDateAndCustomer(dateFrom, dateTo, EnumTransactionStatus.Service, customerId);
 

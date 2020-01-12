@@ -142,18 +142,29 @@ namespace YTech.IM.Erha.Data.Repository
         }
 
 
-        public IList<TTransDet> GetListByDateAndCustomer(DateTime dateFrom, DateTime dateTo, EnumTransactionStatus transactionStatus, string customerId)
+        public IList<TTransDet> GetListByDateAndCustomer(DateTime? dateFrom, DateTime? dateTo, EnumTransactionStatus transactionStatus, string customerId)
         {
             StringBuilder sql = new StringBuilder();
             sql.AppendLine(@"   select det
                                 from TTransDet as det
                                     left outer join det.TransId trans 
-                                        where trans.TransStatus = :TransStatus and trans.TransDate between :dateFrom and :dateTo and trans.TransBy like :customerId 
-                                order by trans.TransDate ");
+                                        where trans.TransStatus = :TransStatus");
+            if (dateFrom.HasValue && dateTo.HasValue)
+            {
+                sql.AppendLine("and trans.TransDate between :dateFrom and :dateTo");
+            }
+            sql.AppendLine(@"and trans.TransBy like :customerId 
+                             order by trans.TransDate ");
             IQuery q = Session.CreateQuery(sql.ToString());
             q.SetString("TransStatus", transactionStatus.ToString());
-            q.SetDateTime("dateFrom", dateFrom);
-            q.SetDateTime("dateTo", dateTo);
+            if (dateFrom.HasValue)
+            {
+                q.SetDateTime("dateFrom", dateFrom.Value);
+            }
+            if (dateTo.HasValue)
+            {
+                q.SetDateTime("dateTo", dateTo.Value);
+            }
             q.SetString("customerId", customerId);
             return q.List<TTransDet>();
         }

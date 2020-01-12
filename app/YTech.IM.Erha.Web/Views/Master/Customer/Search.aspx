@@ -142,7 +142,7 @@
         function OpenHistory(id) {
             var url = '<%= Url.Action("Report", "Report", new { Area = "Transaction" })%>?';
              if (id) {
-                 url += 'reports=RptServiceByCustomer&dateFrom=1-jan-2010&dateTo=31-dec-2019&customerId=' + id;
+                 url += 'reports=RptServiceByCustomer&customerId=' + id;
              }
              $("#popup_frame").attr("src", url);
              $("#popup").dialog("open");
